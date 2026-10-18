@@ -148,7 +148,7 @@ def _verify(
             ranges.setdefault(fd.path, []).append((lo - LINE_TOLERANCE, hi + LINE_TOLERANCE))
     kept, dropped = [], 0
     for f in findings:
-        path = f.path.strip().lstrip("./")
+        path = f.path.strip().removeprefix("./")
         if path not in ranges or not any(lo <= f.line <= hi for lo, hi in ranges[path]):
             dropped += 1
             continue

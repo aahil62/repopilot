@@ -68,7 +68,7 @@ def _sha(path: Path) -> str | None:
 def apply_edits(root: Path, edits: list[EditBlock]) -> str | None:
     """Apply search/replace blocks under `root`. Returns an error message, or None on success."""
     for edit in edits:
-        rel = edit.path.strip().lstrip("./")
+        rel = edit.path.strip().removeprefix("./")
         target = (root / rel).resolve()
         if root.resolve() not in target.parents:
             return f"{edit.path}: path is outside the repository."
