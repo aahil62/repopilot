@@ -51,7 +51,7 @@
   .landing { padding: 0 16px; }
   .l-nav nav { display: none; }
   .l-nav .l-gh { margin-left: auto; }
-  .l-hero, .l-feature { grid-template-columns: 1fr; gap: 32px; }
+  .l-hero, .l-feature { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .l-hero { padding: 28px 0 48px; }
   .l-problem p:first-child { font-size: var(--t-xl); }
   .l-feature h2, .l-private h2, .l-measured h2, .l-install h2 { font-size: var(--t-2xl); }
