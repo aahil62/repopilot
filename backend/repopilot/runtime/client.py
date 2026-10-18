@@ -171,7 +171,7 @@ Responder = str | Callable[[list[Message]], str]
 _WORD = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
-def hashed_embedding(text: str, dim: int = 256) -> list[float]:
+def hashed_embedding(text: str, dim: int = 1024) -> list[float]:
     """Deterministic bag-of-words vector so similarity behaves sensibly in tests and offline demos."""
     vec = [0.0] * dim
     for token in _WORD.findall(text.lower()):
