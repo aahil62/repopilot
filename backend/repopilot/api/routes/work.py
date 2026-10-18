@@ -19,7 +19,7 @@ from repopilot.engines.diffparse import DiffSource, diff_for
 from repopilot.engines.edit import ApplyConflict, EditResult, apply_to_working_tree, verified_edit
 from repopilot.engines.review import list_reviews, load_review, review
 from repopilot.memory.store import MemoryStore
-from repopilot.runtime import get_runtime, scan
+from repopilot.runtime import get_runtime, get_runtime_optional, scan
 
 router = APIRouter(prefix="/api/repos/{repo_id}", tags=["work"])
 
@@ -51,7 +51,7 @@ async def start_review(repo_id: str, body: ReviewRequest) -> dict:
             raise HTTPException(400, str(exc)) from None
     if not diff_text.strip():
         raise HTTPException(400, "There are no changes to review.")
-    runtime = await get_runtime()
+    runtime = await get_runtime_optional()
 
     async def run(progress):
         progress({"stage": "reviewing"})

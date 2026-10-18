@@ -110,3 +110,29 @@ def test_static_web_ui_served_with_fallback(tmp_path):
         assert "review" in client.get("/review").text
         assert "home" in client.get("/unknown/page").text
         assert client.get("/api/nope").status_code == 404
+
+
+def test_index_and_review_work_without_a_model_runtime(git_repo, monkeypatch):
+    from repopilot.config import reset_settings
+
+    monkeypatch.setenv("REPOPILOT_RUNTIME_URLS", '["http://127.0.0.1:9"]')
+    reset_settings()
+    reset_jobs()
+    repo = git_repo(
+        [("init", FILES), ("fix: login crash when password empty", {"auth.py": FILES["auth.py"] + "\n"})]
+    )
+    with TestClient(create_app(static_dir=None)) as client:
+        repo_id = client.post("/api/repos", json={"path": str(repo)}).json()["repo_id"]
+        job = _wait(client, client.post(f"/api/repos/{repo_id}/index", json={}).json()["job_id"])
+        assert job["status"] == "done", job
+        assert any("semantic search is off" in n for n in job["result"]["notes"])
+        assert client.get(f"/api/repos/{repo_id}/blast", params={"path": "auth.py"}).json()["dependents"]
+
+        (repo / "auth.py").write_text(FILES["auth.py"].replace("{'user': name}", "{'name': name}"))
+        job = _wait(
+            client, client.post(f"/api/repos/{repo_id}/review", json={"run_checks": False}).json()["job_id"]
+        )
+        report = job["result"]
+        assert job["status"] == "done" and report["behavior_count"] == 1
+        assert report["model_error"].startswith("No local model runtime")
+        assert client.post(f"/api/repos/{repo_id}/ask", json={"question": "x"}).status_code == 503

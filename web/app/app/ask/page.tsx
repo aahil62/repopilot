@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 import { AppShell, useRepo } from "@/components/AppShell";
+import { Answer } from "@/components/Answer";
 import { CodePanel } from "@/components/CodePanel";
 import { ErrorNotice, Loading, NeedsRepo } from "@/components/States";
 import { askStream, DEMO } from "@/lib/api";
@@ -12,23 +13,6 @@ import "../app.css";
 interface Turn { question: string; answer: string; citations: Citation[]; commits: CommitRef[]; refused: boolean; removed: number; done: boolean }
 
 const DEMO_QUESTIONS = ["Where is the request context pushed?", "Why does Flask's teardown run even when an exception happened?"];
-
-export function Answer({ text, citations, active, onCite }: { text: string; citations: Citation[]; active: number | null; onCite: (n: number) => void }) {
-  const parts = text.split(/(\[\d{1,2}\])/g);
-  const valid = new Set(citations.map((c) => c.n));
-  return (
-    <p className="answer">
-      {parts.map((part, i) => {
-        const m = part.match(/^\[(\d{1,2})\]$/);
-        if (m && valid.has(Number(m[1]))) {
-          const n = Number(m[1]);
-          return <button key={i} className="cite-chip" aria-pressed={active === n} onClick={() => onCite(n)} aria-label={`Show source ${n}`}>{n}</button>;
-        }
-        return <Fragment key={i}>{part}</Fragment>;
-      })}
-    </p>
-  );
-}
 
 function AskPage() {
   const { repo, loading, error } = useRepo();

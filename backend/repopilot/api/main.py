@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from repopilot import __version__
@@ -97,5 +97,15 @@ def create_app(static_dir: Path | None = STATIC_DIR) -> FastAPI:
                 if resolved.is_file() and resolved.is_relative_to(root):
                     return FileResponse(resolved)
             return FileResponse(root / "index.html")
+
+    else:
+
+        @app.get("/", include_in_schema=False)
+        def no_ui() -> HTMLResponse:
+            return HTMLResponse(
+                "<h1>RepoPilot is running</h1><p>The web UI isn't bundled in this install. "
+                "Build it with <code>python scripts/bundle_web.py</code>, use the VS Code extension, "
+                "or browse the API at <a href='/api/docs'>/api/docs</a>.</p>"
+            )
 
     return app

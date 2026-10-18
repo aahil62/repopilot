@@ -73,8 +73,9 @@ def _remove_file(store: MemoryStore, path: str) -> list[str]:
 
 
 async def index_code(
-    store: MemoryStore, repo_path: Path, runtime: Runtime, progress: ProgressFn | None = None
+    store: MemoryStore, repo_path: Path, runtime: Runtime | None, progress: ProgressFn | None = None
 ) -> IndexStats:
+    """Index code. With `runtime=None` (no local model) everything except semantic vectors is built."""
     settings = get_settings()
     report = progress or (lambda _p: None)
     stats = IndexStats()
@@ -145,6 +146,10 @@ async def index_code(
 
     all_chunks = store.query("SELECT chunk_id, path, symbol, text FROM chunks")
     stats.chunks_total = len(all_chunks)
+    if runtime is None:
+        stats.notes.append("No local model runtime: semantic search is off until one is available.")
+        store.set_meta("indexed_at", _now())
+        return stats
     missing = set(store.missing_vector_keys(CODE_COLLECTION, [r["chunk_id"] for r in all_chunks]))
     pending = [r for r in all_chunks if r["chunk_id"] in missing]
     batch = settings.embed_batch

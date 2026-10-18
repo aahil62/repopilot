@@ -111,7 +111,11 @@ def _precedent_texts(store: MemoryStore) -> list[tuple[str, str]]:
 async def index_precedents(store: MemoryStore, runtime: Runtime, batch: int = 64) -> int:
     items = _precedent_texts(store)
     current = {k for k, _ in items}
-    stale = [r["key"] for r in store.query("SELECT key FROM vectors WHERE collection=?", (PRECEDENTS,)) if r["key"] not in current]
+    stale = [
+        r["key"]
+        for r in store.query("SELECT key FROM vectors WHERE collection=?", (PRECEDENTS,))
+        if r["key"] not in current
+    ]
     store.delete_vectors(stale)
     missing = set(store.missing_vector_keys(PRECEDENTS, [k for k, _ in items]))
     todo = [(k, t) for k, t in items if k in missing]

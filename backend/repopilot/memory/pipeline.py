@@ -16,7 +16,11 @@ from repopilot.runtime.client import Runtime
 
 
 async def index_repo(
-    record: RepoRecord, runtime: Runtime, progress: ProgressFn | None = None, *, with_reviews: bool = False
+    record: RepoRecord,
+    runtime: Runtime | None,
+    progress: ProgressFn | None = None,
+    *,
+    with_reviews: bool = False,
 ) -> IndexStats:
     settings = get_settings()
     report = progress or (lambda _p: None)
@@ -38,7 +42,8 @@ async def index_repo(
         await import_github_reviews(store, *slug)
         if store.get_meta("reviews_partial") == "1":
             stats.notes.append("GitHub review import stopped early (rate limit).")
-    await index_precedents(store, runtime)
+    if runtime is not None:
+        await index_precedents(store, runtime)
 
     store.set_meta("last_index_stats", json.dumps(stats.to_dict()))
     report(IndexProgress("done", message="Ready"))

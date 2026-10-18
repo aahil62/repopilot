@@ -68,8 +68,7 @@ describe("ReviewReportView", () => {
 
 describe("Ask answer", () => {
   it("turns only supplied citation numbers into buttons", async () => {
-    vi.mock("@/components/AppShell", () => ({ AppShell: ({ children }: { children: React.ReactNode }) => children, useRepo: () => ({}) }));
-    const { Answer } = await import("@/app/app/ask/page");
+    const { Answer } = await import("@/components/Answer");
     const onCite = vi.fn();
     render(<Answer text="Login lives in auth [1] and maybe [7]." citations={[{ n: 1, path: "auth.py", start_line: 1, end_line: 3, snippet: "" }]} active={null} onCite={onCite} />);
     fireEvent.click(screen.getByRole("button", { name: "Show source 1" }));

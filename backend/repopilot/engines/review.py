@@ -167,7 +167,7 @@ async def review(
     repo_id: str,
     repo_path: Path,
     diff_text: str,
-    runtime: Runtime,
+    runtime: Runtime | None,
     *,
     source: DiffSource | None = None,
     run_checks_enabled: bool = True,
@@ -223,7 +223,7 @@ async def review(
     tick("blast", t0)
 
     t0 = time.perf_counter()
-    precedents = await find_precedents(store, runtime, behavior)
+    precedents = await find_precedents(store, runtime, behavior) if runtime is not None else []
     tick("precedents", t0)
 
     t0 = time.perf_counter()
@@ -248,7 +248,11 @@ async def review(
     mech = sum(v.mechanical_hunks for v in views)
     beh = len(behavior)
     summary = f"Behavior changes to read: {beh} of {mech + beh} hunks."
-    if behavior and use_model:
+    if runtime is None and behavior:
+        model_error = (
+            "No local model runtime, so only deterministic checks ran (classification, blast radius, tests)."
+        )
+    if behavior and use_model and runtime is not None:
         t0 = time.perf_counter()
         prompt, truncated = _prompt(behavior, blast, precedents, checks)
         try:
@@ -280,7 +284,7 @@ async def review(
         blast=blast,
         precedents=precedents,
         checks=checks,
-        model={role: info.id for role, info in runtime.roles.items()},
+        model={role: info.id for role, info in runtime.roles.items()} if runtime is not None else {},
         model_error=model_error,
         truncated=truncated,
         timings_ms={**timings, "total": int((time.perf_counter() - started) * 1000)},

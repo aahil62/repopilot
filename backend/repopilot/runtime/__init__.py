@@ -47,7 +47,16 @@ async def get_runtime(refresh: bool = False) -> Runtime:
     return _cached
 
 
+async def get_runtime_optional() -> Runtime | None:
+    """The runtime, or None when no local model is available (deterministic features still work)."""
+    try:
+        return await get_runtime()
+    except NoRuntimeError:
+        return None
+
+
 __all__ = [
+    "get_runtime_optional",
     "FakeRuntime",
     "Hardware",
     "clear_cache",

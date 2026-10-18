@@ -59,7 +59,8 @@ async def _ensure_indexed(record, runtime) -> None:
         stats = await index_repo(
             record, runtime, lambda p: status.update(f"{p.stage}: {p.done}/{p.total} {p.message}")
         )
-        await calibrate_refusal(MemoryStore.open(record.repo_id), runtime)
+        if runtime is not None:
+            await calibrate_refusal(MemoryStore.open(record.repo_id), runtime)
     for note in stats.notes:
         console.print(f"[dim]{note}[/]")
 
@@ -91,12 +92,12 @@ def index(
     from repopilot.engines.ask import calibrate_refusal
     from repopilot.memory.pipeline import index_repo, repo_summary
     from repopilot.memory.store import MemoryStore
-    from repopilot.runtime import get_runtime
+    from repopilot.runtime import get_runtime_optional
 
     record = _record(path)
 
     async def go():
-        runtime = await get_runtime()
+        runtime = await get_runtime_optional()
         with console.status("Indexing…") as status:
             stats = await index_repo(
                 record,
@@ -104,7 +105,8 @@ def index(
                 lambda p: status.update(f"{p.stage}: {p.done}/{p.total}"),
                 with_reviews=with_reviews,
             )
-            await calibrate_refusal(MemoryStore.open(record.repo_id), runtime)
+            if runtime is not None:
+                await calibrate_refusal(MemoryStore.open(record.repo_id), runtime)
         return stats
 
     stats = _run(go())
@@ -129,7 +131,7 @@ def review(
     """Review changes with history-aware checks."""
     from repopilot.engines.diffparse import diff_for
     from repopilot.engines.review import review as run_review
-    from repopilot.runtime import get_runtime
+    from repopilot.runtime import get_runtime_optional
 
     record = _record(repo)
     diff, source = diff_for(Path(record.path), base=base, head=head, staged=staged)
@@ -138,7 +140,7 @@ def review(
         raise typer.Exit(0)
 
     async def go():
-        runtime = await get_runtime()
+        runtime = await get_runtime_optional()
         await _ensure_indexed(record, runtime)
         with console.status("Reviewing…"):
             return await run_review(
@@ -192,12 +194,12 @@ def blast(
 ) -> None:
     """Show what usually breaks or changes together with a file."""
     from repopilot.engines.blast import blast_radius
-    from repopilot.runtime import get_runtime
+    from repopilot.runtime import get_runtime_optional
 
     record = _record(repo)
 
     async def go():
-        await _ensure_indexed(record, await get_runtime())
+        await _ensure_indexed(record, await get_runtime_optional())
 
     _run(go())
     report = blast_radius(record.repo_id, [path])

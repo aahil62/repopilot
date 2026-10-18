@@ -16,7 +16,7 @@ from repopilot.engines.checks import detect_test_command, load_repo_settings, re
 from repopilot.memory import registry
 from repopilot.memory.pipeline import index_repo, repo_summary
 from repopilot.memory.store import MemoryStore
-from repopilot.runtime import get_runtime
+from repopilot.runtime import get_runtime_optional
 
 router = APIRouter(prefix="/api/repos", tags=["repos"])
 
@@ -77,13 +77,14 @@ class IndexRequest(BaseModel):
 @router.post("/{repo_id}/index")
 async def start_index(repo_id: str, body: IndexRequest | None = None) -> dict:
     record = record_or_404(repo_id)
-    runtime = await get_runtime()
+    runtime = await get_runtime_optional()
 
     async def run(progress):
         stats = await index_repo(
             record, runtime, lambda p: progress(p.to_dict()), with_reviews=bool(body and body.with_reviews)
         )
-        await calibrate_refusal(MemoryStore.open(repo_id), runtime)
+        if runtime is not None:
+            await calibrate_refusal(MemoryStore.open(repo_id), runtime)
         return stats.to_dict()
 
     return {"job_id": jobs().start("index", repo_id, run)}
