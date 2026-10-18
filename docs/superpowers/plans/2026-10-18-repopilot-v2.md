@@ -80,11 +80,11 @@ docs/       # ARCHITECTURE.md, PRIVACY.md, screenshots, superpowers/plans/
 
 ### Task 0: Repository setup and cleanup
 
-- [ ] **Step 1:** Clone into the outputs folder: `git clone https://github.com/aahil62/repopilot.git /Users/aahil/Documents/Codex/2026-10-17/have-to-improve-both-of-these/outputs/repopilot`. Create **local** archive tags so nothing from the hackathon is lost: `git tag archive/hackathon-main origin/main` and `git tag archive/hackathon-website origin/website` (do not push tags yet). Create branch `v2` from `origin/main`. Copy this plan to `docs/superpowers/plans/2026-10-18-repopilot-v2.md`.
-- [ ] **Step 1b:** Do **not** reuse code from the `website` branch frontend (generic dark template, Gemini-dependent). Only its idea of a codebase graph carries over, rebuilt as the blast-radius orbit in Task 14.
-- [ ] **Step 2:** Delete hackathon artifacts: `.github/chatmodes/`, `.github/instructions/`, `round2essential.md`, `future_roadmap.md`, `speed_optimization_roadmap.md`, `test.md`, `explain.md`, `docs/FINAL_SUBMISSION_PS7.md`, `docs/DEMO_CHECKLIST.md`, `docs/REPO_STRUCTURE.md`, `start_backend.bat`, `backend/vercel.json`, `backend/api/index.py`, `backend/railway.json`, `tests/verify_ps7.py`, `tests/verify_features.py`, `SETUP_GUIDE.md`. Keep `demo_repo/` (used as a test fixture later).
-- [ ] **Step 3:** Write `CREDITS.md` listing contributors from `git log --format='%an' | sort -u` (dedupe aliases of the same email) with the hackathon origin sentence from Design decision 9.
-- [ ] **Step 4:** Commit `chore: remove hackathon artifacts and add credits`.
+- [x] **Step 1:** Cloned to `~/Projects/portfolio/repopilot`. Create **local** archive tags so nothing from the hackathon is lost: `git tag archive/hackathon-main origin/main` and `git tag archive/hackathon-website origin/website` (do not push tags yet). Create branch `v2` from `origin/main`. Copy this plan to `docs/superpowers/plans/2026-10-18-repopilot-v2.md`.
+- [x] **Step 1b:** Do **not** reuse code from the `website` branch frontend (generic dark template, Gemini-dependent). Only its idea of a codebase graph carries over, rebuilt as the blast-radius orbit in Task 14.
+- [x] **Step 2:** Delete hackathon artifacts: `.github/chatmodes/`, `.github/instructions/`, `round2essential.md`, `future_roadmap.md`, `speed_optimization_roadmap.md`, `test.md`, `explain.md`, `docs/FINAL_SUBMISSION_PS7.md`, `docs/DEMO_CHECKLIST.md`, `docs/REPO_STRUCTURE.md`, `start_backend.bat`, `backend/vercel.json`, `backend/api/index.py`, `backend/railway.json`, `tests/verify_ps7.py`, `tests/verify_features.py`, `SETUP_GUIDE.md`. Keep `demo_repo/` (used as a test fixture later).
+- [x] **Step 3:** Write `CREDITS.md` listing contributors from `git log --format='%an' | sort -u` (dedupe aliases of the same email) with the hackathon origin sentence from Design decision 9.
+- [x] **Step 4:** Commit `chore: remove hackathon artifacts and add credits`.
 
 ---
 

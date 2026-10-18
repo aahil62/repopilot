@@ -1,35 +1,28 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
+.venv/
 venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
 .env
-*.log
 
 # Node
 node_modules/
 .next/
-.next-runtime/
 out/
-build/
 dist/
-.DS_Store
+build/
 
-# RepoPilot Data
-data/
-index/
-!data/.gitkeep
-
-# Testing & Verification
-verification_*.txt
-final_verification_*.txt
-test_results/
+# RepoPilot
+backend/repopilot/static/
+eval/.cache/
 
 # Editor/OS
+.DS_Store
 .vscode/
 .idea/
 Thumbs.db
 *.vsix
-
-# Gemini Artifacts
-.gemini/
+.vercel
