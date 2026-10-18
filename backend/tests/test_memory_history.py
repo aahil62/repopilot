@@ -135,3 +135,4 @@ def test_tooling_chores_are_not_bug_fixes():
     assert not is_fix("fix pyright type errors")
     assert not is_fix("fix typo in docs")
     assert not is_fix("Fix mypy findings")
+    assert not is_fix("Fix docstring of test_request_context (#4821)")

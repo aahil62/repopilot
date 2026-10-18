@@ -338,12 +338,6 @@
     "author": "David Lord"
    },
    {
-    "sha": "0d8c8ba71bc6362e6ea9af08146dc97e1a0a8abc",
-    "date": "2022-09-18T19:53:47+08:00",
-    "subject": "Fix docstring of test_request_context (#4821)",
-    "author": "Yang Yang"
-   },
-   {
     "sha": "a6a7a57380cd8f7410753c3b819ba6d09198d8c9",
     "date": "2022-08-04T07:24:20-07:00",
     "subject": "fix default value of app.env",
@@ -797,12 +791,6 @@
     "date": "2021-11-19T23:09:38+03:00",
     "subject": "fix error message",
     "author": "Yourun-Proger"
-   },
-   {
-    "sha": "5da342e4dd7dfcc16aa25928ea91d69c2d362f73",
-    "date": "2019-12-19T21:40:40+01:00",
-    "subject": "fix docstring and remove redundant parentheses",
-    "author": "Marc Hernandez Cabot"
    },
    {
     "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
@@ -3103,14 +3091,7 @@
     "depth": 2
    }
   ],
-  "past_fixes": [
-   {
-    "sha": "746455d1038fd5479f396cbf2d19b48edfeb8290",
-    "date": "2022-08-14T18:59:19-04:00",
-    "subject": "Fix misrendered docstring",
-    "author": "Thomas Rhines"
-   }
-  ],
+  "past_fixes": [],
   "tests": [
    "examples/javascript/tests/test_js_example.py",
    "examples/tutorial/tests/test_auth.py",

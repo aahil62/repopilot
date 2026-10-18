@@ -13,9 +13,9 @@ FIX_RE = re.compile(r"(?i)\b(fix|fixes|fixed|bug|bugs|hotfix|regression|revert|c
 # Tooling chores mention "fix" but are not bug fixes.
 CHORE_RE = re.compile(
     r"(?i)\b(typos?|lint|linting|mypy|pyright|flake8|ruff|pre-commit|formatting|typing|type hints?|type errors?|"
-    r"docs?|documentation|readme|changelog|ci|deprecation warnings?|spelling)\b"
+    r"docs?|docstrings?|comments?|documentation|readme|changelog|ci|deprecation warnings?|spelling)\b"
 )
-FIX_RULE_VERSION = "2"
+FIX_RULE_VERSION = "3"
 SQUASH_PR_RE = re.compile(r"\(#(\d+)\)\s*$")
 MERGE_PR_RE = re.compile(r"Merge pull request #(\d+)")
 BULK_COMMIT_FILES = 50

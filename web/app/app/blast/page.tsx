@@ -89,7 +89,7 @@ function BlastPage() {
                         <tr key={c.path}>
                           <td className="mono" style={{ fontSize: 12 }}><button className="link-btn" onClick={() => setPath(c.path)}>{c.path}</button></td>
                           <td style={{ width: 120 }}><div className="bar" title={`${Math.round(c.confidence * 100)}%`}><span style={{ width: `${c.confidence * 100}%` }} /></div></td>
-                          <td className="hint" style={{ width: 70 }}>{Math.round(c.confidence * 100)}% · {c.support}</td>
+                          <td className="hint" style={{ width: 120, whiteSpace: "nowrap" }}>{c.support} of {Math.round(c.support / Math.max(c.confidence, 0.01))} commits</td>
                         </tr>
                       ))}
                     </tbody></table>

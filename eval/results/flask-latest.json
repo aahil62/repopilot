@@ -2,7 +2,7 @@
  "dataset": "flask",
  "ref": "3.1.0",
  "mode": "offline",
- "generated_at": "2026-10-18T17:03:39+00:00",
+ "generated_at": "2026-10-18T17:10:08+00:00",
  "models": [],
  "retrieval": {
   "recall_at_5": {

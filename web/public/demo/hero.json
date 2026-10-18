@@ -530,12 +530,6 @@
     "author": "David Lord"
    },
    {
-    "sha": "0d8c8ba71bc6362e6ea9af08146dc97e1a0a8abc",
-    "date": "2022-09-18T19:53:47+08:00",
-    "subject": "Fix docstring of test_request_context (#4821)",
-    "author": "Yang Yang"
-   },
-   {
     "sha": "a6a7a57380cd8f7410753c3b819ba6d09198d8c9",
     "date": "2022-08-04T07:24:20-07:00",
     "subject": "fix default value of app.env",
@@ -570,6 +564,12 @@
     "date": "2021-10-01T09:39:10-07:00",
     "subject": "use exception chaining",
     "author": "David Lord"
+   },
+   {
+    "sha": "166a2a6207027bff07fdfc5590ce04f9b37e9e8f",
+    "date": "2021-08-10T00:23:57+02:00",
+    "subject": "Fix callback order for nested blueprints",
+    "author": "Matthias Paulsen"
    }
   ],
   "tests": [
