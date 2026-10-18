@@ -16,11 +16,13 @@ def tmp_home(tmp_path_factory, monkeypatch) -> Path:
     reset_settings()
     yield home
     reset_settings()
+    from repopilot.api.jobs import reset_jobs
     from repopilot.memory.store import MemoryStore
     from repopilot.runtime import set_runtime
 
     set_runtime(None)
     MemoryStore.close_all()
+    reset_jobs()
 
 
 def _git(cwd: Path, *args: str) -> str:

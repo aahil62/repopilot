@@ -44,7 +44,25 @@ def _python_for(repo: Path) -> str:
     return shutil.which("python3") or sys.executable
 
 
+def repo_settings_path(repo: Path) -> Path:
+    from repopilot.config import repo_id_for
+
+    path = get_settings().home / "repo-settings" / f"{repo_id_for(repo)}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def load_repo_settings(repo: Path) -> dict:
+    path = repo_settings_path(repo)
+    try:
+        return json.loads(path.read_text()) if path.exists() else {}
+    except json.JSONDecodeError:
+        return {}
+
+
 def detect_test_command(repo: Path) -> str | None:
+    if override := load_repo_settings(repo).get("test_command"):
+        return override
     config = _read_toml(repo / "repopilot.toml")
     if cmd := config.get("checks", {}).get("test"):
         return cmd

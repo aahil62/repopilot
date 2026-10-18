@@ -151,8 +151,8 @@ def test_no_runtime_returns_503(monkeypatch):
     monkeypatch.setenv("REPOPILOT_RUNTIME_URLS", '["http://127.0.0.1:9"]')
     reset_settings()
     client = TestClient(create_app())
-    resp = client.put("/models/roles", json={"strong": "x"})
+    resp = client.put("/api/models/roles", json={"strong": "x"})
     assert resp.status_code == 503
     assert resp.json()["detail"].startswith("No local model runtime found")
-    listing = client.get("/models").json()
+    listing = client.get("/api/models").json()
     assert listing["roles"] == {} and listing["runtimes"][0]["reachable"] is False

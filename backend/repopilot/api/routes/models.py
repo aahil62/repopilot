@@ -7,7 +7,7 @@ from repopilot.config import get_settings
 from repopilot.runtime import clear_cache, fits, get_runtime, scan
 from repopilot.runtime.roles import NoRuntimeError, assign_roles, load_overrides, save_overrides
 
-router = APIRouter(tags=["models"])
+router = APIRouter(prefix="/api", tags=["models"])
 
 
 @router.get("/models")
