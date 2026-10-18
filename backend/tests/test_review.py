@@ -18,7 +18,11 @@ from repopilot.worktree import temp_worktree
 
 def _hunk(diff: str, old: str | None = None, new: str | None = None):
     fd = parse(diff)[0]
-    return classify_hunk(fd, fd.hunks[0], old_idents=identifiers(old), new_idents=identifiers(new))[0]
+    if old is None:  # the old file is exactly the removed lines
+        old = "\n".join(fd.hunks[0].removed) + "\n"
+    return classify_hunk(
+        fd, fd.hunks[0], old_idents=identifiers(old), new_idents=identifiers(new), old_text=old
+    )[0]
 
 
 def _diff(path: str, removed: list[str], added: list[str]) -> str:
@@ -44,6 +48,26 @@ def test_classify_mechanical_cases():
         )
         == "mechanical"
     )
+
+
+def test_classify_python_semantics():
+    # annotations and docstrings only
+    assert (
+        _hunk(_diff("a.py", ["def f(x):", "    return x"], ["def f(x: int) -> int:", "    return x"]))
+        == "mechanical"
+    )
+    # dedenting an assert out of a with-block changes behavior
+    old = "with ctx:\n    run()\n    assert ok\n"
+    assert (
+        _hunk(
+            _diff("a.py", ["    assert ok"], ["assert ok"]).replace("@@ -1,1 +1,1 @@", "@@ -3,1 +3,1 @@"), old
+        )
+        == "behavior"
+    )
+    # swapping an imported decorator is not a rename
+    old = "from h import locked_cached_property\n\n@locked_cached_property\ndef v(self):\n    return 1\n"
+    diff = "--- a/a.py\n+++ b/a.py\n@@ -3,1 +3,1 @@\n-@locked_cached_property\n+@cached_property\n"
+    assert _hunk(diff, old, old.replace("@locked_cached_property", "@cached_property")) == "behavior"
 
 
 def test_classify_behavior_cases():

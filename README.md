@@ -65,9 +65,16 @@ Install `repopilot-2.0.0.vsix` from the [releases page](https://github.com/aahil
 
 ## Measured
 
-From [`eval/run_eval.py`](eval/run_eval.py) on [pallets/flask](https://github.com/pallets/flask) at `3.1.0` with the dataset in [`eval/datasets/flask.json`](eval/datasets/flask.json). Current results: [`eval/results/flask-latest.md`](eval/results/flask-latest.md).
+From [`eval/run_eval.py`](eval/run_eval.py) on pinned versions of [pallets/flask](https://github.com/pallets/flask) (`3.1.0`) and [psf/requests](https://github.com/psf/requests) (`v2.32.3`). Datasets are in [`eval/datasets/`](eval/datasets); results in [`eval/results/`](eval/results).
 
-The committed results are an **offline run** (no language model): keyword retrieval finds the right file in the top five for 88% of 25 questions, and 54% of the 252 hunks in Flask's last 40 commits are set aside as mechanical. Vector and hybrid retrieval, refusal accuracy, citation validity and the model benchmark are produced by running the same script with local models.
+| Measure | Result |
+|---|---|
+| Mechanical label vs a human, **held-out** set | **100% precision, 75% recall** on 30 hunks labelled blind — it never hid a behavior change |
+| Same, on the set the rules were tuned on | 100% precision, 91% recall on 60 hunks |
+| Right file in the top 5, keyword search only | 88% on Flask (25 questions), 88% on Requests (25 questions) |
+| Hunks set aside as mechanical | 61% of 252 hunks in Flask's last 40 commits; 24% of 128 in Requests' |
+
+These are **offline** results — they need no language model. Vector and hybrid retrieval, refusal accuracy, citation validity and the model benchmark come from running the same script with local models (`eval/run_eval.py` without `--offline`).
 
 ## How it works
 
@@ -101,7 +108,7 @@ Design notes: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```bash
 cd backend && python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
-../scripts/check_backend.sh         # ruff + 66 tests (no model or network needed)
+../scripts/check_backend.sh         # ruff + 67 tests (no model or network needed)
 cd ../web && npm ci && npm test && npm run dev    # UI on :7342 against the API on :7341
 python scripts/bundle_web.py        # build the UI into the wheel
 python scripts/build_demo.py        # regenerate the public demo data from a real run on Flask

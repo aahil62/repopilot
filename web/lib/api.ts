@@ -44,6 +44,7 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
 export const api = {
   repos: () => (DEMO ? demo<RepoSummary[]>("repos") : call<RepoSummary[]>("/repos")),
   addRepo: (body: { path?: string; git_url?: string }) => call<RepoSummary>("/repos", { method: "POST", body: JSON.stringify(body) }),
+  deleteRepo: (id: string) => call<{ deleted: string }>(`/repos/${id}`, { method: "DELETE" }),
   index: (id: string) => call<{ job_id: string }>(`/repos/${id}/index`, { method: "POST", body: "{}" }),
   job: <T,>(jobId: string) => call<Job<T>>(`/jobs/${jobId}`),
   files: (id: string, q: string) =>

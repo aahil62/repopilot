@@ -11,7 +11,7 @@
 > **Implementation status (2026-10-18, Claude Code):** Tasks 0–11, 13–15, 17 and the repo side of 18–19 are implemented on branch `v2`.
 > Deviations, all documented in `docs/ARCHITECTURE.md`: vectors in SQLite + NumPy instead of ChromaDB; API under `/api`;
 > web routes under `/app/*`; verified edits use search/replace blocks instead of model-written diffs; blast-radius risk is a
-> repo-relative points score; indexing and review also work without a model runtime. Task 12 (evaluation) and Task 16
+> repo-relative points score; indexing and review also work without a model runtime. Task 12 (evaluation: Flask and Requests datasets, 60 tuning + 30 held-out hand-labelled hunks) and Task 16
 > (demo data) are implemented but have only been run offline — they need a local model runtime for the full results.
 > See `docs/VERIFICATION.md`.
 

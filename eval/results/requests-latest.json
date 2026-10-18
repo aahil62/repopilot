@@ -1,0 +1,859 @@
+{
+ "dataset": "requests",
+ "ref": "v2.32.3",
+ "mode": "offline",
+ "generated_at": "2026-10-18T17:37:57+00:00",
+ "models": [],
+ "retrieval": {
+  "recall_at_5": {
+   "vector": 0.0,
+   "keyword": 0.88,
+   "hybrid": 0.88
+  },
+  "n": 25,
+  "questions": [
+   {
+    "q": "How does a session follow HTTP redirects?",
+    "gold": [
+     "src/requests/sessions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_requests.py",
+      "HISTORY.md",
+      "src/requests/sessions.py",
+      "src/requests/api.py",
+      ".github/CODE_OF_CONDUCT.md"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_requests.py",
+      "HISTORY.md",
+      "src/requests/sessions.py",
+      "src/requests/api.py",
+      ".github/CODE_OF_CONDUCT.md"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the Authorization header removed when redirecting to another host?",
+    "gold": [
+     "src/requests/sessions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_lowlevel.py",
+      "HISTORY.md",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "docs/user/quickstart.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_lowlevel.py",
+      "HISTORY.md",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "docs/user/quickstart.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are proxy settings picked up from environment variables?",
+    "gold": [
+     "src/requests/sessions.py",
+     "src/requests/utils.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/sessions.py",
+      "docs/user/advanced.rst",
+      "tests/test_utils.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/sessions.py",
+      "docs/user/advanced.rst",
+      "tests/test_utils.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is a transport adapter chosen for a URL prefix?",
+    "gold": [
+     "src/requests/sessions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "src/requests/adapters.py",
+      "tests/test_lowlevel.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "src/requests/adapters.py",
+      "tests/test_lowlevel.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does the HTTP adapter verify TLS certificates?",
+    "gold": [
+     "src/requests/adapters.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst",
+      "src/requests/sessions.py",
+      "tests/testserver/server.py",
+      "docs/community/recommended.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst",
+      "src/requests/sessions.py",
+      "tests/testserver/server.py",
+      "docs/community/recommended.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the connection pool manager created?",
+    "gold": [
+     "src/requests/adapters.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/adapters.py",
+      "tests/test_requests.py",
+      "HISTORY.md",
+      "docs/index.rst",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/adapters.py",
+      "tests/test_requests.py",
+      "HISTORY.md",
+      "docs/index.rst",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How is a urllib3 response converted into a Response object?",
+    "gold": [
+     "src/requests/adapters.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/cookies.py",
+      "HISTORY.md",
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst",
+      "src/requests/sessions.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/cookies.py",
+      "HISTORY.md",
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst",
+      "src/requests/sessions.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does basic authentication encode the username and password?",
+    "gold": [
+     "src/requests/auth.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/auth.py",
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/auth.py",
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "src/requests/sessions.py",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the digest authentication challenge handled after a 401?",
+    "gold": [
+     "src/requests/auth.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_lowlevel.py",
+      "docs/user/authentication.rst",
+      "README.md",
+      "src/requests/compat.py",
+      "HISTORY.md"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_lowlevel.py",
+      "docs/user/authentication.rst",
+      "README.md",
+      "src/requests/compat.py",
+      "HISTORY.md"
+     ],
+     "hit": false
+    }
+   },
+   {
+    "q": "How is the request body encoded for form data, files and JSON?",
+    "gold": [
+     "src/requests/models.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "tests/test_utils.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "tests/test_utils.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are query parameters added to the URL?",
+    "gold": [
+     "src/requests/models.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/models.py",
+      "HISTORY.md",
+      "tests/test_utils.py",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/models.py",
+      "HISTORY.md",
+      "tests/test_utils.py",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does a response stream its content in chunks?",
+    "gold": [
+     "src/requests/models.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/models.py",
+      "tests/test_requests.py",
+      "tests/testserver/server.py",
+      "tests/test_lowlevel.py",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/models.py",
+      "tests/test_requests.py",
+      "tests/testserver/server.py",
+      "tests/test_lowlevel.py",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where does a response raise an error for 4xx and 5xx status codes?",
+    "gold": [
+     "src/requests/models.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "src/requests/status_codes.py",
+      "src/requests/sessions.py",
+      "tests/test_requests.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "src/requests/status_codes.py",
+      "src/requests/sessions.py",
+      "tests/test_requests.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How is a response body decoded as JSON?",
+    "gold": [
+     "src/requests/models.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/api.py",
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "src/requests/sessions.py"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/quickstart.rst",
+      "src/requests/api.py",
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "src/requests/sessions.py"
+     ],
+     "hit": false
+    }
+   },
+   {
+    "q": "Where are credentials read from the .netrc file?",
+    "gold": [
+     "src/requests/utils.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/authentication.rst",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/authentication.rst",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How is the character encoding guessed from the Content-Type header?",
+    "gold": [
+     "src/requests/utils.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/models.py",
+      "tests/test_utils.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/models.py",
+      "tests/test_utils.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Which hosts bypass the proxy because of NO_PROXY?",
+    "gold": [
+     "src/requests/utils.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_utils.py",
+      "src/requests/sessions.py",
+      "HISTORY.md",
+      "src/requests/compat.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_utils.py",
+      "src/requests/sessions.py",
+      "HISTORY.md",
+      "src/requests/compat.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the default User-Agent header set?",
+    "gold": [
+     "src/requests/utils.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst",
+      "HISTORY.md",
+      "src/requests/cookies.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst",
+      "HISTORY.md",
+      "src/requests/cookies.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are response hooks called?",
+    "gold": [
+     "src/requests/hooks.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/advanced.rst",
+      "src/requests/models.py",
+      "src/requests/sessions.py",
+      "src/requests/hooks.py",
+      "tests/test_hooks.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/advanced.rst",
+      "src/requests/models.py",
+      "src/requests/sessions.py",
+      "src/requests/hooks.py",
+      "tests/test_hooks.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the case-insensitive dictionary for headers implemented?",
+    "gold": [
+     "src/requests/structures.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_structures.py",
+      "tests/test_requests.py",
+      "src/requests/structures.py",
+      "src/requests/sessions.py",
+      "src/requests/adapters.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_structures.py",
+      "tests/test_requests.py",
+      "src/requests/structures.py",
+      "src/requests/sessions.py",
+      "src/requests/adapters.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are cookies from a response stored in the cookie jar?",
+    "gold": [
+     "src/requests/cookies.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_requests.py",
+      "src/requests/cookies.py",
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_requests.py",
+      "src/requests/cookies.py",
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "HISTORY.md"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How is a cookie jar built from a plain dictionary?",
+    "gold": [
+     "src/requests/cookies.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/cookies.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py",
+      "tests/test_utils.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/cookies.py",
+      "tests/test_requests.py",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py",
+      "tests/test_utils.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "What does requests.get call under the hood?",
+    "gold": [
+     "src/requests/api.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/user/authentication.rst",
+      "tests/test_requests.py",
+      "src/requests/adapters.py",
+      "src/requests/hooks.py",
+      ".github/SECURITY.md"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "docs/user/authentication.rst",
+      "tests/test_requests.py",
+      "src/requests/adapters.py",
+      "src/requests/hooks.py",
+      ".github/SECURITY.md"
+     ],
+     "hit": false
+    }
+   },
+   {
+    "q": "Where is a Request turned into a PreparedRequest with session defaults merged?",
+    "gold": [
+     "src/requests/sessions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/sessions.py",
+      "tests/test_requests.py",
+      "docs/user/advanced.rst",
+      "src/requests/models.py",
+      "src/requests/api.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/sessions.py",
+      "tests/test_requests.py",
+      "docs/user/advanced.rst",
+      "src/requests/models.py",
+      "src/requests/api.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are the exception classes like ConnectionError and Timeout defined?",
+    "gold": [
+     "src/requests/exceptions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/requests/exceptions.py",
+      "docs/user/quickstart.rst",
+      "tests/test_requests.py",
+      "docs/api.rst",
+      "tests/test_testserver.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/requests/exceptions.py",
+      "docs/user/quickstart.rst",
+      "tests/test_requests.py",
+      "docs/api.rst",
+      "tests/test_testserver.py"
+     ],
+     "hit": true
+    }
+   }
+  ]
+ },
+ "mechanical": {
+  "commits": 40,
+  "hunks": 128,
+  "mechanical": 31,
+  "share": 0.242
+ },
+ "classifier": {
+  "n": 30,
+  "precision": 1.0,
+  "recall": 0.75,
+  "tp": 15,
+  "fp": 0,
+  "fn": 5,
+  "tn": 10,
+  "errors": [
+   {
+    "sha": "61f62e60",
+    "path": "src/flask/blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "annotations only"
+   },
+   {
+    "sha": "7fd9267b",
+    "path": "tests/test_testserver.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "equivalent format string"
+   },
+   {
+    "sha": "176fdfa0",
+    "path": "src/flask/helpers.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "typing overloads only"
+   },
+   {
+    "sha": "54e05a28",
+    "path": "tests/test_blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "lambda rewritten as an equivalent def"
+   },
+   {
+    "sha": "218534a9",
+    "path": "src/flask/json/__init__.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused imports removed"
+   }
+  ]
+ },
+ "classifier_tuning": {
+  "n": 60,
+  "precision": 1.0,
+  "recall": 0.913,
+  "tp": 42,
+  "fp": 0,
+  "fn": 4,
+  "tn": 14,
+  "errors": [
+   {
+    "sha": "6650764e",
+    "path": "src/flask/blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused import removed"
+   },
+   {
+    "sha": "91044c4d",
+    "path": "src/flask/ctx.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "module-wide variable rename"
+   },
+   {
+    "sha": "ca2bfbb0",
+    "path": "src/flask/typing.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "type alias widened; no runtime effect"
+   },
+   {
+    "sha": "88863288",
+    "path": "src/flask/scaffold.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused import removed"
+   }
+  ]
+ }
+}

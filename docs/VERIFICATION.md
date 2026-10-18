@@ -6,8 +6,8 @@ What was actually run on this machine (Apple M4, 16 GB, macOS), and what was not
 
 | Check | Command | Result |
 |---|---|---|
-| Backend lint + tests | `scripts/check_backend.sh` | ruff clean; **66 passed** (no model or network: `FakeRuntime`, temporary git repos) |
-| Web tests | `npm --prefix web test` | **5 passed** |
+| Backend lint + tests | `scripts/check_backend.sh` | ruff clean; **67 passed** (no model or network: `FakeRuntime`, temporary git repos) |
+| Web tests | `npm --prefix web test` | **12 passed** (components and every app page with a mocked API) |
 | Web lint / types | `npm --prefix web run lint`, `npx tsc --noEmit` | clean |
 | Web production build | `NEXT_PUBLIC_DEMO_MODE=1 npm --prefix web run build` | 10 static routes |
 | Extension | `npm --prefix vscode-extension run typecheck && npm run package`, `vsce package` | builds; `repopilot-2.0.0.vsix` 27 KB |
@@ -21,7 +21,8 @@ Tests run real `git` commands, real `pytest` subprocesses inside temporary workt
 - **Real repository:** `scripts/build_demo.py --offline` on `pallets/flask@3.1.0` — 224 files, 972 chunks, 3,718 commits indexed in ~17 s. The hero commit (`53c893b6`, "fix string concats left over by black") was classified 13 mechanical / 1 behavior; the behavior hunk changes an assertion message string, so the classification is correct.
 - **Calibration found on real data and fixed:** fixed-threshold risk rated every Flask core file "high" (replaced with a repo-relative points score); tooling chores counted as bug fixes (excluded); duplicate React keys in the orbit; owners split across git name variants (`.mailmap` now honoured).
 - **Browser:** landing, Overview, Review, Blast radius, Night shift (empty state) at 1440 px light and dark, and 375 px — no horizontal overflow; dev console free of errors after fixes.
-- **Offline evaluation** (`eval/run_eval.py --offline`): keyword Recall@5 = 88% on 25 Flask questions; 54% of 252 hunks in the last 40 commits set aside as mechanical.
+- **Offline evaluation** (`eval/run_eval.py --offline`): keyword Recall@5 = 88% on 25 Flask questions and 88% on 25 Requests questions.
+- **Classifier vs human labels:** 60 Python hunks from Flask and Requests (stratified 30/30 by the classifier's first verdict) were labelled by hand. Baseline: 90% precision, 59% recall. The errors exposed three rule gaps (annotation/docstring-only edits, imported-decorator swaps treated as renames, Python indentation treated as whitespace), fixed with a per-hunk syntax-tree comparison: 100% / 91% on that set. Because the rules were tuned on it, a fresh **held-out set of 30 hunks was labelled blind: 100% precision, 75% recall.**
 
 ## Not verified yet
 

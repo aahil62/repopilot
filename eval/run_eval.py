@@ -112,6 +112,35 @@ async def citation_validity(record, runtime, n_commits: int = 20) -> dict:
     return {"findings": total, "kept": kept, "dropped": dropped, "validity": round(kept / total, 3) if total else None}
 
 
+async def classifier_accuracy(name: str) -> dict:
+    """Precision/recall of the mechanical label against hand labels in eval/datasets/<name>.jsonl."""
+    path = ROOT / "eval" / "datasets" / f"{name}.jsonl"
+    items = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    cache: dict[tuple[str, str], dict] = {}
+    tp = fp = fn = tn = 0
+    errors = []
+    for item in items:
+        record = next(r for r in registry.list_repos() if r.name == item["repo"])
+        key = (record.repo_id, item["sha"])
+        if key not in cache:
+            diff = commit_diff(Path(record.path), item["sha"])
+            rep = await review(record.repo_id, Path(record.path), diff, None,
+                               source=DiffSource("commit", head=item["sha"]), run_checks_enabled=False, persist=False)
+            cache[key] = {(f.path, h.new_start): h.label for f in rep.files for h in f.hunks}
+        pred = cache[key].get((item["path"], item["new_start"]))
+        truth_mech = item["label"] == "mechanical"
+        pred_mech = pred == "mechanical"
+        tp += truth_mech and pred_mech
+        fp += pred_mech and not truth_mech
+        fn += truth_mech and not pred_mech
+        tn += not truth_mech and not pred_mech
+        if truth_mech != pred_mech:
+            errors.append({"sha": item["sha"][:8], "path": item["path"], "label": item["label"], "pred": pred, "why": item["why"]})
+    return {"n": len(items), "precision": round(tp / (tp + fp), 3) if tp + fp else None,
+            "recall": round(tp / (tp + fn), 3) if tp + fn else None, "tp": tp, "fp": fp, "fn": fn, "tn": tn,
+            "errors": errors}
+
+
 def markdown(result: dict) -> str:
     r = result["retrieval"]["recall_at_5"]
     lines = [
@@ -128,6 +157,11 @@ def markdown(result: dict) -> str:
                   f"| Refusal accuracy | {result['refusal']['accuracy']:.0%} ({result['refusal']['n']} questions) |"]
     m = result["mechanical"]
     lines.append(f"| Hunks set aside as mechanical (formatting, comments, docs, import order, renames) | {m['share']:.0%} of {m['hunks']} hunks in the last {m['commits']} commits |")
+    if result.get("classifier"):
+        c = result["classifier"]
+        lines.append(f"| Mechanical label vs hand labels, held-out set | precision {c['precision']:.0%}, recall {c['recall']:.0%} ({c['n']} hunks) |")
+        t = result["classifier_tuning"]
+        lines.append(f"| Mechanical label vs hand labels, tuning set | precision {t['precision']:.0%}, recall {t['recall']:.0%} ({t['n']} hunks; rules were adjusted on this set) |")
     if result.get("citations") and result["citations"]["validity"] is not None:
         c = result["citations"]
         lines.append(f"| Model findings that cited real changed lines | {c['validity']:.0%} ({c['kept']} of {c['findings']}) |")
@@ -154,6 +188,10 @@ async def main(dataset_path: Path, offline: bool, bench_tasks: int) -> None:
         "retrieval": await retrieval(store, runtime, data["questions"], use_vectors=not offline),
         "mechanical": await mechanical_share(record, runtime),
     }
+    for other in ("https://github.com/pallets/flask", "https://github.com/psf/requests"):
+        registry.add_clone(other)
+    result["classifier"] = await classifier_accuracy("mechanical_hunks_holdout")
+    result["classifier_tuning"] = await classifier_accuracy("mechanical_hunks")
     if not offline:
         result["refusal"] = await refusals(store, runtime, data["questions"], data["unanswerable"])
         result["citations"] = await citation_validity(record, runtime)
@@ -174,6 +212,8 @@ async def main(dataset_path: Path, offline: bool, bench_tasks: int) -> None:
              "detail": f"{result['retrieval']['n']} questions about {data['repo'].split('github.com/')[1]}; keyword-only {r['keyword']:.0%}, vector-only {r['vector']:.0%}"},
             {"name": "Says “not in this repository” correctly", "value": f"{result['refusal']['accuracy']:.0%}",
              "detail": f"{result['refusal']['n']} questions, including {len(data['unanswerable'])} the code cannot answer"},
+            {"name": "Mechanical label agrees with a human", "value": f"{result['classifier']['precision']:.0%} precision",
+             "detail": f"recall {result['classifier']['recall']:.0%} on {result['classifier']['n']} held-out hand-labelled hunks from Flask and Requests"},
             {"name": "Hunks set aside as mechanical", "value": f"{result['mechanical']['share']:.0%}",
              "detail": f"formatting, comments, docs, import order and renames; {result['mechanical']['hunks']} hunks across the last {result['mechanical']['commits']} commits"},
         ]

@@ -192,7 +192,9 @@ async def review(
         old_ids, new_ids = identifiers(old), identifiers(new)
         hunk_views = []
         for h in fd.hunks:
-            label, reason = classify_hunk(fd, h, same_tree=same_tree, old_idents=old_ids, new_idents=new_ids)
+            label, reason = classify_hunk(
+                fd, h, same_tree=same_tree, old_idents=old_ids, new_idents=new_ids, old_text=old
+            )
             if label == "behavior":
                 behavior.append((fd, h))
             hunk_views.append(

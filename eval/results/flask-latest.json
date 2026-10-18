@@ -2,7 +2,7 @@
  "dataset": "flask",
  "ref": "3.1.0",
  "mode": "offline",
- "generated_at": "2026-10-18T17:10:08+00:00",
+ "generated_at": "2026-10-18T17:37:13+00:00",
  "models": [],
  "retrieval": {
   "recall_at_5": {
@@ -773,7 +773,92 @@
  "mechanical": {
   "commits": 40,
   "hunks": 252,
-  "mechanical": 136,
-  "share": 0.54
+  "mechanical": 154,
+  "share": 0.611
+ },
+ "classifier": {
+  "n": 30,
+  "precision": 1.0,
+  "recall": 0.75,
+  "tp": 15,
+  "fp": 0,
+  "fn": 5,
+  "tn": 10,
+  "errors": [
+   {
+    "sha": "61f62e60",
+    "path": "src/flask/blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "annotations only"
+   },
+   {
+    "sha": "7fd9267b",
+    "path": "tests/test_testserver.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "equivalent format string"
+   },
+   {
+    "sha": "176fdfa0",
+    "path": "src/flask/helpers.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "typing overloads only"
+   },
+   {
+    "sha": "54e05a28",
+    "path": "tests/test_blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "lambda rewritten as an equivalent def"
+   },
+   {
+    "sha": "218534a9",
+    "path": "src/flask/json/__init__.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused imports removed"
+   }
+  ]
+ },
+ "classifier_tuning": {
+  "n": 60,
+  "precision": 1.0,
+  "recall": 0.913,
+  "tp": 42,
+  "fp": 0,
+  "fn": 4,
+  "tn": 14,
+  "errors": [
+   {
+    "sha": "6650764e",
+    "path": "src/flask/blueprints.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused import removed"
+   },
+   {
+    "sha": "91044c4d",
+    "path": "src/flask/ctx.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "module-wide variable rename"
+   },
+   {
+    "sha": "ca2bfbb0",
+    "path": "src/flask/typing.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "type alias widened; no runtime effect"
+   },
+   {
+    "sha": "88863288",
+    "path": "src/flask/scaffold.py",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "unused import removed"
+   }
+  ]
  }
 }
