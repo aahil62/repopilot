@@ -26,3 +26,5 @@ eval/.cache/
 Thumbs.db
 *.vsix
 .vercel
+.claude/
+web/tsconfig.tsbuildinfo

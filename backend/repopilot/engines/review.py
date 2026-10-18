@@ -171,6 +171,7 @@ async def review(
     *,
     source: DiffSource | None = None,
     run_checks_enabled: bool = True,
+    use_model: bool = True,
     checks_ref: str = "HEAD",
     persist: bool = True,
 ) -> ReviewReport:
@@ -247,7 +248,7 @@ async def review(
     mech = sum(v.mechanical_hunks for v in views)
     beh = len(behavior)
     summary = f"Behavior changes to read: {beh} of {mech + beh} hunks."
-    if behavior:
+    if behavior and use_model:
         t0 = time.perf_counter()
         prompt, truncated = _prompt(behavior, blast, precedents, checks)
         try:

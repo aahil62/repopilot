@@ -10,6 +10,12 @@ from pathlib import Path
 from repopilot.memory.store import MemoryStore
 
 FIX_RE = re.compile(r"(?i)\b(fix|fixes|fixed|bug|bugs|hotfix|regression|revert|crash|broken)\b")
+# Tooling chores mention "fix" but are not bug fixes.
+CHORE_RE = re.compile(
+    r"(?i)\b(typos?|lint|linting|mypy|pyright|flake8|ruff|pre-commit|formatting|typing|type hints?|type errors?|"
+    r"docs?|documentation|readme|changelog|ci|deprecation warnings?|spelling)\b"
+)
+FIX_RULE_VERSION = "2"
 SQUASH_PR_RE = re.compile(r"\(#(\d+)\)\s*$")
 MERGE_PR_RE = re.compile(r"Merge pull request #(\d+)")
 BULK_COMMIT_FILES = 50
@@ -30,7 +36,20 @@ def _git(repo: Path, *args: str, timeout: int = 300) -> str:
 
 
 def is_fix(subject: str, body: str = "") -> bool:
-    return bool(FIX_RE.search(f"{subject}\n{body}"))
+    return bool(FIX_RE.search(f"{subject}\n{body}")) and not CHORE_RE.search(subject)
+
+
+def rescore_fixes(store: MemoryStore) -> None:
+    """Re-apply the fix rule to already-imported commits when the rule changes."""
+    if store.get_meta("fix_rule_version") == FIX_RULE_VERSION:
+        return
+    rows = store.query("SELECT sha, subject, body FROM commits")
+    with store.transaction():
+        store.executemany(
+            "UPDATE commits SET is_fix=? WHERE sha=?",
+            [(int(is_fix(r["subject"], r["body"])), r["sha"]) for r in rows],
+        )
+    store.set_meta("fix_rule_version", FIX_RULE_VERSION)
 
 
 def parse_log(raw: str) -> list[dict]:
@@ -136,6 +155,7 @@ def import_history(store: MemoryStore, repo: Path, max_commits: int) -> int:
                     "INSERT INTO pr_commits(pr_number,sha) VALUES(?,?)", (int(m.group(1)), c["sha"])
                 )
     _import_merge_prs(store, repo, rev_range)
+    rescore_fixes(store)
     store.set_meta("history_head", head_sha(repo) or "")
     imported = store.one("SELECT count(*) n FROM commits")["n"]
     store.set_meta("history_truncated", "1" if total_available > imported else "0")

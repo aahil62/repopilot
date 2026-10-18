@@ -125,3 +125,13 @@ async def test_precedents_indexed_from_fix_commits(git_repo):
     import_history(store, repo, max_commits=100)
     assert await index_precedents(store, FakeRuntime()) == 1
     assert await index_precedents(store, FakeRuntime()) == 0  # incremental
+
+
+def test_tooling_chores_are_not_bug_fixes():
+    from repopilot.memory.history import is_fix
+
+    assert is_fix("fix: crash on empty input")
+    assert is_fix("Fix teardown when an exception is raised")
+    assert not is_fix("fix pyright type errors")
+    assert not is_fix("fix typo in docs")
+    assert not is_fix("Fix mypy findings")

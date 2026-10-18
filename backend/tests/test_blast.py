@@ -37,28 +37,42 @@ async def test_medium_risk_from_coupled_file_missing_from_change(git_repo):
     assert report.owners[0].author == "Dev One"
 
 
-async def test_high_risk_from_repeated_fixes(git_repo):
+async def test_repeated_fixes_alone_are_medium(git_repo):
     commits = [("init", {"pay.py": "p0\n"})]
     commits += [(f"fix: payment rounding bug {i}", {"pay.py": f"p{i}\n"}) for i in range(1, 4)]
     repo = git_repo(commits)
     await _prepare(repo, "b3")
     report = blast_radius("b3", ["pay.py"])
-    assert report.risk == "high"
+    assert report.risk == "medium"
     assert len(report.past_fixes) == 3
     assert report.risk_reasons[0].startswith("3 bug fixes")
 
 
-async def test_high_risk_from_many_dependents_and_tests_found(git_repo):
+async def test_central_file_with_recent_fixes_is_high_and_tests_found(git_repo):
     files = {"core.py": "def base():\n    return 1\n"}
     for i in range(10):
         files[f"m{i}.py"] = "from core import base\n"
     files["tests/test_core.py"] = "from core import base\n\ndef test_base():\n    assert base() == 1\n"
-    repo = git_repo([("init", files)])
+    commits = [("init", files)]
+    commits += [
+        (f"fix: base off by one {i}", {"core.py": f"def base():\n    return {i}\n"}) for i in range(2, 5)
+    ]
+    repo = git_repo(commits)
     await _prepare(repo, "b4")
     report = blast_radius("b4", ["core.py"])
     assert report.risk == "high"
     assert len(report.dependents) == 11
     assert report.tests == ["tests/test_core.py"]
+    assert any(r.startswith("Among the most imported files") for r in report.risk_reasons)
+
+
+async def test_central_file_without_fixes_is_medium(git_repo):
+    files = {"core.py": "def base():\n    return 1\n", "other.py": "x = 1\n"}
+    for i in range(10):
+        files[f"m{i}.py"] = "from core import base\n"
+    repo = git_repo([("init", files)])
+    await _prepare(repo, "b5")
+    assert blast_radius("b5", ["core.py"]).risk == "medium"
 
 
 def test_is_test_file_patterns():

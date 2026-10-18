@@ -1,0 +1,663 @@
+{
+ "review_id": "flask-demo",
+ "created_at": "2026-10-18T16:51:30+00:00",
+ "source": {
+  "kind": "commit",
+  "base": null,
+  "head": "53c893b646252d610e877eb9385e9e250a1ae5e1"
+ },
+ "summary": "Behavior changes to read: 1 of 14 hunks.",
+ "files": [
+  {
+   "path": "examples/tutorial/flaskr/blog.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 74,
+     "new_start": 74,
+     "new_end": 80,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         else:\n             db = get_db()\n             db.execute(\n-                \"INSERT INTO post (title, body, author_id)\" \" VALUES (?, ?, ?)\",\n+                \"INSERT INTO post (title, body, author_id) VALUES (?, ?, ?)\",\n                 (title, body, g.user[\"id\"]),\n             )\n             db.commit()"
+    }
+   ]
+  },
+  {
+   "path": "src/flask/app.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 1931,
+     "new_start": 1931,
+     "new_end": 1937,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "             if not from_error_handler:\n                 raise\n             self.logger.exception(\n-                \"Request finalizing failed with an \" \"error while handling an error\"\n+                \"Request finalizing failed with an error while handling an error\"\n             )\n         return response\n "
+    }
+   ]
+  },
+  {
+   "path": "src/flask/cli.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 266,
+     "new_start": 266,
+     "new_end": 272,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "     import werkzeug\n     from . import __version__\n \n-    message = \"Python %(python)s\\n\" \"Flask %(flask)s\\n\" \"Werkzeug %(werkzeug)s\"\n+    message = \"Python %(python)s\\nFlask %(flask)s\\nWerkzeug %(werkzeug)s\"\n     click.echo(\n         message\n         % {"
+    }
+   ]
+  },
+  {
+   "path": "src/flask/ctx.py",
+   "status": "modified",
+   "mechanical_hunks": 0,
+   "behavior_hunks": 1,
+   "hunks": [
+    {
+     "old_start": 437,
+     "new_start": 437,
+     "new_end": 446,
+     "label": "behavior",
+     "reason": "logic, data or interface change",
+     "text": "             if app_ctx is not None:\n                 app_ctx.pop(exc)\n \n-            assert (\n-                rv is self\n-            ), \"Popped wrong request context.  \" \"(%r instead of %r)\" % (rv, self)\n+            assert rv is self, \"Popped wrong request context. (%r instead of %r)\" % (\n+                rv,\n+                self,\n+            )\n \n     def auto_pop(self, exc):\n         if self.request.environ.get(\"flask._preserve_context\") or ("
+    }
+   ]
+  },
+  {
+   "path": "src/flask/helpers.py",
+   "status": "modified",
+   "mechanical_hunks": 2,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 94,
+     "new_start": 94,
+     "new_end": 100,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "     \"\"\"Internal helper that returns the default endpoint for a given\n     function.  This always is the function name.\n     \"\"\"\n-    assert view_func is not None, \"expected view func if endpoint \" \"is not provided.\"\n+    assert view_func is not None, \"expected view func if endpoint is not provided.\"\n     return view_func.__name__\n \n "
+    },
+    {
+     "old_start": 598,
+     "new_start": 598,
+     "new_end": 604,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "     headers = Headers()\n     if as_attachment:\n         if attachment_filename is None:\n-            raise TypeError(\n-                \"filename unavailable, required for \" \"sending as attachment\"\n-            )\n+            raise TypeError(\"filename unavailable, required for sending as attachment\")\n \n         if not isinstance(attachment_filename, text_type):\n             attachment_filename = attachment_filename.decode(\"utf-8\")"
+    }
+   ]
+  },
+  {
+   "path": "src/flask/testing.py",
+   "status": "modified",
+   "mechanical_hunks": 2,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 156,
+     "new_start": 156,
+     "new_end": 162,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         \"\"\"\n         if self.cookie_jar is None:\n             raise RuntimeError(\n-                \"Session transactions only make sense \" \"with cookies enabled.\"\n+                \"Session transactions only make sense with cookies enabled.\"\n             )\n         app = self.application\n         environ_overrides = kwargs.setdefault(\"environ_overrides\", {})"
+    },
+    {
+     "old_start": 167,
+     "new_start": 167,
+     "new_end": 173,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "             sess = session_interface.open_session(app, c.request)\n             if sess is None:\n                 raise RuntimeError(\n-                    \"Session backend did not open a session. \" \"Check the configuration\"\n+                    \"Session backend did not open a session. Check the configuration\"\n                 )\n \n             # Since we have to open a new request context for the session"
+    }
+   ]
+  },
+  {
+   "path": "tests/test_basic.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 1726,
+     "new_start": 1726,
+     "new_end": 1732,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         with pytest.raises(AssertionError) as e:\n             client.post(\"/foo\", data={})\n         assert \"http://localhost/foo/\" in str(e)\n-        assert (\"Make sure to directly send \" \"your POST-request to this URL\") in str(e)\n+        assert (\"Make sure to directly send your POST-request to this URL\") in str(e)\n \n         rv = client.get(\"/foo\", data={}, follow_redirects=True)\n         assert rv.data == b\"success\""
+    }
+   ]
+  },
+  {
+   "path": "tests/test_config.py",
+   "status": "modified",
+   "mechanical_hunks": 3,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 98,
+     "new_start": 98,
+     "new_end": 104,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         app.config.from_envvar(\"FOO_SETTINGS\")\n     msg = str(e.value)\n     assert msg.startswith(\n-        \"[Errno 2] Unable to load configuration \" \"file (No such file or directory):\"\n+        \"[Errno 2] Unable to load configuration file (No such file or directory):\"\n     )\n     assert msg.endswith(\"missing.cfg'\")\n     assert not app.config.from_envvar(\"FOO_SETTINGS\", silent=True)"
+    },
+    {
+     "old_start": 110,
+     "new_start": 110,
+     "new_end": 116,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         app.config.from_pyfile(\"missing.cfg\")\n     msg = str(e.value)\n     assert msg.startswith(\n-        \"[Errno 2] Unable to load configuration \" \"file (No such file or directory):\"\n+        \"[Errno 2] Unable to load configuration file (No such file or directory):\"\n     )\n     assert msg.endswith(\"missing.cfg'\")\n     assert not app.config.from_pyfile(\"missing.cfg\", silent=True)"
+    },
+    {
+     "old_start": 122,
+     "new_start": 122,
+     "new_end": 128,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "         app.config.from_json(\"missing.json\")\n     msg = str(e.value)\n     assert msg.startswith(\n-        \"[Errno 2] Unable to load configuration \" \"file (No such file or directory):\"\n+        \"[Errno 2] Unable to load configuration file (No such file or directory):\"\n     )\n     assert msg.endswith(\"missing.json'\")\n     assert not app.config.from_json(\"missing.json\", silent=True)"
+    }
+   ]
+  },
+  {
+   "path": "tests/test_instance_config.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 69,
+     "new_start": 69,
+     "new_end": 75,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "     modules_tmpdir, modules_tmpdir_prefix, purge_module, site_packages, limit_loader\n ):\n     site_packages.join(\"site_app.py\").write(\n-        \"import flask\\n\" \"app = flask.Flask(__name__)\\n\"\n+        \"import flask\\napp = flask.Flask(__name__)\\n\"\n     )\n     purge_module(\"site_app\")\n "
+    }
+   ]
+  },
+  {
+   "path": "tests/test_templating.py",
+   "status": "modified",
+   "mechanical_hunks": 1,
+   "behavior_hunks": 0,
+   "hunks": [
+    {
+     "old_start": 46,
+     "new_start": 46,
+     "new_end": 52,
+     "label": "mechanical",
+     "reason": "formatting only (identical Python syntax tree)",
+     "text": "     def context_processor():\n         return dict(foo=42)\n \n-    rv = flask.render_template_string(\"Hello {{ config.WORLD_NAME }} \" \"{{ foo }}\")\n+    rv = flask.render_template_string(\"Hello {{ config.WORLD_NAME }} {{ foo }}\")\n     assert rv == \"Hello Special World 42\"\n \n "
+    }
+   ]
+  }
+ ],
+ "mechanical_count": 13,
+ "behavior_count": 1,
+ "findings": [],
+ "dropped_unverifiable": 0,
+ "blast": {
+  "targets": [
+   "examples/tutorial/flaskr/blog.py",
+   "src/flask/app.py",
+   "src/flask/cli.py",
+   "src/flask/ctx.py",
+   "src/flask/helpers.py",
+   "src/flask/testing.py",
+   "tests/test_basic.py",
+   "tests/test_config.py",
+   "tests/test_instance_config.py",
+   "tests/test_templating.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 33,
+    "confidence": 0.569
+   },
+   {
+    "path": "tests/test_testing.py",
+    "support": 14,
+    "confidence": 0.467
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "support": 7,
+    "confidence": 0.467
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "support": 13,
+    "confidence": 0.433
+   },
+   {
+    "path": "tests/test_cli.py",
+    "support": 24,
+    "confidence": 0.414
+   },
+   {
+    "path": "tests/conftest.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "support": 11,
+    "confidence": 0.367
+   },
+   {
+    "path": "flask/app.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "tests/test_regression.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "tests/test_views.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 9,
+    "confidence": 0.3
+   },
+   {
+    "path": "tests/test_signals.py",
+    "support": 9,
+    "confidence": 0.3
+   }
+  ],
+  "dependents": [
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__main__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "4995a775df21a206b529403bc30d71795a994fd4",
+    "date": "2024-11-10T20:13:05-08:00",
+    "subject": "fix subdomain_matching=False behavior",
+    "author": "David Lord"
+   },
+   {
+    "sha": "1af8f95785b85d0937153ee63d504c0b51934d80",
+    "date": "2024-01-26T10:08:55+08:00",
+    "subject": "fix super call in list comprehension",
+    "author": "Tony Huang"
+   },
+   {
+    "sha": "bda295d37fa3809c95a93d01dd605d0222109889",
+    "date": "2023-06-09T09:34:42-07:00",
+    "subject": "fix use of importlib.util.find_spec",
+    "author": "David Lord"
+   },
+   {
+    "sha": "0d8c8ba71bc6362e6ea9af08146dc97e1a0a8abc",
+    "date": "2022-09-18T19:53:47+08:00",
+    "subject": "Fix docstring of test_request_context (#4821)",
+    "author": "Yang Yang"
+   },
+   {
+    "sha": "a6a7a57380cd8f7410753c3b819ba6d09198d8c9",
+    "date": "2022-08-04T07:24:20-07:00",
+    "subject": "fix default value of app.env",
+    "author": "David Lord"
+   },
+   {
+    "sha": "095651be9eec58ddb0c2eb6158318b1c703c67c5",
+    "date": "2022-07-25T07:35:17-07:00",
+    "subject": "fix has_app_context and has_request_context",
+    "author": "David Lord"
+   },
+   {
+    "sha": "3ba37d2afe6511c3f3153248f7342174bea5b131",
+    "date": "2022-06-06T08:24:05-07:00",
+    "subject": "fix uninstalled package tests under tox",
+    "author": "David Lord"
+   },
+   {
+    "sha": "426a1e25b77e760b4f54bf94aee3e3617850569f",
+    "date": "2022-02-08T12:05:17-08:00",
+    "subject": "fix pytest 7 warnings",
+    "author": "David Lord"
+   },
+   {
+    "sha": "633449a36c959d25577799eb3da76005a803d5cd",
+    "date": "2021-11-19T23:09:38+03:00",
+    "subject": "fix error message",
+    "author": "Yourun-Proger"
+   },
+   {
+    "sha": "6a4bf9eec13e035cf10ecc16e462049b4c967e41",
+    "date": "2021-10-01T09:39:10-07:00",
+    "subject": "use exception chaining",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/test_views.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 15
+   },
+   {
+    "author": "David",
+    "commits": 1
+   },
+   {
+    "author": "Tony Huang",
+    "commits": 1
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "2 bug fixes touched these files recently: \u201cfix subdomain_matching=False behavior\u201d.",
+   "Among the most imported files in this repository: 15 files import it directly, 55 in total."
+  ]
+ },
+ "precedents": [],
+ "checks": {
+  "command": null,
+  "status": "skipped",
+  "output_tail": "",
+  "duration_s": 0.0,
+  "message": "Checks were not requested."
+ },
+ "model": {
+  "fast": "fake-model",
+  "strong": "fake-model",
+  "embed": "fake-model"
+ },
+ "model_error": null,
+ "truncated": false,
+ "timings_ms": {
+  "classify": 233,
+  "blast": 4,
+  "precedents": 0,
+  "checks": 0,
+  "total": 238
+ }
+}
