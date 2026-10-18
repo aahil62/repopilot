@@ -146,7 +146,10 @@ async def verified_edit(
     *,
     max_attempts: int = 3,
     ref: str = "HEAD",
+    context_paths: list[str] | None = None,
+    restrict_to_targets: bool = False,
 ) -> EditResult:
+    """`context_paths` are shown read-only; with `restrict_to_targets`, edits to other files are rejected."""
     store = MemoryStore.open(repo_id)
     retrieved: list[dict] = []
     if not target_paths:
@@ -166,7 +169,8 @@ async def verified_edit(
         {"role": "system", "content": SYSTEM},
         {
             "role": "user",
-            "content": f"{_context(repo_path, store, target_paths, style)}\n\nInstruction: {instruction}",
+            "content": f"{_context(repo_path, store, [*target_paths, *(context_paths or [])], style)}"
+            f"\n\nInstruction: {instruction}",
         },
     ]
     attempts: list[Attempt] = []
@@ -181,7 +185,13 @@ async def verified_edit(
             continue
         explanation = proposal.explanation
         with temp_worktree(repo_path, ref) as tree:
-            error = apply_edits(tree, proposal.edits)
+            outside = [
+                e.path for e in proposal.edits if e.path.strip().removeprefix("./") not in target_paths
+            ]
+            if restrict_to_targets and outside:
+                error = f"Only edit {', '.join(target_paths)}; you edited {', '.join(outside)}."
+            else:
+                error = apply_edits(tree, proposal.edits)
             diff = "" if error else _git_diff(tree)
             if error or not diff.strip():
                 error = error or "The edits did not change anything."
