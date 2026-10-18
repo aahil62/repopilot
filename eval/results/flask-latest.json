@@ -1,0 +1,779 @@
+{
+ "dataset": "flask",
+ "ref": "3.1.0",
+ "mode": "offline",
+ "generated_at": "2026-10-18T17:03:39+00:00",
+ "models": [],
+ "retrieval": {
+  "recall_at_5": {
+   "vector": 0.0,
+   "keyword": 0.88,
+   "hybrid": 0.88
+  },
+  "n": 25,
+  "questions": [
+   {
+    "q": "Where is the request context pushed onto the stack?",
+    "gold": [
+     "src/flask/ctx.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/testing.py",
+      "docs/api.rst",
+      "tests/test_testing.py",
+      "docs/reqcontext.rst",
+      "src/flask/ctx.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/testing.py",
+      "docs/api.rst",
+      "tests/test_testing.py",
+      "docs/reqcontext.rst",
+      "src/flask/ctx.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does Flask build a URL for an endpoint?",
+    "gold": [
+     "src/flask/helpers.py",
+     "src/flask/app.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_basic.py",
+      "src/flask/helpers.py",
+      "src/flask/sansio/app.py",
+      "src/flask/app.py",
+      "docs/quickstart.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_basic.py",
+      "src/flask/helpers.py",
+      "src/flask/sansio/app.py",
+      "src/flask/app.py",
+      "docs/quickstart.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are blueprints registered on the application?",
+    "gold": [
+     "src/flask/sansio/app.py",
+     "src/flask/sansio/blueprints.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/sansio/blueprints.py",
+      "docs/blueprints.rst",
+      "src/flask/sansio/app.py",
+      "src/flask/wrappers.py",
+      "docs/tutorial/views.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/sansio/blueprints.py",
+      "docs/blueprints.rst",
+      "src/flask/sansio/app.py",
+      "src/flask/wrappers.py",
+      "docs/tutorial/views.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How is a view function's return value turned into a response object?",
+    "gold": [
+     "src/flask/app.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/helpers.py",
+      "src/flask/ctx.py",
+      "src/flask/app.py",
+      "docs/quickstart.rst",
+      "docs/lifecycle.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/helpers.py",
+      "src/flask/ctx.py",
+      "src/flask/app.py",
+      "docs/quickstart.rst",
+      "docs/lifecycle.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is configuration loaded from an environment variable?",
+    "gold": [
+     "src/flask/config.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/config.py",
+      "docs/config.rst",
+      "src/flask/cli.py",
+      "src/flask/helpers.py",
+      "CHANGES.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/config.py",
+      "docs/config.rst",
+      "src/flask/cli.py",
+      "src/flask/helpers.py",
+      "CHANGES.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are session cookies signed?",
+    "gold": [
+     "src/flask/sessions.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/config.rst",
+      "src/flask/sessions.py",
+      "tests/test_testing.py",
+      "docs/web-security.rst",
+      "src/flask/testing.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/config.rst",
+      "src/flask/sessions.py",
+      "tests/test_testing.py",
+      "docs/web-security.rst",
+      "src/flask/testing.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are templates rendered with the current context?",
+    "gold": [
+     "src/flask/templating.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/signals.rst",
+      "docs/templating.rst",
+      "src/flask/templating.py",
+      "tests/test_signals.py",
+      "docs/api.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/signals.rst",
+      "docs/templating.rst",
+      "src/flask/templating.py",
+      "tests/test_signals.py",
+      "docs/api.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does jsonify serialize data?",
+    "gold": [
+     "src/flask/json/__init__.py",
+     "src/flask/json/provider.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/json/__init__.py",
+      "src/flask/json/provider.py",
+      "examples/javascript/js_example/templates/jquery.html",
+      "tests/test_json.py",
+      "tests/test_basic.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/json/__init__.py",
+      "src/flask/json/provider.py",
+      "examples/javascript/js_example/templates/jquery.html",
+      "tests/test_json.py",
+      "tests/test_basic.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where do flashed messages get stored and read back?",
+    "gold": [
+     "src/flask/helpers.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_basic.py",
+      "docs/patterns/flashing.rst",
+      "src/flask/helpers.py",
+      "src/flask/__init__.py",
+      "docs/tutorial/views.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_basic.py",
+      "docs/patterns/flashing.rst",
+      "src/flask/helpers.py",
+      "src/flask/__init__.py",
+      "docs/tutorial/views.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does the test client send requests to the app?",
+    "gold": [
+     "src/flask/testing.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/testing.rst",
+      "src/flask/helpers.py",
+      "docs/patterns/singlepageapplications.rst",
+      "tests/test_blueprints.py",
+      "CHANGES.rst"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "docs/testing.rst",
+      "src/flask/helpers.py",
+      "docs/patterns/singlepageapplications.rst",
+      "tests/test_blueprints.py",
+      "CHANGES.rst"
+     ],
+     "hit": false
+    }
+   },
+   {
+    "q": "Where is the WSGI entry point that handles each request?",
+    "gold": [
+     "src/flask/app.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/cli.rst",
+      "docs/reqcontext.rst",
+      "docs/lifecycle.rst",
+      "docs/quickstart.rst",
+      "src/flask/app.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/cli.rst",
+      "docs/reqcontext.rst",
+      "docs/lifecycle.rst",
+      "docs/quickstart.rst",
+      "src/flask/app.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are unhandled exceptions turned into 500 responses?",
+    "gold": [
+     "src/flask/app.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/errorhandling.rst",
+      "tests/test_appctx.py",
+      "docs/debugging.rst",
+      "docs/config.rst",
+      "src/flask/app.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/errorhandling.rst",
+      "tests/test_appctx.py",
+      "docs/debugging.rst",
+      "docs/config.rst",
+      "src/flask/app.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are teardown functions called after a request?",
+    "gold": [
+     "src/flask/app.py",
+     "src/flask/ctx.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/reqcontext.rst",
+      "src/flask/sansio/scaffold.py",
+      "src/flask/app.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/reqcontext.rst",
+      "src/flask/sansio/scaffold.py",
+      "src/flask/app.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How do class-based views dispatch to methods like get and post?",
+    "gold": [
+     "src/flask/views.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/views.rst",
+      "tests/test_views.py",
+      "src/flask/views.py",
+      "tests/test_async.py",
+      "docs/extensiondev.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/views.rst",
+      "tests/test_views.py",
+      "src/flask/views.py",
+      "tests/test_async.py",
+      "docs/extensiondev.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the `flask run` command implemented?",
+    "gold": [
+     "src/flask/cli.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_cli.py",
+      "docs/cli.rst",
+      "src/flask/cli.py",
+      "docs/tutorial/database.rst",
+      "docs/server.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_cli.py",
+      "docs/cli.rst",
+      "src/flask/cli.py",
+      "docs/tutorial/database.rst",
+      "docs/server.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are .env files loaded by the command line?",
+    "gold": [
+     "src/flask/cli.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/cli.rst",
+      "src/flask/cli.py",
+      "src/flask/config.py",
+      "docs/config.rst",
+      "docs/tutorial/database.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/cli.rst",
+      "src/flask/cli.py",
+      "src/flask/config.py",
+      "docs/config.rst",
+      "docs/tutorial/database.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where are before_request hooks registered?",
+    "gold": [
+     "src/flask/sansio/scaffold.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_signals.py",
+      "tests/test_basic.py",
+      "src/flask/app.py",
+      "src/flask/sansio/scaffold.py",
+      "tests/test_blueprints.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_signals.py",
+      "tests/test_basic.py",
+      "src/flask/app.py",
+      "src/flask/sansio/scaffold.py",
+      "tests/test_blueprints.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How do error handlers get registered for status codes?",
+    "gold": [
+     "src/flask/sansio/scaffold.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/sansio/scaffold.py",
+      "docs/errorhandling.rst",
+      "src/flask/app.py",
+      "CHANGES.rst",
+      "tests/test_user_error_handler.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/sansio/scaffold.py",
+      "docs/errorhandling.rst",
+      "src/flask/app.py",
+      "CHANGES.rst",
+      "tests/test_user_error_handler.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where does send_file stream a file to the client?",
+    "gold": [
+     "src/flask/helpers.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_helpers.py",
+      "src/flask/__init__.py",
+      "tests/test_blueprints.py",
+      "src/flask/helpers.py",
+      "src/flask/blueprints.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_helpers.py",
+      "src/flask/__init__.py",
+      "tests/test_blueprints.py",
+      "src/flask/helpers.py",
+      "src/flask/blueprints.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does the incoming request parse a JSON body?",
+    "gold": [
+     "src/flask/wrappers.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/json/tag.py",
+      "src/flask/cli.py",
+      "docs/patterns/javascript.rst",
+      "docs/api.rst",
+      "docs/patterns/requestchecksum.rst"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/json/tag.py",
+      "src/flask/cli.py",
+      "docs/patterns/javascript.rst",
+      "docs/api.rst",
+      "docs/patterns/requestchecksum.rst"
+     ],
+     "hit": false
+    }
+   },
+   {
+    "q": "Where is the application context created and pushed?",
+    "gold": [
+     "src/flask/ctx.py",
+     "src/flask/app.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/ctx.py",
+      "docs/reqcontext.rst",
+      "src/flask/app.py",
+      "docs/appcontext.rst",
+      "tests/test_testing.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/ctx.py",
+      "docs/reqcontext.rst",
+      "src/flask/app.py",
+      "docs/appcontext.rst",
+      "tests/test_testing.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How are URL rules added to the routing map?",
+    "gold": [
+     "src/flask/sansio/app.py",
+     "src/flask/sansio/scaffold.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/app.py",
+      "src/flask/cli.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py",
+      "docs/patterns/lazyloading.rst"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/app.py",
+      "src/flask/cli.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py",
+      "docs/patterns/lazyloading.rst"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the default JSON provider that handles dates and dataclasses?",
+    "gold": [
+     "src/flask/json/provider.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "src/flask/json/provider.py",
+      "docs/api.rst",
+      "src/flask/json/__init__.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "src/flask/json/provider.py",
+      "docs/api.rst",
+      "src/flask/json/__init__.py",
+      "tests/test_basic.py",
+      "src/flask/sansio/app.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "How does stream_with_context keep the request available while streaming?",
+    "gold": [
+     "src/flask/helpers.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "docs/patterns/streaming.rst",
+      "src/flask/templating.py",
+      "tests/test_helpers.py",
+      "docs/templating.rst",
+      "src/flask/helpers.py"
+     ],
+     "hit": true
+    },
+    "hybrid": {
+     "top": [
+      "docs/patterns/streaming.rst",
+      "src/flask/templating.py",
+      "tests/test_helpers.py",
+      "docs/templating.rst",
+      "src/flask/helpers.py"
+     ],
+     "hit": true
+    }
+   },
+   {
+    "q": "Where is the abort helper that raises HTTP errors?",
+    "gold": [
+     "src/flask/helpers.py"
+    ],
+    "vector": {
+     "top": [],
+     "hit": false
+    },
+    "keyword": {
+     "top": [
+      "tests/test_basic.py",
+      "tests/test_helpers.py",
+      "tests/test_blueprints.py",
+      "tests/test_user_error_handler.py",
+      "docs/errorhandling.rst"
+     ],
+     "hit": false
+    },
+    "hybrid": {
+     "top": [
+      "tests/test_basic.py",
+      "tests/test_helpers.py",
+      "tests/test_blueprints.py",
+      "tests/test_user_error_handler.py",
+      "docs/errorhandling.rst"
+     ],
+     "hit": false
+    }
+   }
+  ]
+ },
+ "mechanical": {
+  "commits": 40,
+  "hunks": 252,
+  "mechanical": 136,
+  "share": 0.54
+ }
+}

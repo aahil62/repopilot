@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / "backend"))
 from repopilot.engines.ask import ask_stream, calibrate_refusal  # noqa: E402
 from repopilot.engines.bench import run_bench  # noqa: E402
 from repopilot.engines.blast import blast_radius  # noqa: E402
-from repopilot.engines.diffparse import DiffSource, commit_diff, parse  # noqa: E402
+from repopilot.engines.diffparse import DiffSource, commit_diff  # noqa: E402
 from repopilot.engines.nightshift import run_nightshift  # noqa: E402
 from repopilot.engines.review import review  # noqa: E402
 from repopilot.memory import registry  # noqa: E402
