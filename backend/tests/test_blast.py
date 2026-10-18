@@ -80,3 +80,22 @@ def test_is_test_file_patterns():
         is_test_file("tests/test_app.py") and is_test_file("src/a.test.ts") and is_test_file("pkg/x_test.go")
     )
     assert not is_test_file("src/contest.py")
+
+
+async def test_owners_grouped_by_email(git_repo, git):
+    repo = git_repo([("init", {"a.py": "1\n"})], author="Dana Lee")
+    for i, name in enumerate(["Dana Lee", "Dana", "Dana Lee"]):
+        (repo / "a.py").write_text(f"{i + 2}\n")
+        git(
+            repo,
+            "-c",
+            f"user.name={name}",
+            "-c",
+            "user.email=dana@example.com",
+            "commit",
+            "-qam",
+            f"change {i}",
+        )
+    await _prepare(repo, "b6")
+    owners = blast_radius("b6", ["a.py"]).owners
+    assert [(o.author, o.commits) for o in owners] == [("Dana Lee", 4)]

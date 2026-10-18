@@ -1,7 +1,6 @@
 .page-intro { color: var(--muted); max-width: 70ch; margin-bottom: 22px; }
 .grid-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 .stack { display: grid; gap: 16px; }
-.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .section-title { font-size: var(--t-lg); margin-bottom: 10px; }
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: var(--t-sm); }
 .kv dt { color: var(--muted); }

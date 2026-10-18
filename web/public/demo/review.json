@@ -1,6 +1,6 @@
 {
  "review_id": "flask-demo",
- "created_at": "2026-10-18T16:51:30+00:00",
+ "created_at": "2026-10-18T17:06:38+00:00",
  "source": {
   "kind": "commit",
   "base": null,
@@ -646,18 +646,14 @@
   "duration_s": 0.0,
   "message": "Checks were not requested."
  },
- "model": {
-  "fast": "fake-model",
-  "strong": "fake-model",
-  "embed": "fake-model"
- },
- "model_error": null,
+ "model": {},
+ "model_error": "No local model runtime, so only deterministic checks ran (classification, blast radius, tests).",
  "truncated": false,
  "timings_ms": {
-  "classify": 233,
+  "classify": 219,
   "blast": 4,
   "precedents": 0,
   "checks": 0,
-  "total": 238
+  "total": 223
  }
 }

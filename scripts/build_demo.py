@@ -30,7 +30,7 @@ from repopilot.engines.review import review  # noqa: E402
 from repopilot.memory import registry  # noqa: E402
 from repopilot.memory.pipeline import index_repo, repo_summary  # noqa: E402
 from repopilot.memory.store import MemoryStore  # noqa: E402
-from repopilot.runtime import FakeRuntime, get_runtime, scan  # noqa: E402
+from repopilot.runtime import get_runtime, scan  # noqa: E402
 
 OUT = ROOT / "web" / "public" / "demo"
 REPO_URL = "https://github.com/pallets/flask"
@@ -87,11 +87,13 @@ async def main(offline: bool) -> None:
     repo = Path(record.path)
     git(repo, "fetch", "--tags", "--quiet")
     git(repo, "checkout", "--quiet", "--detach", TAG)
-    runtime = FakeRuntime() if offline else await get_runtime()
+    # Offline: no runtime at all, so nothing in the demo pretends a model ran.
+    runtime = None if offline else await get_runtime()
     print(f"Indexing {record.name} at {TAG} ({'offline' if offline else 'with ' + runtime.roles['strong'].id})")
     await index_repo(record, runtime)
     store = MemoryStore.open(record.repo_id)
-    await calibrate_refusal(store, runtime)
+    if runtime is not None:
+        await calibrate_refusal(store, runtime)
 
     summary = repo_summary(record)
     summary.update({"path": f"pallets/flask @ {TAG}", "name": "pallets/flask"})

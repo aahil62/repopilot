@@ -100,7 +100,7 @@ def import_history(store: MemoryStore, repo: Path, max_commits: int) -> int:
     if budget == 0:
         store.set_meta("history_truncated", "1")
         return 0
-    fmt = f"{RS}%H{US}%an{US}%ae{US}%aI{US}%s{US}%b{US}END{US}"
+    fmt = f"{RS}%H{US}%aN{US}%aE{US}%aI{US}%s{US}%b{US}END{US}"  # %aN/%aE honour .mailmap
     try:
         raw = _git(
             repo,

@@ -69,6 +69,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ---------- primitives ---------- */
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: var(--r-control);
   border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 600; font-size: var(--t-sm);

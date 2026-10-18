@@ -1,6 +1,6 @@
 .shell { min-height: 100vh; display: grid; grid-template-columns: var(--rail) 1fr; grid-template-rows: auto 1fr; }
 .demo-banner {
-  grid-column: 1 / -1; background: var(--mark); color: #17202b; font-size: var(--t-sm); padding: 7px 20px; text-align: center;
+  grid-column: 1 / -1; background: #ffe066; color: #17202b; font-size: var(--t-sm); padding: 7px 20px; text-align: center;
 }
 .rail {
   grid-row: 2; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 14px;

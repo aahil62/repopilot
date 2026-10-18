@@ -10,17 +10,19 @@
   "chunks": 972,
   "commits": 3718,
   "review_comments": 0,
-  "indexed_at": "2026-10-18T16:51:04+00:00",
+  "indexed_at": "2026-10-18T17:06:05+00:00",
   "history_truncated": false,
   "last_index": {
    "files_total": 224,
-   "files_changed": 0,
+   "files_changed": 224,
    "files_removed": 0,
    "chunks_total": 972,
    "chunks_embedded": 0,
-   "commits_imported": 0,
+   "commits_imported": 3718,
    "graph_edges": 181,
-   "notes": []
+   "notes": [
+    "No local model runtime: semantic search is off until one is available."
+   ]
   }
  }
 ]

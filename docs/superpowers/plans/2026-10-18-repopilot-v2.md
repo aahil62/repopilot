@@ -8,6 +8,13 @@
 
 **Tech Stack:** Python 3.12, FastAPI, Typer, Pydantic v2, SQLite, ChromaDB (telemetry off), GitPython/`git` CLI, httpx, pytest; Ollama / LM Studio / llama.cpp server (local only); Next.js 16, React 19, TypeScript, Tailwind CSS 4, Geist + Geist Mono, @phosphor-icons/react, shiki, vitest; VS Code extension (TypeScript, webpack).
 
+> **Implementation status (2026-10-18, Claude Code):** Tasks 0–11, 13–15, 17 and the repo side of 18–19 are implemented on branch `v2`.
+> Deviations, all documented in `docs/ARCHITECTURE.md`: vectors in SQLite + NumPy instead of ChromaDB; API under `/api`;
+> web routes under `/app/*`; verified edits use search/replace blocks instead of model-written diffs; blast-radius risk is a
+> repo-relative points score; indexing and review also work without a model runtime. Task 12 (evaluation) and Task 16
+> (demo data) are implemented but have only been run offline — they need a local model runtime for the full results.
+> See `docs/VERIFICATION.md`.
+
 **Spec:** Agreed in conversation on 2026-10-18 (summarised in "Design decisions"). Repository: https://github.com/aahil62/repopilot (current `main`).
 
 ---

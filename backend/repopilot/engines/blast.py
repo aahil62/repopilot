@@ -59,17 +59,27 @@ def _latest_commit_date(store: MemoryStore) -> datetime | None:
 
 
 def _owners(store: MemoryStore, paths: list[str], since: str | None) -> list[Owner]:
+    """Top authors of these files, grouped by email so one person with several git names counts once."""
     if not paths:
         return []
     marks = ",".join("?" * len(paths))
     clause = "AND c.date >= ?" if since else ""
     params = (*paths, since) if since else tuple(paths)
     rows = store.query(
-        f"SELECT c.author, count(DISTINCT c.sha) n FROM commits c JOIN commit_files f ON f.sha=c.sha "
-        f"WHERE f.path IN ({marks}) {clause} GROUP BY c.author ORDER BY n DESC, c.author LIMIT 3",
+        f"SELECT lower(c.email) email, c.author, count(DISTINCT c.sha) n FROM commits c JOIN commit_files f "
+        f"ON f.sha=c.sha WHERE f.path IN ({marks}) {clause} GROUP BY lower(c.email), c.author",
         params,
     )
-    return [Owner(author=r["author"], commits=r["n"]) for r in rows]
+    by_email: dict[str, dict] = {}
+    for r in rows:
+        entry = by_email.setdefault(r["email"], {"commits": 0, "names": {}})
+        entry["commits"] += r["n"]
+        entry["names"][r["author"]] = entry["names"].get(r["author"], 0) + r["n"]
+    owners = [
+        Owner(author=max(e["names"], key=lambda name: (e["names"][name], len(name))), commits=e["commits"])
+        for e in by_email.values()
+    ]
+    return sorted(owners, key=lambda o: (-o.commits, o.author))[:3]
 
 
 def _recent_fix_count(store: MemoryStore, paths: list[str], since: str | None) -> int:
