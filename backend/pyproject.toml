@@ -37,6 +37,7 @@ artifacts = ["repopilot/static/**"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning:fastapi.testclient", "ignore:Using `httpx` with `starlette.testclient`"]
 
 [tool.ruff]
 line-length = 110

@@ -16,6 +16,9 @@ def tmp_home(tmp_path_factory, monkeypatch) -> Path:
     reset_settings()
     yield home
     reset_settings()
+    from repopilot.runtime import set_runtime
+
+    set_runtime(None)
 
 
 def _git(cwd: Path, *args: str) -> str:
