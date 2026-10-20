@@ -1,0 +1,44 @@
+name: RepoPilot review
+description: History-aware review of a pull request on models that run inside the CI runner. No code leaves the runner.
+branding: { icon: eye, color: yellow }
+inputs:
+  base:
+    description: Ref to compare against (default the pull request's base branch).
+    default: ${{ github.event.pull_request.base.ref }}
+  fail-on:
+    description: Fail the job on findings at this severity or above, or on failing tests (never, medium, high).
+    default: never
+  model:
+    description: >-
+      Ollama model for written findings, e.g. qwen2.5-coder:1.5b. Leave empty for the deterministic review
+      (mechanical vs behavior hunks, blast radius, tests), which needs no model and runs in seconds.
+    default: ""
+  run-checks:
+    description: Run the project's tests in a temporary worktree.
+    default: "false"
+  version:
+    description: RepoPilot git ref to install.
+    default: v2
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with: { python-version: "3.12" }
+    - shell: bash
+      run: python -m pip install --quiet "git+https://github.com/aahil62/repopilot@${{ inputs.version }}#subdirectory=backend"
+    - if: inputs.model != ''
+      shell: bash
+      run: |
+        curl -fsSL https://ollama.com/install.sh | sh
+        (ollama serve >/tmp/ollama.log 2>&1 &) && sleep 3
+        ollama pull "${{ inputs.model }}" && ollama pull nomic-embed-text
+    - shell: bash
+      run: |
+        git fetch --quiet origin "${{ inputs.base }}"
+        checks=$([ "${{ inputs.run-checks }}" = "true" ] || echo "--no-checks")
+        set +e
+        repopilot review --base "origin/${{ inputs.base }}" --head HEAD $checks \
+          --markdown --fail-on "${{ inputs.fail-on }}" > repopilot-review.md
+        code=$?
+        cat repopilot-review.md >> "$GITHUB_STEP_SUMMARY"
+        exit $code

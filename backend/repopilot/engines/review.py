@@ -314,3 +314,63 @@ def list_reviews(repo_id: str, limit: int = 20) -> list[dict]:
         (limit,),
     )
     return [{**dict(r), "source": json.loads(r["source"])} for r in rows]
+
+
+SEVERITY_RANK = {"low": 1, "medium": 2, "high": 3}
+
+
+def should_fail(report: ReviewReport, fail_on: str) -> bool:
+    """CI gate: fail on findings at or above `fail_on` ("high" or "medium"), or on failing checks."""
+    if fail_on == "never":
+        return False
+    threshold = SEVERITY_RANK[fail_on]
+    return report.checks.status == "failed" or any(
+        SEVERITY_RANK[f.severity] >= threshold for f in report.findings
+    )
+
+
+def report_markdown(report: ReviewReport) -> str:
+    """A compact Markdown report for pull-request summaries ($GITHUB_STEP_SUMMARY) and comments."""
+    total = report.mechanical_count + report.behavior_count
+    lines = [
+        "## RepoPilot review",
+        "",
+        f"**{report.behavior_count} of {total} hunks change behavior.** "
+        f"{report.mechanical_count} mechanical hunks (formatting, comments, docs, imports, renames) were set aside.",
+    ]
+    summary = report.summary.split(" Behavior changes to read:")[0].strip()
+    if summary and not summary.startswith("Behavior changes to read"):
+        lines += ["", summary]
+    if report.findings:
+        lines += ["", "### Findings", ""]
+        for f in report.findings:
+            lines.append(f"- **{f.severity}** `{f.path}:{f.line}` {f.title}. {f.explanation}")
+            lines += [f"  - {e.ref}: {e.excerpt[:140]}" for e in f.evidence_detail]
+    behavior_files = [f for f in report.files if f.behavior_hunks]
+    if behavior_files:
+        lines += ["", "### Read these", ""]
+        lines += [
+            f"- `{f.path}`: {f.behavior_hunks} behavior hunk{'s' if f.behavior_hunks > 1 else ''}"
+            for f in behavior_files
+        ]
+    if report.blast:
+        lines += ["", f"### Blast radius: {report.blast.risk}", ""]
+        lines += [f"- {r}" for r in report.blast.risk_reasons]
+        if report.blast.owners:
+            lines.append("- Who knows this code: " + ", ".join(o.author for o in report.blast.owners))
+    c = report.checks
+    lines += ["", f"### Checks: {c.status.replace('_', ' ')}"]
+    if c.command:
+        lines.append(f"`{c.command}`")
+    if c.message:
+        lines.append(c.message)
+    if c.status == "failed":
+        lines += ["", "```", c.output_tail[-2000:], "```"]
+    if report.model_error:
+        lines += ["", f"_{report.model_error}_"]
+    model = report.model.get("strong")
+    lines += [
+        "",
+        f"<sub>Generated locally by RepoPilot{f' with {model}' if model else ''}. No code left the runner.</sub>",
+    ]
+    return "\n".join(lines) + "\n"

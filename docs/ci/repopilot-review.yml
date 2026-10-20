@@ -1,0 +1,14 @@
+# Copy to .github/workflows/repopilot-review.yml in your repository.
+name: RepoPilot review
+on: pull_request
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }   # RepoPilot reads history
+      - uses: aahil62/repopilot@v2
+        with:
+          fail-on: high
+          # model: qwen2.5-coder:1.5b   # optional written findings, model runs on the runner

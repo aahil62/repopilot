@@ -214,3 +214,50 @@ def test_worktree_removed_after_exception(git_repo):
 def test_run_checks_passes_on_clean_head(git_repo):
     repo = _repo_with_tests(git_repo)
     assert run_checks(repo).status == "passed"
+
+
+async def test_markdown_report_and_fail_gate(git_repo):
+    from repopilot.engines.review import report_markdown, should_fail
+
+    repo = _repo_with_tests(git_repo)
+    await _prepare(repo, "r5")
+    (repo / "shop.py").write_text(SRC.replace("1 - rate", "1 + rate"))
+    diff, source = diff_for(repo)
+    finding = json.dumps(
+        {
+            "summary": "Discount raises prices.",
+            "findings": [
+                {
+                    "severity": "medium",
+                    "path": "shop.py",
+                    "line": 4,
+                    "title": "Sign flipped",
+                    "explanation": "Adds the rate.",
+                }
+            ],
+        }
+    )
+    report = await review("r5", repo, diff, FakeRuntime({"strong": [finding]}), source=source)
+    md = report_markdown(report)
+    assert md.startswith("## RepoPilot review") and "**1 of 1 hunks change behavior.**" in md
+    assert "`shop.py:4` Sign flipped" in md and "### Checks: failed" in md
+    assert should_fail(report, "high")  # failing tests fail any gate
+    assert not should_fail(report, "never")
+
+
+def test_hook_install_and_uninstall(git_repo):
+    from typer.testing import CliRunner
+
+    from repopilot.cli import app
+
+    repo = git_repo([("init", {"a.py": "x = 1\n"})])
+    runner = CliRunner()
+    assert runner.invoke(app, ["hook", "install", "--repo", str(repo)]).exit_code == 0
+    hook = repo / ".git" / "hooks" / "pre-push"
+    assert "repopilot review --base" in hook.read_text() and hook.stat().st_mode & 0o100
+    assert runner.invoke(app, ["hook", "uninstall", "--repo", str(repo)]).exit_code == 0
+    assert not hook.exists()
+    hook.write_text("#!/bin/sh\necho mine\n")
+    assert (
+        runner.invoke(app, ["hook", "install", "--repo", str(repo)]).exit_code == 2
+    )  # never overwrite a user's hook

@@ -127,9 +127,19 @@ def review(
     staged: bool = typer.Option(False, help="Review staged changes."),
     no_checks: bool = typer.Option(False, help="Skip running the project's tests."),
     as_json: bool = typer.Option(False, "--json", help="Print the full report as JSON."),
+    markdown: bool = typer.Option(
+        False, "--markdown", help="Print a Markdown report (for pull-request summaries)."
+    ),
+    fail_on: str = typer.Option(
+        "never",
+        help="Exit with code 1 on findings at this severity or above, or failing checks: never, medium, high.",
+    ),
 ) -> None:
     """Review changes with history-aware checks."""
+    if fail_on not in ("never", "medium", "high"):
+        raise typer.BadParameter("--fail-on must be never, medium or high")
     from repopilot.engines.diffparse import diff_for
+    from repopilot.engines.review import report_markdown, should_fail
     from repopilot.engines.review import review as run_review
     from repopilot.runtime import get_runtime_optional
 
@@ -153,9 +163,13 @@ def review(
             )
 
     report = _run(go())
+    failed = should_fail(report, fail_on)
     if as_json:
         console.print_json(report.model_dump_json())
-        return
+        raise typer.Exit(1 if failed else 0)
+    if markdown:
+        print(report_markdown(report), end="")
+        raise typer.Exit(1 if failed else 0)
     console.print(f"\n[bold]{report.summary}[/]")
     console.print(
         f"[dim]{report.mechanical_count} mechanical hunks collapsed · {report.behavior_count} behavior hunks[/]"
@@ -185,6 +199,57 @@ def review(
         console.print(f"[dim]{c.output_tail[-1200:]}[/]")
     if report.model_error:
         console.print(f"[yellow]{report.model_error}[/]")
+    if failed:
+        console.print(f"[bold red]Failing: findings at or above '{fail_on}', or failing checks.[/]")
+        raise typer.Exit(1)
+
+
+hook_app = typer.Typer(help="Git hooks that run RepoPilot automatically.", no_args_is_help=True)
+app.add_typer(hook_app, name="hook")
+HOOK_MARKER = "# installed by repopilot"
+
+
+@hook_app.command("install")
+def hook_install(
+    repo: Path = typer.Option(Path("."), help="Repository path."),
+    fail_on: str = typer.Option(
+        "high", help="Block the push on findings at this severity or above: medium, high."
+    ),
+) -> None:
+    """Install a pre-push hook that reviews what you are about to push."""
+    import stat
+
+    git_dir = Path(repo).resolve() / ".git"
+    if not git_dir.is_dir():
+        console.print("[red]Not a git repository.[/]")
+        raise typer.Exit(2)
+    hook = git_dir / "hooks" / "pre-push"
+    if hook.exists() and HOOK_MARKER not in hook.read_text():
+        console.print(f"[red]{hook} already exists and was not installed by RepoPilot; leaving it alone.[/]")
+        raise typer.Exit(2)
+    hook.parent.mkdir(parents=True, exist_ok=True)
+    hook.write_text(
+        "#!/bin/sh\n"
+        f"{HOOK_MARKER}\n"
+        "# Reviews the commits being pushed. Skip once with: git push --no-verify\n"
+        "upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null) || exit 0\n"
+        f'exec repopilot review --base "$upstream" --head HEAD --fail-on {fail_on}\n'
+    )
+    hook.chmod(hook.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+    console.print(
+        f"Installed {hook.relative_to(Path(repo).resolve())}. It blocks pushes on '{fail_on}' findings or failing tests."
+    )
+
+
+@hook_app.command("uninstall")
+def hook_uninstall(repo: Path = typer.Option(Path("."), help="Repository path.")) -> None:
+    """Remove the RepoPilot pre-push hook."""
+    hook = Path(repo).resolve() / ".git" / "hooks" / "pre-push"
+    if hook.exists() and HOOK_MARKER in hook.read_text():
+        hook.unlink()
+        console.print("Removed the RepoPilot pre-push hook.")
+    else:
+        console.print("No RepoPilot pre-push hook found.")
 
 
 @app.command()
