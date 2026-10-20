@@ -67,6 +67,8 @@ def _sha(path: Path) -> str | None:
 
 def apply_edits(root: Path, edits: list[EditBlock]) -> str | None:
     """Apply search/replace blocks under `root`. Returns an error message, or None on success."""
+    if all(e.search == e.replace for e in edits):
+        return "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
     for edit in edits:
         rel = edit.path.strip().removeprefix("./")
         target = (root / rel).resolve()

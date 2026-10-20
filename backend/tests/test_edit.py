@@ -88,3 +88,9 @@ def _block(path, search, replace):
     from repopilot.engines.edit import EditBlock
 
     return EditBlock(path=path, search=search, replace=replace)
+
+
+def test_no_op_edits_are_rejected_with_feedback(tmp_path):
+    (tmp_path / "a.py").write_text("x = 1\n")
+    error = apply_edits(tmp_path, [_block("a.py", "x = 1", "x = 1")])
+    assert error and "identical code" in error
