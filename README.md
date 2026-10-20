@@ -5,6 +5,8 @@
 <p align="center"><strong>Private, history-aware code review on open models you run yourself.</strong><br>
 Sets aside mechanical edits, points you at the lines that change behavior, and explains why they matter using your repository's own history.</p>
 
+<p align="center"><a href="https://repopilot-dev.vercel.app"><strong>Live demo</strong></a> (real results on Flask) · <a href="https://github.com/aahil62/repopilot/releases/tag/v2.0.0">Download v2.0.0</a> · <a href="docs/VERIFICATION.md">How it was tested</a></p>
+
 ![RepoPilot reviewing a Flask commit: 13 formatting hunks set aside, one behavior change highlighted](docs/screenshots/landing.png)
 
 ## The problem
