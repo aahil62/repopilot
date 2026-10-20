@@ -1,0 +1,647 @@
+{
+ "repo": "pallets/flask",
+ "ref": "3.1.0",
+ "seed": 7,
+ "generated_at": "2026-10-20T08:37:18+00:00",
+ "models": [
+  "nomic-embed-text:latest",
+  "qwen2.5-coder:1.5b",
+  "qwen2.5-coder:7b"
+ ],
+ "caught_rate": 0.7,
+ "false_alarm_rate": 0.3,
+ "high_false_alarm_rate": 0.0,
+ "median_seconds": 28.7,
+ "seeded": [
+  {
+   "path": "src/flask/cli.py",
+   "line": 501,
+   "mutation": "invert is not None",
+   "before": "if value is not None:",
+   "after": "if value is None:",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 25.7
+  },
+  {
+   "path": "src/flask/sansio/app.py",
+   "line": 956,
+   "mutation": "invert is not None",
+   "before": "if rv is not None:",
+   "after": "if rv is None:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/sansio/app.py",
+     "line": 956,
+     "title": "Contradiction with past fix",
+     "failing_input": "Any input that results in a non-None return value `rv` will now be incorrectly handled.",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 22.6
+  },
+  {
+   "path": "src/flask/sansio/blueprints.py",
+   "line": 104,
+   "mutation": "invert is None",
+   "before": "if endpoint is None:",
+   "after": "if endpoint is not None:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/sansio/blueprints.py",
+     "line": 104,
+     "title": "Contradicts past fix",
+     "failing_input": "endpoint=None, view_func=None",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 22.2
+  },
+  {
+   "path": "src/flask/helpers.py",
+   "line": 32,
+   "mutation": "and to or",
+   "before": "return bool(val and val.lower() not in {\"0\", \"false\", \"no\"})",
+   "after": "return bool(val or val.lower() not in {\"0\", \"false\", \"no\"})",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 9.7
+  },
+  {
+   "path": "src/flask/app.py",
+   "line": 445,
+   "mutation": "invert is not None",
+   "before": "if request is not None:",
+   "after": "if request is None:",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 29.0
+  },
+  {
+   "path": "src/flask/sansio/blueprints.py",
+   "line": 389,
+   "mutation": "invert is None",
+   "before": "key = name if key is None else f\"{name}.{key}\"",
+   "after": "key = name if key is not None else f\"{name}.{key}\"",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 7.3
+  },
+  {
+   "path": "src/flask/blueprints.py",
+   "line": 74,
+   "mutation": "invert is None",
+   "before": "if value is None:",
+   "after": "if value is not None:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/blueprints.py",
+     "line": 74,
+     "title": "Contradiction with past fix",
+     "failing_input": "None",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 28.0
+  },
+  {
+   "path": "src/flask/testing.py",
+   "line": 65,
+   "mutation": "or to and",
+   "before": "http_host = app.config.get(\"SERVER_NAME\") or \"localhost\"",
+   "after": "http_host = app.config.get(\"SERVER_NAME\") and \"localhost\"",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/testing.py",
+     "line": 65,
+     "title": "Incorrect logical operator",
+     "failing_input": "app.config['SERVER_NAME'] = 'example.com'",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 39.2
+  },
+  {
+   "path": "src/flask/config.py",
+   "line": 117,
+   "mutation": "flip return False",
+   "before": "return False",
+   "after": "return True",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/config.py",
+     "line": 117,
+     "title": "Incorrect return value when environment variable is not set",
+     "failing_input": "variable_name = 'NON_EXISTENT_VAR'; silent = True",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 32.8
+  },
+  {
+   "path": "src/flask/cli.py",
+   "line": 1087,
+   "mutation": "or to and",
+   "before": "row.append((rule.host if host_matching else rule.subdomain) or \"\")",
+   "after": "row.append((rule.host if host_matching else rule.subdomain) and \"\")",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/cli.py",
+     "line": 1087,
+     "title": "Logical Error in Condition",
+     "failing_input": "rule.host = None, rule.subdomain = None",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 29.8
+  },
+  {
+   "path": "src/flask/config.py",
+   "line": 355,
+   "mutation": "drop not",
+   "before": "if not k.startswith(namespace):",
+   "after": "if k.startswith(namespace):",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/config.py",
+     "line": 355,
+     "title": "Reversed logic for filtering configuration keys",
+     "failing_input": "Any configuration key that starts with the specified namespace will now be included instead of excluded.",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 26.9
+  },
+  {
+   "path": "src/flask/sansio/blueprints.py",
+   "line": 308,
+   "mutation": "flip !=",
+   "before": "existing_at = f\" '{name}'\" if self_name != name else \"\"",
+   "after": "existing_at = f\" '{name}'\" if self_name == name else \"\"",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/sansio/blueprints.py",
+     "line": 308,
+     "title": "Contradiction with past fix",
+     "failing_input": "app.register_blueprint(bp, name='existing_name')",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 30.5
+  },
+  {
+   "path": "src/flask/cli.py",
+   "line": 1071,
+   "mutation": "drop not",
+   "before": "if not rules:",
+   "after": "if rules:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/cli.py",
+     "line": 1071,
+     "title": "Reversed logic for checking registered routes",
+     "failing_input": "Any input that should show registered routes but instead shows 'No routes were registered.'",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 27.4
+  },
+  {
+   "path": "src/flask/json/provider.py",
+   "line": 81,
+   "mutation": "drop not",
+   "before": "if not args and not kwargs:",
+   "after": "if args and not kwargs:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/json/provider.py",
+     "line": 81,
+     "title": "Contradicts past fix",
+     "failing_input": "app.json.response(args=[1], kwargs={})",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 30.0
+  },
+  {
+   "path": "src/flask/json/provider.py",
+   "line": 87,
+   "mutation": "or to and",
+   "before": "return args or kwargs",
+   "after": "return args and kwargs",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 11.8
+  },
+  {
+   "path": "src/flask/app.py",
+   "line": 1194,
+   "mutation": "flip ==",
+   "before": "if len_rv == 3:",
+   "after": "if len_rv != 3:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/app.py",
+     "line": 1194,
+     "title": "Contradiction with past fix",
+     "failing_input": "A 3-tuple response from a view function.",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 26.9
+  },
+  {
+   "path": "src/flask/config.py",
+   "line": 297,
+   "mutation": "flip return False",
+   "before": "return False",
+   "after": "return True",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/config.py",
+     "line": 297,
+     "title": "Contradicts past fix",
+     "failing_input": "A non-existent configuration file or a directory as a configuration file",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 28.7
+  },
+  {
+   "path": "src/flask/sansio/app.py",
+   "line": 641,
+   "mutation": "and to or",
+   "before": "if \"OPTIONS\" not in methods and self.config[\"PROVIDE_AUTOMATIC_OPTIONS\"]:",
+   "after": "if \"OPTIONS\" not in methods or self.config[\"PROVIDE_AUTOMATIC_OPTIONS\"]:",
+   "caught": false,
+   "findings": [],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 32.2
+  },
+  {
+   "path": "src/flask/logging.py",
+   "line": 73,
+   "mutation": "and to or",
+   "before": "if app.debug and not logger.level:",
+   "after": "if app.debug or not logger.level:",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/logging.py",
+     "line": 73,
+     "title": "Potential unintended behavior",
+     "failing_input": "app.debug = True; logger.setLevel(logging.INFO)",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 32.4
+  },
+  {
+   "path": "src/flask/app.py",
+   "line": 358,
+   "mutation": "flip ==",
+   "before": "if mode == \"rb\":",
+   "after": "if mode != \"rb\":",
+   "caught": true,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/app.py",
+     "line": 358,
+     "title": "Contradiction with past fix",
+     "failing_input": "mode = 'rb'",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 27.7
+  }
+ ],
+ "clean": [
+  {
+   "sha": "4995a775df",
+   "subject": "fix subdomain_matching=False behavior",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 43.8
+  },
+  {
+   "sha": "df201ed152",
+   "subject": "fix js example test",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 6.8
+  },
+  {
+   "sha": "40b78fa2ea",
+   "subject": "fix min python for pip-compile",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 7.6
+  },
+  {
+   "sha": "1af8f95785",
+   "subject": "fix super call in list comprehension",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 11.4
+  },
+  {
+   "sha": "5fcc999b7d",
+   "subject": "fix create release action",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": ".github/workflows/publish.yaml",
+     "line": 51,
+     "title": "Incorrect file pattern in release creation command",
+     "failing_input": "The change introduces a new file pattern that may include unintended files.",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 27.7
+  },
+  {
+   "sha": "da3a0ddfe2",
+   "subject": "fix slsa generator version",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 8.6
+  },
+  {
+   "sha": "bda295d37f",
+   "subject": "fix use of importlib.util.find_spec",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/scaffold.py",
+     "line": 801,
+     "title": "Unnecessary ValueError",
+     "failing_input": "root_mod_name = 'nonexistent_module'",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 101.5
+  },
+  {
+   "sha": "0ec9192cf2",
+   "subject": "fix importing Markup from flask",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 7.4
+  },
+  {
+   "sha": "d7b6c1f670",
+   "subject": "Fix subdomain inheritance for nested blueprints.",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 22.9
+  },
+  {
+   "sha": "a6a7a57380",
+   "subject": "fix default value of app.env",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 39.0
+  },
+  {
+   "sha": "095651be9e",
+   "subject": "fix has_app_context and has_request_context",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/ctx.py",
+     "line": 216,
+     "title": "Incorrect context check in `has_app_context`",
+     "failing_input": "None",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 56.9
+  },
+  {
+   "sha": "3ba37d2afe",
+   "subject": "fix uninstalled package tests under tox",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 29.5
+  },
+  {
+   "sha": "b707bf443a",
+   "subject": "Preserve HttpOnly flag when deleting session cookie",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 14.7
+  },
+  {
+   "sha": "426a1e25b7",
+   "subject": "fix pytest 7 warnings",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "tests/test_basic.py",
+     "line": 1531,
+     "title": "Incorrect Werkzeug version specified in warning filter",
+     "failing_input": "Any input that triggers the Werkzeug warning about name mismatch",
+     "corroborated": false
+    },
+    {
+     "severity": "medium",
+     "path": "tests/test_basic.py",
+     "line": 1902,
+     "title": "Incorrect Werkzeug version specified in warning filter",
+     "failing_input": "Any input that triggers the Werkzeug warning about name mismatch",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 107.3
+  },
+  {
+   "sha": "633449a36c",
+   "subject": "fix error message",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 13.8
+  },
+  {
+   "sha": "46b39e2698",
+   "subject": "fix errorhandler type check",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/typing.py",
+     "line": 49,
+     "title": "Missing type check for error handler",
+     "failing_input": "An error handler function that does not return a `ResponseReturnValue` or does not accept a `GenericException` as its argument.",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 39.5
+  },
+  {
+   "sha": "6a4bf9eec1",
+   "subject": "use exception chaining",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 44.2
+  },
+  {
+   "sha": "166a2a6207",
+   "subject": "Fix callback order for nested blueprints",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 47.0
+  },
+  {
+   "sha": "a44c722860",
+   "subject": "Fix registering a blueprint twice with differing names",
+   "false_alarm": false,
+   "high": false,
+   "findings": [],
+   "dropped_unconfirmed": 1,
+   "model_error": null,
+   "seconds": 67.4
+  },
+  {
+   "sha": "a960236117",
+   "subject": "Fix type annotation for `before_request` and `before_app_request` decorators",
+   "false_alarm": true,
+   "high": false,
+   "findings": [
+    {
+     "severity": "medium",
+     "path": "src/flask/typing.py",
+     "line": 38,
+     "title": "Incorrect type annotation for `BeforeRequestCallable`",
+     "failing_input": "None",
+     "corroborated": false
+    }
+   ],
+   "dropped_unconfirmed": 0,
+   "model_error": null,
+   "seconds": 45.2
+  }
+ ]
+}

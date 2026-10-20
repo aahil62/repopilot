@@ -10,7 +10,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from repopilot.engines.blast import BlastReport, blast_radius
 from repopilot.engines.checks import ChecksResult, run_checks
@@ -36,11 +36,19 @@ Every finding must name the file path exactly as shown and a line number from th
 `evidence` may only contain refs that appear under HISTORY (for example "PR #412" or a commit sha)."""
 
 CRITIC_PROMPT = """You are checking another reviewer's claim about a code change. Be skeptical.
-Answer confirmed=true only if the failing input really misbehaves given the code shown and the stated
-intent of the change. If the change does what its intent says, or you are unsure, answer false."""
+Lines starting with - were removed and lines with + were added. Trace the failing input through the
+new code step by step in `reason`, then decide. Judge only behavior: ignore whether the claim's title
+or history reference is accurate. confirmed=true if the new code really misbehaves for that input.
+confirmed=false if it behaves correctly, or if the change does exactly what its INTENT says."""
 
 
 class ModelFinding(BaseModel):
+    # `failing_input` is required in the schema sent to the runtime, so constrained decoding always fills it,
+    # but optional when validating, so one vague finding is dropped instead of failing the whole review.
+    model_config = ConfigDict(
+        json_schema_extra=lambda s: s.setdefault("required", []).append("failing_input")
+    )
+
     severity: Literal["high", "medium", "low"]
     path: str = Field(max_length=300)
     line: int
@@ -80,8 +88,9 @@ class Finding(ModelFinding):
 
 
 class CriticVerdict(BaseModel):
+    # `reason` first: models generate fields in schema order, so this makes it reason before deciding.
+    reason: str = Field(max_length=600)
     confirmed: bool
-    reason: str = Field(max_length=300)
 
 
 class ReviewReport(BaseModel):
@@ -224,7 +233,7 @@ async def _criticise(
                 "strong",
                 CriticVerdict,
                 [{"role": "system", "content": CRITIC_PROMPT}, {"role": "user", "content": claim}],
-                max_tokens=300,
+                max_tokens=400,
             )
         except ModelOutputError:
             dropped += 1
