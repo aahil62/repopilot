@@ -85,7 +85,7 @@ def test_apply_edits_tolerates_indentation_drift_and_creates_files(tmp_path):
     # an empty `search` rewrites a short existing file whole, but never one longer than the model saw
     assert apply_edits(tmp_path, [_block("a.py", "", "def f():\n    return 3")]) is None
     assert (tmp_path / "a.py").read_text() == "def f():\n    return 3\n"
-    (tmp_path / "long.py").write_text("x = 1\n" * 200)
+    (tmp_path / "long.py").write_text("x = 1\n" * 300)
     assert "too long" in apply_edits(tmp_path, [_block("long.py", "", "x = 2")])
 
 
