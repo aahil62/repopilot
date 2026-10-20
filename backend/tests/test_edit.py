@@ -82,6 +82,11 @@ def test_apply_edits_tolerates_indentation_drift_and_creates_files(tmp_path):
     assert apply_edits(tmp_path, [_block("new/b.py", "", "x = 1")]) is None
     assert (tmp_path / "new" / "b.py").read_text() == "x = 1\n"
     assert "outside" in apply_edits(tmp_path, [_block("../evil.py", "", "x")])
+    # an empty `search` rewrites a short existing file whole, but never one longer than the model saw
+    assert apply_edits(tmp_path, [_block("a.py", "", "def f():\n    return 3")]) is None
+    assert (tmp_path / "a.py").read_text() == "def f():\n    return 3\n"
+    (tmp_path / "long.py").write_text("x = 1\n" * 700)
+    assert "too long" in apply_edits(tmp_path, [_block("long.py", "", "x = 2")])
 
 
 def _block(path, search, replace):

@@ -95,3 +95,22 @@ def test_schedule_macos_plist(tmp_path):
     assert "<key>Hour</key><integer>2</integer><key>Minute</key><integer>0</integer>" in info["content"]
     assert info["activate"].startswith("launchctl load")
     assert schedule(tmp_path, "03:30", system="Linux")["content"].startswith("30 3 * * *")
+
+
+async def test_skips_test_writing_when_the_suite_already_fails(git_repo):
+    repo = git_repo(
+        [
+            (
+                "init",
+                {"tests/test_other.py": "def test_broken():\n    assert False\n", "repopilot.toml": TOML},
+            ),
+            ("add slugify", {"text_utils.py": "def slugify(text):\n    return text.lower()\n"}),
+        ]
+    )
+    fake = _runtime(
+        json.dumps({"explanation": "x", "edits": [{"path": "t.py", "search": "", "replace": "x"}]})
+    )
+    report = await run_nightshift(add_local(repo), fake, today="2026-02-04")
+    assert report.tests_written == []
+    assert any("already fail" in n for n in report.notes)
+    assert not any("Write focused unit tests" in c["messages"][-1]["content"] for c in fake.calls)

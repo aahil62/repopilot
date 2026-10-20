@@ -3,6 +3,7 @@ and list documentation that mentions code that no longer exists. Free to run bec
 
 from __future__ import annotations
 
+import asyncio
 import json
 import platform
 import re
@@ -17,6 +18,7 @@ from pydantic import BaseModel, Field
 from repopilot import __version__
 from repopilot.config import get_settings
 from repopilot.engines.blast import is_test_file
+from repopilot.engines.checks import run_checks
 from repopilot.engines.diffparse import DiffSource, commit_diff, parse
 from repopilot.engines.edit import verified_edit
 from repopilot.engines.review import Finding, review
@@ -264,6 +266,16 @@ async def run_nightshift(
             )
         )
 
+    if write_tests and commits:
+        # New tests are judged by the whole suite passing, so a suite that is already red would
+        # reject correct tests. Say so instead of spending model attempts.
+        baseline = await asyncio.to_thread(run_checks, repo, None, ref="HEAD")
+        if baseline.status == "failed":
+            write_tests = False
+            report.notes.append(
+                f"Tests already fail on HEAD (`{baseline.command}`), so no tests were written. "
+                "Fix the failing tests and the next run will write tests for new code."
+            )
     if write_tests and commits:
         branch = f"repopilot/nightshift-{report.date}"
         for symbol, source_path in _changed_symbols(store, repo, [c["sha"] for c in commits])[

@@ -29,7 +29,8 @@ SYSTEM = """You are editing a code repository. Make the smallest change that ful
 follows the existing style of the files shown. Return JSON with `explanation` and `edits`.
 Each edit has `path` (relative to the repository root), `search` (an exact, contiguous excerpt of the
 current file, long enough to be unique) and `replace` (the new text for that excerpt). To create a
-new file, use an empty `search` and put the whole file in `replace`. Never invent file contents you
+new file, or to rewrite a short file you were shown in full, use an empty `search` and put the whole
+file in `replace`. Never invent file contents you
 were not shown; never edit files that are not needed."""
 
 
@@ -75,8 +76,10 @@ def apply_edits(root: Path, edits: list[EditBlock]) -> str | None:
         if root.resolve() not in target.parents:
             return f"{edit.path}: path is outside the repository."
         if not edit.search:
-            if target.exists():
-                return f"{rel}: file already exists; quote the code to change in `search`."
+            # An empty `search` on an existing file is a whole-file rewrite (small models often answer
+            # that way). Allowed only when the model was shown the whole file; tests still have to pass.
+            if target.exists() and len(target.read_text(errors="replace").splitlines()) > MAX_FILE_LINES:
+                return f"{rel}: file is too long to rewrite whole; quote the code to change in `search`."
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(edit.replace if edit.replace.endswith("\n") else edit.replace + "\n")
             continue

@@ -61,6 +61,14 @@ If the context does not contain the answer, reply exactly: "I couldn't find this
 Be concise and specific; mention function and file names."""
 
 
+# Repeated at the end of the user message: small models follow the last instruction they read.
+CITE_REMINDER = (
+    "Answer using only the blocks above. End every sentence with the number of the block that "
+    "supports it, for example: `full_dispatch_request` calls the view [3]."
+)
+UNCITED = "\n\n_No citations: this answer is not grounded in the code shown; treat it as unverified._"
+
+
 class Citation(BaseModel):
     n: int
     path: str
@@ -224,13 +232,19 @@ async def ask_stream(store: MemoryStore, runtime: Runtime, question: str) -> Asy
         return
     messages = [
         {"role": "system", "content": SYSTEM},
-        {"role": "user", "content": f"{_context(chunks, commits)}\n\nQuestion: {question}"},
+        {
+            "role": "user",
+            "content": f"{_context(chunks, commits)}\n\nQuestion: {question}\n\n{CITE_REMINDER}",
+        },
     ]
     answer = ""
     async for piece in runtime.stream_chat("strong", messages, max_tokens=900):
         answer += piece
         yield {"event": "token", "data": piece}
     _, used, removed = clean_citations(answer, set(range(1, len(chunks) + 1)))
+    if not used and NOT_FOUND not in answer:
+        answer += UNCITED
+        yield {"event": "token", "data": UNCITED}
     cites = [
         Citation(
             n=n,
