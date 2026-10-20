@@ -71,7 +71,7 @@ describe("pages", () => {
     const { default: Page } = await import("@/app/app/page");
     render(<Page />);
     expect(await screen.findByRole("heading", { name: "shop" })).toBeInTheDocument();
-    expect(screen.getByText("230")).toBeInTheDocument();
+    expect(screen.getByText("230")).toHaveClass("stat-number");
     expect(screen.getByRole("button", { name: "Add and index" })).toBeDisabled();
   });
 
@@ -82,6 +82,26 @@ describe("pages", () => {
     expect(await screen.findByText(/of 1 hunks change behavior/)).toBeInTheDocument();
     expect(mockApi.startReview).toHaveBeenCalledWith("r1", { run_checks: true });
     expect(screen.getByText("Totals now skip tax.")).toBeInTheDocument();
+  });
+
+  it("Review titles the page in the display style and marks behavior in amber", async () => {
+    const { default: Page } = await import("@/app/app/review/page");
+    render(<Page />);
+    fireEvent.click(await screen.findByRole("button", { name: "Review changes" }));
+    await screen.findByText(/of 1 hunks change behavior/);
+    expect(screen.getByRole("heading", { level: 1, name: "Review" })).toHaveClass("page-title");
+    expect(screen.getAllByText("1 to read").some((el) => el.classList.contains("chip") && el.classList.contains("behavior"))).toBe(true);
+  });
+
+  it("Review keeps a very long file path inside its card", async () => {
+    const longPath = `src/${"very_long_directory_name/".repeat(6)}shop.py`;
+    const { waitForJob } = await import("@/lib/api");
+    vi.mocked(waitForJob).mockResolvedValueOnce({ ...review, files: [{ ...review.files[0], path: longPath }] });
+    const { default: Page } = await import("@/app/app/review/page");
+    render(<Page />);
+    fireEvent.click(await screen.findByRole("button", { name: "Review changes" }));
+    const paths = await screen.findAllByText(longPath);
+    expect(paths.some((el) => el.classList.contains("truncate"))).toBe(true);
   });
 
   it("Blast radius lists coupling, fixes and tests for the chosen file", async () => {

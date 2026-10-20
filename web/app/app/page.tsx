@@ -59,10 +59,10 @@ function RepoCard({ repo, indexing, progress, onReindex }: {
         )}
       </div>
       <dl className="kv" style={{ marginTop: 14 }}>
-        <dt>Files</dt><dd>{repo.files.toLocaleString()}</dd>
-        <dt>Searchable chunks</dt><dd>{repo.chunks.toLocaleString()}</dd>
-        <dt>Commits remembered</dt><dd>{repo.commits.toLocaleString()}{repo.history_truncated && <span className="hint"> (newest only)</span>}</dd>
-        <dt>Review comments</dt><dd>{repo.review_comments.toLocaleString()}</dd>
+        <dt>Files</dt><dd className="stat-number">{repo.files.toLocaleString()}</dd>
+        <dt>Searchable chunks</dt><dd className="stat-number">{repo.chunks.toLocaleString()}</dd>
+        <dt>Commits remembered</dt><dd><span className="stat-number">{repo.commits.toLocaleString()}</span>{repo.history_truncated && <span className="hint"> (newest only)</span>}</dd>
+        <dt>Review comments</dt><dd className="stat-number">{repo.review_comments.toLocaleString()}</dd>
         <dt>Last updated</dt><dd>{when(repo.indexed_at)}</dd>
       </dl>
       {indexing && (

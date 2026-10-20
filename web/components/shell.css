@@ -4,7 +4,7 @@
 }
 .rail {
   grid-row: 2; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 14px;
-  padding: 18px 14px; border-right: 1px solid var(--line); background: var(--surface); overflow-y: auto;
+  padding: 18px 14px; border-right: 1px solid var(--line); background: var(--paper); overflow-y: auto;
 }
 .rail-top { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 6px; }
 .rail-brand { color: var(--ink); text-decoration: none !important; }
@@ -15,12 +15,16 @@
   display: flex; align-items: center; gap: 11px; padding: 8px 10px; border-radius: var(--r-control); color: var(--ink-2);
   font-size: var(--t-md); font-weight: 500; text-decoration: none !important;
 }
+.rail-link { transition: background 200ms var(--ease), color 200ms var(--ease); }
 .rail-link:hover { background: var(--sunken); color: var(--ink); }
-.rail-link.active { background: var(--ink); color: var(--paper); }
+.rail-link.active { background: var(--accent-soft); color: var(--ink); box-shadow: inset 2px 0 0 var(--accent); }
+.rail-link.active svg { color: var(--accent); }
 .rail-privacy {
   margin-top: auto; display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: var(--r-panel);
   border: 1px solid var(--line); color: var(--ink); font-size: var(--t-sm); font-weight: 600; text-decoration: none !important;
+  transition: border-color 200ms var(--ease);
 }
+.rail-privacy:hover { border-color: var(--line-strong); }
 .rail-privacy svg { margin-top: 2px; color: var(--add); flex: none; }
 .rail-privacy small { display: block; font-weight: 400; color: var(--muted); font-size: var(--t-xs); }
 
@@ -29,7 +33,7 @@
   display: flex; align-items: center; gap: 16px; padding: 14px 32px; border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--paper) 92%, transparent); position: sticky; top: 0; z-index: 5; backdrop-filter: blur(6px);
 }
-.topbar h1 { font-size: var(--t-xl); }
+.page-title { font-family: var(--display); font-size: 22px; font-weight: 600; letter-spacing: -0.025em; }
 .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; min-width: 0; }
 .topbar-repo { color: var(--muted); font-size: var(--t-xs); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 260px; }
 .model-pill {

@@ -43,7 +43,7 @@ function FileDiff({ file, flagged }: { file: FileView; flagged: number[] }) {
   return (
     <section className="panel file-diff" id={anchor(file.path)}>
       <header className="file-diff-head">
-        <span className="mono">{file.path}</span>
+        <span className="mono truncate">{file.path}</span>
         <span className="hint">{file.status}</span>
         {file.behavior_hunks > 0 && <span className="chip behavior">{file.behavior_hunks} to read</span>}
       </header>
@@ -91,7 +91,7 @@ export function ReviewReportView({ report }: { report: Report }) {
           <ul>
             {files.map((f) => (
               <li key={f.path}>
-                <a href={`#${anchor(f.path)}`} className="mono">{f.path}</a>
+                <a href={`#${anchor(f.path)}`} className="mono truncate">{f.path}</a>
                 <span className="hint">{f.behavior_hunks ? `${f.behavior_hunks} to read` : "mechanical only"}</span>
               </li>
             ))}
