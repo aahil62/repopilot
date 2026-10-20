@@ -1,0 +1,3717 @@
+{
+ "src/flask/app.py": {
+  "targets": [
+   "src/flask/app.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 55,
+    "confidence": 0.451
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 40,
+    "confidence": 0.328
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 36,
+    "confidence": 0.295
+   },
+   {
+    "path": "src/flask/scaffold.py",
+    "support": 28,
+    "confidence": 0.23
+   },
+   {
+    "path": "tests/test_basic.py",
+    "support": 22,
+    "confidence": 0.18
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 19,
+    "confidence": 0.156
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 17,
+    "confidence": 0.139
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 15,
+    "confidence": 0.123
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 15,
+    "confidence": 0.123
+   },
+   {
+    "path": "src/flask/typing.py",
+    "support": 14,
+    "confidence": 0.115
+   },
+   {
+    "path": "docs/config.rst",
+    "support": 13,
+    "confidence": 0.107
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 13,
+    "confidence": 0.107
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 12,
+    "confidence": 0.098
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 12,
+    "confidence": 0.098
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 11,
+    "confidence": 0.09
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/__main__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "4995a775df21a206b529403bc30d71795a994fd4",
+    "date": "2024-11-10T20:13:05-08:00",
+    "subject": "fix subdomain_matching=False behavior",
+    "author": "David Lord"
+   },
+   {
+    "sha": "a6a7a57380cd8f7410753c3b819ba6d09198d8c9",
+    "date": "2022-08-04T07:24:20-07:00",
+    "subject": "fix default value of app.env",
+    "author": "David Lord"
+   },
+   {
+    "sha": "6a4bf9eec13e035cf10ecc16e462049b4c967e41",
+    "date": "2021-10-01T09:39:10-07:00",
+    "subject": "use exception chaining",
+    "author": "David Lord"
+   },
+   {
+    "sha": "166a2a6207027bff07fdfc5590ce04f9b37e9e8f",
+    "date": "2021-08-10T00:23:57+02:00",
+    "subject": "Fix callback order for nested blueprints",
+    "author": "Matthias Paulsen"
+   },
+   {
+    "sha": "a960236117442bec67f89c30dfa014e05483da5a",
+    "date": "2021-05-25T18:04:41+03:00",
+    "subject": "Fix type annotation for `before_request` and `before_app_request` decorators",
+    "author": "Marat Sharafutdinov"
+   },
+   {
+    "sha": "2889da67cb15ac6d5d882781d54014286d9ae010",
+    "date": "2021-05-03T10:59:28+01:00",
+    "subject": "Remove the async helper method",
+    "author": "pgjones"
+   },
+   {
+    "sha": "5c6a0f0c121297362b4c78e4240dd8445b9d9f12",
+    "date": "2021-04-16T12:34:51+01:00",
+    "subject": "Fix wrapped view function comparison",
+    "author": "pgjones"
+   },
+   {
+    "sha": "6d5ccdefe29292974d0bb8e1d80dcd1a06f28368",
+    "date": "2021-04-11T09:10:54+01:00",
+    "subject": "Bugfix iscoroutinefunction with Python3.7",
+    "author": "pgjones"
+   },
+   {
+    "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
+    "date": "2019-06-01T09:22:20-07:00",
+    "subject": "fix string concats left over by black",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 9
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   },
+   {
+    "author": "pgjones",
+    "commits": 1
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "1 bug fix touched these files recently: \u201cfix subdomain_matching=False behavior\u201d.",
+   "Among the most imported files in this repository: 7 files import it directly, 62 in total."
+  ]
+ },
+ "src/flask/ctx.py": {
+  "targets": [
+   "src/flask/ctx.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 17,
+    "confidence": 0.5
+   },
+   {
+    "path": "src/flask/app.py",
+    "support": 17,
+    "confidence": 0.5
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 16,
+    "confidence": 0.471
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 15,
+    "confidence": 0.441
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 10,
+    "confidence": 0.294
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 10,
+    "confidence": 0.294
+   },
+   {
+    "path": "tests/test_basic.py",
+    "support": 10,
+    "confidence": 0.294
+   },
+   {
+    "path": "tests/test_testing.py",
+    "support": 10,
+    "confidence": 0.294
+   },
+   {
+    "path": "src/flask/templating.py",
+    "support": 9,
+    "confidence": 0.265
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 8,
+    "confidence": 0.235
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 8,
+    "confidence": 0.235
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 8,
+    "confidence": 0.235
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 8,
+    "confidence": 0.235
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 7,
+    "confidence": 0.206
+   },
+   {
+    "path": "src/flask/globals.py",
+    "support": 7,
+    "confidence": 0.206
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "095651be9eec58ddb0c2eb6158318b1c703c67c5",
+    "date": "2022-07-25T07:35:17-07:00",
+    "subject": "fix has_app_context and has_request_context",
+    "author": "David Lord"
+   },
+   {
+    "sha": "633449a36c959d25577799eb3da76005a803d5cd",
+    "date": "2021-11-19T23:09:38+03:00",
+    "subject": "fix error message",
+    "author": "Yourun-Proger"
+   },
+   {
+    "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
+    "date": "2019-06-01T09:22:20-07:00",
+    "subject": "fix string concats left over by black",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 2
+   }
+  ],
+  "risk": "low",
+  "risk_reasons": [
+   "4 files import it directly."
+  ]
+ },
+ "src/flask/sansio/app.py": {
+  "targets": [
+   "src/flask/sansio/app.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 8,
+    "confidence": 0.889
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 5,
+    "confidence": 0.556
+   },
+   {
+    "path": "pyproject.toml",
+    "support": 4,
+    "confidence": 0.444
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 4,
+    "confidence": 0.444
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "support": 4,
+    "confidence": 0.444
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "support": 4,
+    "confidence": 0.444
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 4,
+    "confidence": 0.444
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 3,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "support": 3,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 3,
+    "confidence": 0.333
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_logging.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [],
+  "tests": [
+   "tests/test_basic.py",
+   "tests/test_json.py",
+   "tests/test_logging.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 1
+   },
+   {
+    "author": "Heisenberg",
+    "commits": 1
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "high",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 7 files import it directly, 21 in total.",
+   "`src/flask/sansio/app.py` usually changes together with `src/flask/app.py` (89% of the time) \u2014 it is not in this change."
+  ]
+ },
+ "src/flask/blueprints.py": {
+  "targets": [
+   "src/flask/blueprints.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 36,
+    "confidence": 0.621
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 26,
+    "confidence": 0.448
+   },
+   {
+    "path": "src/flask/scaffold.py",
+    "support": 26,
+    "confidence": 0.448
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "support": 18,
+    "confidence": 0.31
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 14,
+    "confidence": 0.241
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 10,
+    "confidence": 0.172
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 10,
+    "confidence": 0.172
+   },
+   {
+    "path": "src/flask/typing.py",
+    "support": 10,
+    "confidence": 0.172
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 9,
+    "confidence": 0.155
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 9,
+    "confidence": 0.155
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 8,
+    "confidence": 0.138
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 7,
+    "confidence": 0.121
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "d7b6c1f6703df405c69da45e7e0ba3d1aed512ce",
+    "date": "2022-10-31T12:49:16+04:00",
+    "subject": "Fix subdomain inheritance for nested blueprints.",
+    "author": "Josh Michael Karamuth"
+   },
+   {
+    "sha": "a44c7228600044f530856a33c7da147c528644ff",
+    "date": "2021-06-05T16:08:51+01:00",
+    "subject": "Fix registering a blueprint twice with differing names",
+    "author": "pgjones"
+   },
+   {
+    "sha": "a960236117442bec67f89c30dfa014e05483da5a",
+    "date": "2021-05-25T18:04:41+03:00",
+    "subject": "Fix type annotation for `before_request` and `before_app_request` decorators",
+    "author": "Marat Sharafutdinov"
+   },
+   {
+    "sha": "3257b7574e7f010686a617197e0fb4596986f7f7",
+    "date": "2021-05-21T15:02:05+01:00",
+    "subject": "Fix blueprint renaming",
+    "author": "pgjones"
+   },
+   {
+    "sha": "714b0a467acab54091d8aeb73403d808abfbcf5b",
+    "date": "2021-05-21T15:01:32+01:00",
+    "subject": "Fix blueprint self registration",
+    "author": "pgjones"
+   },
+   {
+    "sha": "99afbb277d25d3b052e00b9a8da216054d51d62a",
+    "date": "2021-05-18T13:06:21+01:00",
+    "subject": "Fix blueprint nested url_prefix",
+    "author": "pgjones"
+   },
+   {
+    "sha": "6fbdeb80c76b8a698ab366d21ccd786731b17361",
+    "date": "2021-05-16T19:32:29+01:00",
+    "subject": "Fix nested blueprint url_prefix",
+    "author": "pgjones"
+   },
+   {
+    "sha": "e93704fbfd5f40e48f8fe9034b6b0fe420d28fb3",
+    "date": "2021-05-13T18:26:24+08:00",
+    "subject": "fix url_prefix argument when nesting blueprints",
+    "author": "Grey Li"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 2
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "`src/flask/blueprints.py` usually changes together with `src/flask/app.py` (62% of the time) \u2014 it is not in this change."
+  ]
+ },
+ "src/flask/helpers.py": {
+  "targets": [
+   "src/flask/helpers.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 40,
+    "confidence": 0.513
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 37,
+    "confidence": 0.474
+   },
+   {
+    "path": "src/flask/scaffold.py",
+    "support": 16,
+    "confidence": 0.205
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 15,
+    "confidence": 0.192
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 14,
+    "confidence": 0.179
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 14,
+    "confidence": 0.179
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 14,
+    "confidence": 0.179
+   },
+   {
+    "path": "tests/test_basic.py",
+    "support": 14,
+    "confidence": 0.179
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 12,
+    "confidence": 0.154
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "support": 11,
+    "confidence": 0.141
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 10,
+    "confidence": 0.128
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 9,
+    "confidence": 0.115
+   },
+   {
+    "path": "src/flask/templating.py",
+    "support": 9,
+    "confidence": 0.115
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 9,
+    "confidence": 0.115
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "support": 8,
+    "confidence": 0.103
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/__main__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "bda295d37fa3809c95a93d01dd605d0222109889",
+    "date": "2023-06-09T09:34:42-07:00",
+    "subject": "fix use of importlib.util.find_spec",
+    "author": "David Lord"
+   },
+   {
+    "sha": "2889da67cb15ac6d5d882781d54014286d9ae010",
+    "date": "2021-05-03T10:59:28+01:00",
+    "subject": "Remove the async helper method",
+    "author": "pgjones"
+   },
+   {
+    "sha": "5c6a0f0c121297362b4c78e4240dd8445b9d9f12",
+    "date": "2021-04-16T12:34:51+01:00",
+    "subject": "Fix wrapped view function comparison",
+    "author": "pgjones"
+   },
+   {
+    "sha": "c6c6408c3fb96245a2e2afc4b754cdf065fdad47",
+    "date": "2021-02-10T21:14:58Z",
+    "subject": "Raise a runtime error if run_async is called without real ContextVars",
+    "author": "pgjones"
+   },
+   {
+    "sha": "7ba35c4d4fe99418cee9c87900bd0d3b38cf5bd0",
+    "date": "2020-04-20T13:26:33-04:00",
+    "subject": "Restore support for using pathlib.Path for static_folder.",
+    "author": "Joshua Bronson"
+   },
+   {
+    "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
+    "date": "2019-06-01T09:22:20-07:00",
+    "subject": "fix string concats left over by black",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 6
+   },
+   {
+    "author": "David",
+    "commits": 1
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 9 files import it directly, 64 in total."
+  ]
+ },
+ "src/flask/json/provider.py": {
+  "targets": [
+   "src/flask/json/provider.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 8,
+    "confidence": 0.8
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 6,
+    "confidence": 0.6
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 6,
+    "confidence": 0.6
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 5,
+    "confidence": 0.5
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "support": 4,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/scaffold.py",
+    "support": 4,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 4,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 4,
+    "confidence": 0.4
+   },
+   {
+    "path": "tests/test_basic.py",
+    "support": 4,
+    "confidence": 0.4
+   },
+   {
+    "path": ".pre-commit-config.yaml",
+    "support": 3,
+    "confidence": 0.3
+   },
+   {
+    "path": "pyproject.toml",
+    "support": 3,
+    "confidence": 0.3
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 3,
+    "confidence": 0.3
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 3,
+    "confidence": 0.3
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 3,
+    "confidence": 0.3
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 3,
+    "confidence": 0.3
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [],
+  "tests": [
+   "tests/test_basic.py",
+   "tests/test_json.py",
+   "tests/test_testing.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 3
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "3 files import it directly.",
+   "`src/flask/json/provider.py` usually changes together with `src/flask/app.py` (80% of the time) \u2014 it is not in this change."
+  ]
+ },
+ "src/flask/wrappers.py": {
+  "targets": [
+   "src/flask/wrappers.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 13,
+    "confidence": 0.619
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 9,
+    "confidence": 0.429
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 9,
+    "confidence": 0.429
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 9,
+    "confidence": 0.429
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 7,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 7,
+    "confidence": 0.333
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/templating.py",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 6,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 5,
+    "confidence": 0.238
+   },
+   {
+    "path": "src/flask/globals.py",
+    "support": 5,
+    "confidence": 0.238
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 5,
+    "confidence": 0.238
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "1c6dc15420b21fc325833ab2955375e9736f2e74",
+    "date": "2020-10-31T19:19:11-07:00",
+    "subject": "fix response bases order",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 3
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "high",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 10 files import it directly, 62 in total.",
+   "`src/flask/wrappers.py` usually changes together with `src/flask/app.py` (62% of the time) \u2014 it is not in this change."
+  ]
+ },
+ "src/flask/testing.py": {
+  "targets": [
+   "src/flask/testing.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 19,
+    "confidence": 0.633
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 16,
+    "confidence": 0.533
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 15,
+    "confidence": 0.5
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 12,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 11,
+    "confidence": 0.367
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "tests/test_testing.py",
+    "support": 10,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 9,
+    "confidence": 0.3
+   },
+   {
+    "path": "src/flask/templating.py",
+    "support": 8,
+    "confidence": 0.267
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 7,
+    "confidence": 0.233
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 7,
+    "confidence": 0.233
+   },
+   {
+    "path": "src/flask/globals.py",
+    "support": 7,
+    "confidence": 0.233
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 7,
+    "confidence": 0.233
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 7,
+    "confidence": 0.233
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 7,
+    "confidence": 0.233
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
+    "date": "2019-06-01T09:22:20-07:00",
+    "subject": "fix string concats left over by black",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_testing.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 1
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "high",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 5 files import it directly, 16 in total.",
+   "`src/flask/testing.py` usually changes together with `src/flask/app.py` (63% of the time) \u2014 it is not in this change."
+  ]
+ },
+ "src/flask/cli.py": {
+  "targets": [
+   "src/flask/cli.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 33,
+    "confidence": 0.569
+   },
+   {
+    "path": "tests/test_cli.py",
+    "support": 24,
+    "confidence": 0.414
+   },
+   {
+    "path": "src/flask/app.py",
+    "support": 15,
+    "confidence": 0.259
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 14,
+    "confidence": 0.241
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 11,
+    "confidence": 0.19
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 10,
+    "confidence": 0.172
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 10,
+    "confidence": 0.172
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 8,
+    "confidence": 0.138
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "support": 8,
+    "confidence": 0.138
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 8,
+    "confidence": 0.138
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "tests/test_testing.py",
+    "support": 7,
+    "confidence": 0.121
+   },
+   {
+    "path": "src/flask/templating.py",
+    "support": 6,
+    "confidence": 0.103
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__main__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "1af8f95785b85d0937153ee63d504c0b51934d80",
+    "date": "2024-01-26T10:08:55+08:00",
+    "subject": "fix super call in list comprehension",
+    "author": "Tony Huang"
+   },
+   {
+    "sha": "6a4bf9eec13e035cf10ecc16e462049b4c967e41",
+    "date": "2021-10-01T09:39:10-07:00",
+    "subject": "use exception chaining",
+    "author": "David Lord"
+   },
+   {
+    "sha": "cf3089a8f82d50430da4cbe690c1ef11d30241ec",
+    "date": "2020-08-13T10:36:46+02:00",
+    "subject": "Discover app factory deterministically",
+    "author": "Nils Philippsen"
+   },
+   {
+    "sha": "253570784cdcc85d82142128ce33e3b9d8f8db14",
+    "date": "2020-07-30T18:36:55-07:00",
+    "subject": "cleaner message when CLI can't load app",
+    "author": "David Lord"
+   },
+   {
+    "sha": "53c893b646252d610e877eb9385e9e250a1ae5e1",
+    "date": "2019-06-01T09:22:20-07:00",
+    "subject": "fix string concats left over by black",
+    "author": "David Lord"
+   }
+  ],
+  "tests": [
+   "tests/test_cli.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_testing.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 3
+   },
+   {
+    "author": "Tony Huang",
+    "commits": 1
+   },
+   {
+    "author": "bre-17387639",
+    "commits": 1
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "1 bug fix touched these files recently: \u201cfix super call in list comprehension\u201d.",
+   "Among the most imported files in this repository: 6 files import it directly, 15 in total."
+  ]
+ },
+ "src/flask/config.py": {
+  "targets": [
+   "src/flask/config.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 9,
+    "confidence": 0.391
+   },
+   {
+    "path": "src/flask/app.py",
+    "support": 9,
+    "confidence": 0.391
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 8,
+    "confidence": 0.348
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 8,
+    "confidence": 0.348
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "support": 8,
+    "confidence": 0.348
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "tests/test_config.py",
+    "support": 7,
+    "confidence": 0.304
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 6,
+    "confidence": 0.261
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 6,
+    "confidence": 0.261
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 6,
+    "confidence": 0.261
+   },
+   {
+    "path": "docs/config.rst",
+    "support": 5,
+    "confidence": 0.217
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 3
+   }
+  ],
+  "risk": "low",
+  "risk_reasons": [
+   "No recent fixes, few dependents and no strongly coupled files missing from the change."
+  ]
+ },
+ "src/flask/sessions.py": {
+  "targets": [
+   "src/flask/sessions.py"
+  ],
+  "cochanged": [
+   {
+    "path": "CHANGES.rst",
+    "support": 16,
+    "confidence": 0.571
+   },
+   {
+    "path": "src/flask/app.py",
+    "support": 15,
+    "confidence": 0.536
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 14,
+    "confidence": 0.5
+   },
+   {
+    "path": "tests/test_basic.py",
+    "support": 12,
+    "confidence": 0.429
+   },
+   {
+    "path": "src/flask/views.py",
+    "support": 9,
+    "confidence": 0.321
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 8,
+    "confidence": 0.286
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 7,
+    "confidence": 0.25
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 6,
+    "confidence": 0.214
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/templating.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [
+   {
+    "sha": "b707bf443afe856b77e09b7a41592f10d46e02df",
+    "date": "2022-03-15T10:22:38+01:00",
+    "subject": "Preserve HttpOnly flag when deleting session cookie",
+    "author": "uedvt359"
+   }
+  ],
+  "tests": [
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_basic.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_testing.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 7
+   }
+  ],
+  "risk": "medium",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 6 files import it directly, 21 in total."
+  ]
+ },
+ "src/flask/templating.py": {
+  "targets": [
+   "src/flask/templating.py"
+  ],
+  "cochanged": [
+   {
+    "path": "src/flask/app.py",
+    "support": 11,
+    "confidence": 0.733
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "support": 9,
+    "confidence": 0.6
+   },
+   {
+    "path": "src/flask/helpers.py",
+    "support": 9,
+    "confidence": 0.6
+   },
+   {
+    "path": "src/flask/testing.py",
+    "support": 8,
+    "confidence": 0.533
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "support": 7,
+    "confidence": 0.467
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "support": 7,
+    "confidence": 0.467
+   },
+   {
+    "path": "src/flask/logging.py",
+    "support": 7,
+    "confidence": 0.467
+   },
+   {
+    "path": "CHANGES.rst",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/cli.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/globals.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/json/__init__.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "support": 6,
+    "confidence": 0.4
+   },
+   {
+    "path": "src/flask/config.py",
+    "support": 5,
+    "confidence": 0.333
+   },
+   {
+    "path": "src/flask/json/tag.py",
+    "support": 5,
+    "confidence": 0.333
+   }
+  ],
+  "dependents": [
+   {
+    "path": "src/flask/__init__.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/app.py",
+    "depth": 1
+   },
+   {
+    "path": "src/flask/sansio/scaffold.py",
+    "depth": 1
+   },
+   {
+    "path": "tests/type_check/typing_route.py",
+    "depth": 1
+   },
+   {
+    "path": "examples/celery/src/task_app/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/celery/src/task_app/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/js_example/views.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/javascript/tests/test_js_example.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/auth.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/blog.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/flaskr/db.py",
+    "depth": 2
+   },
+   {
+    "path": "examples/tutorial/tests/test_auth.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/cli.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/config.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/ctx.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/debughelpers.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/globals.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/json/provider.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/logging.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sansio/blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/sessions.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/testing.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/views.py",
+    "depth": 2
+   },
+   {
+    "path": "src/flask/wrappers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/conftest.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_appctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/app.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/factory.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/importerrorapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/inner1/inner2/flask.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/cliapp/multiapp.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/helloworld/hello.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_apps/subdomaintestmodule/__init__.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_async.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_basic.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_blueprints.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_cli.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_converters.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_helpers.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_instance_config.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_json.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_regression.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_reqctx.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_request.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_session_interface.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_signals.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_subclassing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_templating.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_testing.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/test_user_error_handler.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_app_decorators.py",
+    "depth": 2
+   },
+   {
+    "path": "tests/type_check/typing_error_handler.py",
+    "depth": 2
+   }
+  ],
+  "past_fixes": [],
+  "tests": [
+   "examples/javascript/tests/test_js_example.py",
+   "examples/tutorial/tests/test_auth.py",
+   "tests/conftest.py",
+   "tests/test_appctx.py",
+   "tests/test_apps/blueprintapp/__init__.py",
+   "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+   "tests/test_apps/blueprintapp/apps/frontend/__init__.py",
+   "tests/test_apps/cliapp/app.py",
+   "tests/test_apps/cliapp/factory.py",
+   "tests/test_apps/cliapp/importerrorapp.py",
+   "tests/test_apps/cliapp/inner1/__init__.py",
+   "tests/test_apps/cliapp/inner1/inner2/flask.py",
+   "tests/test_apps/cliapp/multiapp.py",
+   "tests/test_apps/helloworld/hello.py",
+   "tests/test_apps/subdomaintestmodule/__init__.py",
+   "tests/test_async.py",
+   "tests/test_basic.py",
+   "tests/test_blueprints.py",
+   "tests/test_cli.py",
+   "tests/test_config.py",
+   "tests/test_converters.py",
+   "tests/test_helpers.py",
+   "tests/test_instance_config.py",
+   "tests/test_json.py",
+   "tests/test_regression.py",
+   "tests/test_reqctx.py",
+   "tests/test_request.py",
+   "tests/test_session_interface.py",
+   "tests/test_signals.py",
+   "tests/test_subclassing.py",
+   "tests/test_templating.py",
+   "tests/test_testing.py",
+   "tests/test_user_error_handler.py",
+   "tests/type_check/typing_app_decorators.py",
+   "tests/type_check/typing_error_handler.py",
+   "tests/type_check/typing_route.py"
+  ],
+  "owners": [
+   {
+    "author": "David Lord",
+    "commits": 1
+   }
+  ],
+  "risk": "high",
+  "risk_reasons": [
+   "Among the most imported files in this repository: 5 files import it directly, 61 in total.",
+   "`src/flask/templating.py` usually changes together with `src/flask/app.py` (73% of the time) \u2014 it is not in this change."
+  ]
+ }
+}

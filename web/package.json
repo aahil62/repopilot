@@ -1,0 +1,35 @@
+{
+  "name": "repopilot-web",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack --port 7342 --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "npx serve out -l 7342",
+    "lint": "eslint",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource-variable/schibsted-grotesk": "5.3.0",
+    "@phosphor-icons/react": "2.1.10",
+    "next": "16.4.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "shiki": "3.23.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "4.7.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.2",
+    "jsdom": "25.0.1",
+    "typescript": "5.9.3",
+    "vite-tsconfig-paths": "6.1.1",
+    "vitest": "4.1.11"
+  }
+}

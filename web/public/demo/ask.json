@@ -1,0 +1,405 @@
+[
+ {
+  "question": "Where is the request context pushed?",
+  "events": [
+   {
+    "event": "retrieval",
+    "data": [
+     {
+      "path": "docs/reqcontext.rst",
+      "start_line": 1,
+      "end_line": 120
+     },
+     {
+      "path": "src/flask/app.py",
+      "start_line": 1381,
+      "end_line": 1500
+     },
+     {
+      "path": "tests/test_testing.py",
+      "start_line": 382,
+      "end_line": 396
+     },
+     {
+      "path": "src/flask/ctx.py",
+      "start_line": 155,
+      "end_line": 193
+     },
+     {
+      "path": "docs/reqcontext.rst",
+      "start_line": 101,
+      "end_line": 220
+     },
+     {
+      "path": "docs/appcontext.rst",
+      "start_line": 1,
+      "end_line": 120
+     },
+     {
+      "path": "src/flask/ctx.py",
+      "start_line": 287,
+      "end_line": 406
+     },
+     {
+      "path": "tests/test_appctx.py",
+      "start_line": 32,
+      "end_line": 35
+     }
+    ]
+   },
+   {
+    "event": "token",
+    "data": "Fl"
+   },
+   {
+    "event": "token",
+    "data": "ask"
+   },
+   {
+    "event": "token",
+    "data": " automatically"
+   },
+   {
+    "event": "token",
+    "data": " pushes"
+   },
+   {
+    "event": "token",
+    "data": " a"
+   },
+   {
+    "event": "token",
+    "data": " request"
+   },
+   {
+    "event": "token",
+    "data": " context"
+   },
+   {
+    "event": "token",
+    "data": " when"
+   },
+   {
+    "event": "token",
+    "data": " handling"
+   },
+   {
+    "event": "token",
+    "data": " a"
+   },
+   {
+    "event": "token",
+    "data": " request"
+   },
+   {
+    "event": "token",
+    "data": " ["
+   },
+   {
+    "event": "token",
+    "data": "1"
+   },
+   {
+    "event": "token",
+    "data": "]."
+   },
+   {
+    "event": "citations",
+    "data": [
+     {
+      "n": 1,
+      "path": "docs/reqcontext.rst",
+      "start_line": 1,
+      "end_line": 120,
+      "snippet": ".. currentmodule:: flask\n\nThe Request Context\n===================\n\nThe request context keeps track of the request-level data during a\nrequest. Rather than passing the request object to each function that\nruns during a request, the :data:`request` and :data:`session` proxies\nare accessed instead.\n\nThis is similar to :doc:`/appcontext`, which keeps track of the\napplication-level data independent of "
+     }
+    ]
+   },
+   {
+    "event": "done",
+    "data": {
+     "refused": false,
+     "removed_citations": 0,
+     "commits": []
+    }
+   }
+  ]
+ },
+ {
+  "question": "Why does Flask's teardown run even when an exception happened?",
+  "events": [
+   {
+    "event": "retrieval",
+    "data": [
+     {
+      "path": "docs/api.rst",
+      "start_line": 401,
+      "end_line": 520
+     },
+     {
+      "path": "tests/test_reqctx.py",
+      "start_line": 30,
+      "end_line": 44
+     },
+     {
+      "path": "tests/test_reqctx.py",
+      "start_line": 47,
+      "end_line": 60
+     },
+     {
+      "path": "tests/test_appctx.py",
+      "start_line": 91,
+      "end_line": 110
+     },
+     {
+      "path": "tests/test_reqctx.py",
+      "start_line": 16,
+      "end_line": 27
+     },
+     {
+      "path": ".github/ISSUE_TEMPLATE/bug-report.md",
+      "start_line": 1,
+      "end_line": 27
+     },
+     {
+      "path": "tests/test_basic.py",
+      "start_line": 784,
+      "end_line": 819
+     },
+     {
+      "path": "src/flask/app.py",
+      "start_line": 481,
+      "end_line": 600
+     }
+    ]
+   },
+   {
+    "event": "token",
+    "data": "Fl"
+   },
+   {
+    "event": "token",
+    "data": "ask"
+   },
+   {
+    "event": "token",
+    "data": "'s"
+   },
+   {
+    "event": "token",
+    "data": " teardown"
+   },
+   {
+    "event": "token",
+    "data": " functions"
+   },
+   {
+    "event": "token",
+    "data": " run"
+   },
+   {
+    "event": "token",
+    "data": " even"
+   },
+   {
+    "event": "token",
+    "data": " when"
+   },
+   {
+    "event": "token",
+    "data": " an"
+   },
+   {
+    "event": "token",
+    "data": " exception"
+   },
+   {
+    "event": "token",
+    "data": " happens"
+   },
+   {
+    "event": "token",
+    "data": " because"
+   },
+   {
+    "event": "token",
+    "data": " they"
+   },
+   {
+    "event": "token",
+    "data": " are"
+   },
+   {
+    "event": "token",
+    "data": " designed"
+   },
+   {
+    "event": "token",
+    "data": " to"
+   },
+   {
+    "event": "token",
+    "data": " clean"
+   },
+   {
+    "event": "token",
+    "data": " up"
+   },
+   {
+    "event": "token",
+    "data": " resources"
+   },
+   {
+    "event": "token",
+    "data": " regardless"
+   },
+   {
+    "event": "token",
+    "data": " of"
+   },
+   {
+    "event": "token",
+    "data": " whether"
+   },
+   {
+    "event": "token",
+    "data": " an"
+   },
+   {
+    "event": "token",
+    "data": " exception"
+   },
+   {
+    "event": "token",
+    "data": " was"
+   },
+   {
+    "event": "token",
+    "data": " raised"
+   },
+   {
+    "event": "token",
+    "data": " ["
+   },
+   {
+    "event": "token",
+    "data": "2"
+   },
+   {
+    "event": "token",
+    "data": "]."
+   },
+   {
+    "event": "token",
+    "data": " This"
+   },
+   {
+    "event": "token",
+    "data": " ensures"
+   },
+   {
+    "event": "token",
+    "data": " that"
+   },
+   {
+    "event": "token",
+    "data": " resources"
+   },
+   {
+    "event": "token",
+    "data": " are"
+   },
+   {
+    "event": "token",
+    "data": " properly"
+   },
+   {
+    "event": "token",
+    "data": " released"
+   },
+   {
+    "event": "token",
+    "data": " even"
+   },
+   {
+    "event": "token",
+    "data": " if"
+   },
+   {
+    "event": "token",
+    "data": " an"
+   },
+   {
+    "event": "token",
+    "data": " error"
+   },
+   {
+    "event": "token",
+    "data": " occurs"
+   },
+   {
+    "event": "token",
+    "data": " during"
+   },
+   {
+    "event": "token",
+    "data": " request"
+   },
+   {
+    "event": "token",
+    "data": " processing"
+   },
+   {
+    "event": "token",
+    "data": " ["
+   },
+   {
+    "event": "token",
+    "data": "2"
+   },
+   {
+    "event": "token",
+    "data": "]."
+   },
+   {
+    "event": "citations",
+    "data": [
+     {
+      "n": 2,
+      "path": "tests/test_reqctx.py",
+      "start_line": 30,
+      "end_line": 44,
+      "snippet": "def test_teardown_with_previous_exception(app):\n    buffer = []\n\n    @app.teardown_request\n    def end_of_request(exception):\n        buffer.append(exception)\n\n    try:\n        raise Exception(\"dummy\")\n    except Exception:\n        pass\n\n    with app.test_request_context():\n        assert buffer == []\n    assert buffer == [None]"
+     }
+    ]
+   },
+   {
+    "event": "done",
+    "data": {
+     "refused": false,
+     "removed_citations": 0,
+     "commits": [
+      {
+       "sha": "74721b48f0347f19f134f386fab3421e5132fb53",
+       "date": "2024-10-22T17:32:02-03:00",
+       "subject": "Fix the issue link in the Flask 3.0.1 Changelog in the send_file argument type entry",
+       "author": "Catarina Bressan"
+      },
+      {
+       "sha": "d718ecf6d3dfc4656d262154c59672437c1ea075",
+       "date": "2024-06-05T13:23:18+01:00",
+       "subject": "Provide a configuration option to control automatic option responses",
+       "author": "pgjones"
+      },
+      {
+       "sha": "c275573147b426fbe1a37c6bce143f7895b603b2",
+       "date": "2023-12-13T16:27:37-08:00",
+       "subject": "run typing tests",
+       "author": "David Lord"
+      }
+     ]
+    }
+   }
+  ]
+ }
+]

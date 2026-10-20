@@ -1,0 +1,62 @@
+[
+ {
+  "path": "src/flask/app.py",
+  "language": "python",
+  "lines": 1537
+ },
+ {
+  "path": "src/flask/ctx.py",
+  "language": "python",
+  "lines": 450
+ },
+ {
+  "path": "src/flask/sansio/app.py",
+  "language": "python",
+  "lines": 965
+ },
+ {
+  "path": "src/flask/blueprints.py",
+  "language": "python",
+  "lines": 129
+ },
+ {
+  "path": "src/flask/helpers.py",
+  "language": "python",
+  "lines": 635
+ },
+ {
+  "path": "src/flask/json/provider.py",
+  "language": "python",
+  "lines": 216
+ },
+ {
+  "path": "src/flask/wrappers.py",
+  "language": "python",
+  "lines": 258
+ },
+ {
+  "path": "src/flask/testing.py",
+  "language": "python",
+  "lines": 298
+ },
+ {
+  "path": "src/flask/cli.py",
+  "language": "python",
+  "lines": 1134
+ },
+ {
+  "path": "src/flask/config.py",
+  "language": "python",
+  "lines": 368
+ },
+ {
+  "path": "src/flask/sessions.py",
+  "language": "python",
+  "lines": 399
+ },
+ {
+  "path": "src/flask/templating.py",
+  "language": "python",
+  "lines": 220
+ }
+]

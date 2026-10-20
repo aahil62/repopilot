@@ -1,0 +1,60 @@
+.landing { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+.l-nav { display: flex; align-items: center; gap: 28px; padding: 22px 0; }
+.l-nav > a:first-child { color: var(--ink); text-decoration: none; }
+.l-nav nav { display: flex; gap: 22px; margin-left: auto; font-size: var(--t-sm); }
+.l-nav nav a { color: var(--ink-2); }
+.l-gh { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-sm); color: var(--ink); }
+
+.l-hero { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; padding: 56px 0 72px; }
+.l-hero h1 { font-size: clamp(40px, 6vw, var(--t-5xl)); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; max-width: 11ch; }
+.l-lede { font-size: var(--t-lg); line-height: 1.6; color: var(--ink-2); margin: 22px 0 26px; max-width: 54ch; }
+.l-fine { color: var(--muted); font-size: var(--t-sm); margin-top: 16px; }
+
+.specimen { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-panel); overflow: hidden; margin: 0; }
+.specimen-empty { min-height: 340px; background: repeating-linear-gradient(180deg, var(--surface) 0 22px, var(--sunken) 22px 23px); }
+.specimen-head { display: grid; gap: 2px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.specimen-head .mono { font-size: 11.5px; color: var(--muted); }
+.specimen-subject { font-weight: 600; }
+.specimen-file { font-size: 12px; padding: 8px 16px; color: var(--ink-2); background: var(--sunken); border-bottom: 1px solid var(--line); }
+.specimen .diff { max-height: 300px; }
+.specimen-collapsed { padding: 10px 16px; font-size: var(--t-sm); color: var(--muted); border-top: 1px solid var(--line); background: var(--sunken); }
+.specimen-collapsed span { opacity: 0.85; }
+.specimen-note { padding: 12px 16px; font-size: var(--t-sm); border-top: 1px solid var(--line); }
+
+.l-problem { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 40px 0; display: grid; gap: 10px; }
+.l-problem p:first-child { font-size: var(--t-2xl); line-height: 1.35; letter-spacing: -0.015em; max-width: 34ch; font-weight: 600; }
+.l-problem a { font-size: var(--t-sm); font-weight: 500; white-space: nowrap; display: inline-flex; gap: 2px; align-items: center; }
+
+.l-features { display: grid; padding: 24px 0; }
+.l-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; padding: 48px 0;
+  border-bottom: 1px solid var(--line); }
+.l-feature h2 { font-size: var(--t-3xl); letter-spacing: -0.025em; margin-bottom: 14px; }
+.l-feature p { color: var(--ink-2); max-width: 56ch; margin-bottom: 16px; }
+.l-facts { display: grid; gap: 4px 0; margin: 0; font-size: var(--t-sm); border-left: 3px solid var(--mark); padding-left: 18px; }
+.l-facts dt { color: var(--muted); }
+.l-facts dd { margin: 0 0 10px; }
+.l-morning { border: 1px solid var(--line); border-radius: var(--r-panel); background: var(--surface); padding: 22px 24px; }
+.l-morning-title { font-size: var(--t-2xl); font-weight: 700; letter-spacing: -0.02em; }
+.l-bench { display: grid; gap: 10px; }
+.l-bench-row { display: grid; grid-template-columns: 180px 1fr 44px; gap: 12px; align-items: center; font-size: 12.5px; }
+
+.l-private, .l-measured { padding: 64px 0; border-bottom: 1px solid var(--line); max-width: 860px; }
+.l-private h2, .l-measured h2, .l-install h2 { font-size: var(--t-3xl); letter-spacing: -0.025em; margin-bottom: 12px; }
+.l-private p { color: var(--ink-2); max-width: 60ch; margin-bottom: 20px; }
+.l-install { padding: 64px 0; display: grid; gap: 16px; max-width: 860px; }
+.l-code { background: #17202b; color: #e9edf2; border-radius: var(--r-panel); padding: 18px 20px; font-family: var(--mono); font-size: 13px;
+  line-height: 1.7; overflow-x: auto; margin: 0; }
+.l-foot { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 28px 0 48px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: var(--t-sm); }
+
+@media (max-width: 960px) {
+  .landing { padding: 0 16px; }
+  .l-nav nav { display: none; }
+  .l-nav .l-gh { margin-left: auto; }
+  .l-hero, .l-feature { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .l-hero { padding: 28px 0 48px; }
+  .l-problem p:first-child { font-size: var(--t-xl); }
+  .l-feature h2, .l-private h2, .l-measured h2, .l-install h2 { font-size: var(--t-2xl); }
+  .l-bench-row { grid-template-columns: 120px 1fr 40px; }
+  .l-foot { flex-direction: column; align-items: flex-start; }
+}

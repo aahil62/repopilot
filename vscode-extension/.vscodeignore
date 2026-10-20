@@ -9,3 +9,5 @@ node_modules/
 out/
 *.log
 *.vsix
+test/
+.vscode-test/

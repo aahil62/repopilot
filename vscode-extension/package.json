@@ -1,162 +1,137 @@
 {
-    "name": "repopilot",
-    "displayName": "RepoPilot AI",
-    "description": "Repository-grounded AI coding assistant with citations and code generation",
-    "version": "1.0.0",
-    "publisher": "repopilot",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/repopilot/vscode-extension"
-    },
-    "engines": {
-        "vscode": "^1.85.0"
-    },
-    "categories": [
-        "Programming Languages",
-        "Machine Learning",
-        "Other"
+  "name": "repopilot",
+  "displayName": "RepoPilot",
+  "description": "Private, history-aware code review on open models you run yourself.",
+  "version": "2.0.0",
+  "publisher": "repopilot",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aahil62/repopilot"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Machine Learning",
+    "Other"
+  ],
+  "keywords": [
+    "code review",
+    "local llm",
+    "ollama",
+    "privacy",
+    "git history"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "repopilot.reviewWorking",
+        "title": "Review Working Changes",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.reviewStaged",
+        "title": "Review Staged Changes",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.blastRadius",
+        "title": "Show Blast Radius for This File",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.ask",
+        "title": "Ask About This Repository",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.edit",
+        "title": "Edit with Verification",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.nightShift",
+        "title": "Open Night Shift Report",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.pickModels",
+        "title": "Pick Models",
+        "category": "RepoPilot"
+      },
+      {
+        "command": "repopilot.index",
+        "title": "Update Repository Memory",
+        "category": "RepoPilot"
+      }
     ],
-    "keywords": [
-        "ai",
-        "copilot",
-        "code generation",
-        "repository",
-        "grounded"
-    ],
-    "activationEvents": [
-        "onStartupFinished"
-    ],
-    "main": "./dist/extension.js",
-    "icon": "media/icon.png",
-    "contributes": {
-        "viewsContainers": {
-            "activitybar": [
-                {
-                    "id": "repopilot",
-                    "title": "RepoPilot AI",
-                    "icon": "media/icon_activity.svg"
-                }
-            ]
+    "menus": {
+      "editor/context": [
+        {
+          "command": "repopilot.edit",
+          "group": "repopilot@1"
         },
-        "views": {
-            "repopilot": [
-                {
-                    "type": "webview",
-                    "id": "repopilot.chatView",
-                    "name": "Chat"
-                }
-            ]
-        },
-        "commands": [
-            {
-                "command": "repopilot.openChat",
-                "title": "Open Chat",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.indexWorkspace",
-                "title": "Index Workspace",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.askAboutSelection",
-                "title": "Ask RepoPilot About Selection",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.explainSelection",
-                "title": "Explain Selection",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.generateFromPrompt",
-                "title": "Generate Code",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.startBackend",
-                "title": "Start Backend",
-                "category": "RepoPilot"
-            },
-            {
-                "command": "repopilot.exportChat",
-                "title": "Export Chat History",
-                "category": "RepoPilot"
-            }
-        ],
-        "menus": {
-            "editor/context": [
-                {
-                    "command": "repopilot.askAboutSelection",
-                    "when": "editorHasSelection",
-                    "group": "repopilot@1"
-                },
-                {
-                    "command": "repopilot.explainSelection",
-                    "when": "editorHasSelection",
-                    "group": "repopilot@2"
-                }
-            ],
-            "commandPalette": [
-                {
-                    "command": "repopilot.askAboutSelection",
-                    "when": "editorHasSelection"
-                },
-                {
-                    "command": "repopilot.explainSelection",
-                    "when": "editorHasSelection"
-                }
-            ]
-        },
-        "keybindings": [
-            {
-                "command": "repopilot.openChat",
-                "key": "ctrl+shift+r",
-                "mac": "cmd+shift+r"
-            },
-            {
-                "command": "repopilot.askAboutSelection",
-                "key": "ctrl+shift+a",
-                "mac": "cmd+shift+a",
-                "when": "editorHasSelection"
-            }
-        ],
-        "configuration": {
-            "title": "RepoPilot AI",
-            "properties": {
-                "repopilot.backendUrl": {
-                    "type": "string",
-                    "default": "http://localhost:8000",
-                    "description": "URL of the RepoPilot backend server"
-                },
-                "repopilot.autoIndexOnOpen": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Automatically index workspace when opening"
-                }
-            }
+        {
+          "command": "repopilot.blastRadius",
+          "group": "repopilot@2"
         }
+      ],
+      "scm/title": [
+        {
+          "command": "repopilot.reviewWorking",
+          "group": "navigation"
+        }
+      ]
     },
-    "scripts": {
-        "vscode:prepublish": "npm run package",
-        "compile": "webpack",
-        "watch": "webpack --watch",
-        "package": "webpack --mode production --devtool hidden-source-map",
-        "compile-tests": "tsc -p . --outDir out",
-        "lint": "eslint src"
-    },
-    "devDependencies": {
-        "@types/node": "^20.10.0",
-        "@types/vscode": "^1.85.0",
-        "@typescript-eslint/eslint-plugin": "^6.13.0",
-        "@typescript-eslint/parser": "^6.13.0",
-        "eslint": "^8.54.0",
-        "ts-loader": "^9.5.1",
-        "typescript": "^5.3.2",
-        "webpack": "^5.89.0",
-        "webpack-cli": "^5.1.4"
-    },
-    "dependencies": {
-        "node-fetch": "^2.7.0"
+    "configuration": {
+      "title": "RepoPilot",
+      "properties": {
+        "repopilot.serverUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:7341",
+          "description": "Address of the local RepoPilot service."
+        },
+        "repopilot.autoStartServer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Start `repopilot serve` automatically when the service is not running."
+        },
+        "repopilot.codeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a blast-radius summary at the top of each file."
+        },
+        "repopilot.runChecks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run the project's tests in a temporary copy during reviews."
+        }
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "typecheck": "tsc --noEmit -p .",
+    "test:e2e": "node test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.4.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
 }
