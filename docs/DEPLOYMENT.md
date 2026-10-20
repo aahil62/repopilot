@@ -4,7 +4,7 @@ RepoPilot is a local application: the backend and the models run on the user's m
 
 ## Website (Vercel)
 
-- Project `repopilot`, linked to `aahil62/repopilot` · root directory `web/` · framework Next.js · static export to `out` · `NEXT_PUBLIC_DEMO_MODE=1` (set in `web/vercel.json`).
+- Project `repopilot`, linked to `aahil62/repopilot` · root directory `web/` · framework Next.js (static export) · `NEXT_PUBLIC_DEMO_MODE=1` (set in `web/vercel.json`).
 - Production branch `main`; every pull request gets a preview URL.
 - Before deploying new demo data, regenerate it with real models: `backend/.venv/bin/python scripts/build_demo.py` and `backend/.venv/bin/python eval/run_eval.py`.
 - Check locally: `cd web && NEXT_PUBLIC_DEMO_MODE=1 npm run build && npx serve out`.
