@@ -1,47 +1,52 @@
-@import "@fontsource-variable/schibsted-grotesk";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource/fragment-mono";
 
-/* RepoPilot: the highlighter. Mechanical edits fade to graphite; the lines a human must read get marked. */
+/* RepoPilot: warm, dark, one amber accent. Code review with a memory.
+   Raw colours live only in this file (tests/tokens.test.ts). */
 :root {
-  --paper: #f7f8fa;
-  --surface: #ffffff;
-  --sunken: #eef1f4;
-  --ink: #17202b;
-  --ink-2: #333d4a;
-  --muted: #5b6573;
-  --line: #dde2e8;
-  --line-strong: #c5ccd5;
-  --mark: #ffe066;          /* highlighter: backgrounds only, never text */
-  --mark-soft: #fff5c2;
-  --cite: #2551c4;
-  --add: #1f7a4d;
-  --add-bg: #e7f5ec;
-  --del: #b42318;
-  --del-bg: #fdecea;
-  --warn: #9a6200;
-  --warn-bg: #fff4dc;
-  --focus: #2551c4;
-  --code-bg: #fbfcfd;
+  color-scheme: dark;
+  --paper: #0b0a09;
+  --surface: #141210;
+  --sunken: #1b1916;
+  --ink: #efe9df;
+  --ink-2: #cdc5b8;
+  --muted: #a39b8e;
+  --dim: #6b655b;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --accent: #e6904f;
+  --accent-soft: rgba(230, 144, 79, 0.12);
+  --serif-accent: #f2c9a2;
+  --mark: rgba(230, 144, 79, 0.24);       /* behavior highlight */
+  --mark-soft: rgba(230, 144, 79, 0.10);
+  --cite: #f0b07f;
+  --add: #a6d39b;
+  --add-bg: rgba(120, 170, 100, 0.12);
+  --del: #e8a487;
+  --del-bg: rgba(224, 120, 90, 0.12);
+  --warn: #e6c07b;
+  --warn-bg: rgba(230, 192, 123, 0.12);
+  --focus: #e6904f;
+  --code-bg: #100e0c;
+  --on-ink: #0b0a09;                       /* text on light (primary) buttons */
+  --scrim: rgba(0, 0, 0, 0.55);
+  --glow: rgba(230, 144, 79, 0.45);
 
-  --font: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, sans-serif;
-  --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  --font: "Instrument Sans Variable", "Instrument Sans", system-ui, sans-serif;
+  --display: "Bricolage Grotesque Variable", "Bricolage Grotesque", var(--font);
+  --serif: "Instrument Serif", Georgia, serif;
+  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   /* type scale, ratio ~1.25 */
   --t-xs: 12px; --t-sm: 13px; --t-md: 15px; --t-lg: 17px; --t-xl: 21px; --t-2xl: 26px; --t-3xl: 33px; --t-4xl: 44px; --t-5xl: 60px;
 
-  --r-panel: 10px;
-  --r-control: 7px;
-  --r-chip: 4px;
+  --r-panel: 12px;
+  --r-control: 9px;
+  --r-chip: 6px;
   --rail: 236px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #12161c; --surface: #181d24; --sunken: #1f252d; --ink: #e9edf2; --ink-2: #c9d0d8; --muted: #98a2ae;
-    --line: #2b323b; --line-strong: #3a434e; --mark: rgba(255, 214, 64, 0.32); --mark-soft: rgba(255, 214, 64, 0.14); --cite: #8fb0ff; --add: #6fd39a;
-    --add-bg: #15291e; --del: #ff8f85; --del-bg: #2f1714; --warn: #f2c063; --warn-bg: #2d2412; --focus: #8fb0ff;
-    --code-bg: #151a20;
-  }
 }
 
 * { box-sizing: border-box; }
@@ -58,11 +63,11 @@ body {
 a { color: var(--cite); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 code, pre, kbd, .mono { font-family: var(--mono); font-size: 0.87em; }
-h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.015em; font-weight: 700; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; font-family: var(--display); }
 p { margin: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
-::selection { background: var(--mark); color: #17202b; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+::selection { background: var(--mark); color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -72,15 +77,17 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: var(--r-control);
-  border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 600; font-size: var(--t-sm);
-  cursor: pointer; text-decoration: none; transition: background 150ms ease-out;
+  border: 1px solid var(--ink); background: var(--ink); font-weight: 500; font-size: var(--t-sm);
+  cursor: pointer; text-decoration: none; color: var(--on-ink);
+  transition: transform 180ms var(--ease), box-shadow 250ms var(--ease), background 200ms var(--ease), border-color 200ms var(--ease);
 }
-.btn:hover { background: var(--ink-2); text-decoration: none; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); box-shadow: 0 10px 30px -8px var(--glow); }
+.btn:active { transform: scale(0.98); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
-.btn.secondary:hover { background: var(--sunken); }
-.btn.danger { background: var(--del); border-color: var(--del); color: #fff; }
-.btn.danger:hover { background: color-mix(in srgb, var(--del) 85%, black); }
+.btn.secondary:hover { background: var(--sunken); border-color: var(--line-strong); box-shadow: none; }
+.btn.danger { background: var(--del); border-color: var(--del); color: var(--on-ink); }
+.btn.danger:hover { box-shadow: none; }
 .btn.small { height: 30px; padding: 0 11px; font-size: var(--t-xs); }
 
 .input, .textarea, .select {
@@ -96,13 +103,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .chip {
   display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: var(--r-chip);
-  font-size: var(--t-xs); font-weight: 600; background: var(--sunken); color: var(--ink-2); white-space: nowrap;
+  font-family: var(--mono); font-size: 11px; font-weight: 400; background: var(--sunken); color: var(--ink-2); white-space: nowrap; border: 1px solid var(--line);
 }
 .chip.high, .chip.failed { background: var(--del-bg); color: var(--del); }
 .chip.medium, .chip.timeout { background: var(--warn-bg); color: var(--warn); }
 .chip.low { background: var(--sunken); color: var(--ink-2); }
 .chip.passed, .chip.verified { background: var(--add-bg); color: var(--add); }
-.chip.behavior { background: var(--mark); color: #17202b; }
+.chip.behavior { background: var(--mark); color: var(--serif-accent); }
 
 .cite-chip {
   display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 18px; padding: 0 4px;

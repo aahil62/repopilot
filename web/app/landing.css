@@ -42,7 +42,7 @@
 .l-private h2, .l-measured h2, .l-install h2 { font-size: var(--t-3xl); letter-spacing: -0.025em; margin-bottom: 12px; }
 .l-private p { color: var(--ink-2); max-width: 60ch; margin-bottom: 20px; }
 .l-install { padding: 64px 0; display: grid; gap: 16px; max-width: 860px; }
-.l-code { background: #17202b; color: #e9edf2; border-radius: var(--r-panel); padding: 18px 20px; font-family: var(--mono); font-size: 13px;
+.l-code { background: var(--code-bg); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-panel); padding: 18px 20px; font-family: var(--mono); font-size: 13px;
   line-height: 1.7; overflow-x: auto; margin: 0; }
 .l-foot { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 28px 0 48px; border-top: 1px solid var(--line);
   color: var(--muted); font-size: var(--t-sm); }

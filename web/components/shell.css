@@ -1,6 +1,6 @@
 .shell { min-height: 100vh; display: grid; grid-template-columns: var(--rail) 1fr; grid-template-rows: auto 1fr; }
 .demo-banner {
-  grid-column: 1 / -1; background: #ffe066; color: #17202b; font-size: var(--t-sm); padding: 7px 20px; text-align: center;
+  grid-column: 1 / -1; background: var(--accent-soft); color: var(--serif-accent); border-bottom: 1px solid var(--line); font-size: var(--t-sm); padding: 7px 20px; text-align: center;
 }
 .rail {
   grid-row: 2; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 14px;
@@ -46,7 +46,7 @@
     position: fixed; inset: 0 auto 0 0; width: min(300px, 86vw); z-index: 30; transform: translateX(-102%);
     transition: transform 180ms ease-out; box-shadow: 0 0 0 100vmax transparent;
   }
-  .rail.open { transform: none; box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.35); }
+  .rail.open { transform: none; box-shadow: 0 0 0 100vmax var(--scrim); }
   .rail-close, .rail-open { display: inline-flex; }
   .main { grid-column: 1; }
   .topbar { padding: 12px 16px; }

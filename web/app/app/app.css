@@ -25,7 +25,7 @@
 .file-pick button { width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 8px; border-radius: 5px;
   font-size: 12px; cursor: pointer; overflow-wrap: anywhere; color: var(--ink-2); }
 .file-pick button:hover { background: var(--sunken); }
-.file-pick button[aria-selected="true"] { background: var(--mark); color: #17202b; font-weight: 600; }
+.file-pick button[aria-selected="true"] { background: var(--mark); color: var(--ink); font-weight: 600; }
 .fix-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: var(--t-sm); }
 .fix-list li { display: grid; gap: 2px; }
 .link-btn { border: 0; background: none; padding: 0; color: var(--cite); cursor: pointer; text-align: left; font-size: 12px; }
