@@ -20,7 +20,7 @@ from repopilot.config import get_settings
 from repopilot.engines.blast import is_test_file
 from repopilot.engines.checks import run_checks
 from repopilot.engines.diffparse import DiffSource, commit_diff, parse
-from repopilot.engines.edit import verified_edit
+from repopilot.engines.edit import WHOLE_FILE_MAX_LINES, verified_edit
 from repopilot.engines.review import Finding, review
 from repopilot.memory.codegraph import build_graph
 from repopilot.memory.history import import_history
@@ -120,12 +120,21 @@ def _changed_symbols(store: MemoryStore, repo: Path, shas: list[str]) -> list[tu
     return out
 
 
-def _test_path_for(repo: Path, source_path: str) -> str:
+def _test_path_for(repo: Path, source_path: str, symbol: str) -> str:
+    """The usual test file for `source_path`; a file of its own when the usual one is too long to rewrite."""
     stem = Path(source_path).stem
     if source_path.endswith(".py"):
         base = "tests" if (repo / "tests").is_dir() else ""
-        return f"{base}/test_{stem}.py".lstrip("/")
-    return str(Path(source_path).with_name(f"{stem}.test{Path(source_path).suffix}"))
+        path = f"{base}/test_{stem}.py".lstrip("/")
+        own = f"{base}/test_{stem}_{re.sub(r'[^0-9a-zA-Z_]', '_', symbol).lower()}.py".lstrip("/")
+    else:
+        suffix = Path(source_path).suffix
+        path = str(Path(source_path).with_name(f"{stem}.test{suffix}"))
+        own = str(Path(source_path).with_name(f"{stem}.{symbol}.test{suffix}"))
+    existing = repo / path
+    if existing.is_file() and len(existing.read_text(errors="replace").splitlines()) > WHOLE_FILE_MAX_LINES:
+        return own
+    return path
 
 
 def _removed_names(repo: Path, shas: list[str], store: MemoryStore) -> list[tuple[str, str]]:
@@ -224,6 +233,7 @@ async def run_nightshift(
     *,
     max_commits: int = 20,
     write_tests: bool = True,
+    max_tests: int = MAX_TESTS_PER_RUN,
     today: str | None = None,
 ) -> NightReport:
     started = time.perf_counter()
@@ -278,10 +288,8 @@ async def run_nightshift(
             )
     if write_tests and commits:
         branch = f"repopilot/nightshift-{report.date}"
-        for symbol, source_path in _changed_symbols(store, repo, [c["sha"] for c in commits])[
-            :MAX_TESTS_PER_RUN
-        ]:
-            test_path = _test_path_for(repo, source_path)
+        for symbol, source_path in _changed_symbols(store, repo, [c["sha"] for c in commits])[:max_tests]:
+            test_path = _test_path_for(repo, source_path, symbol)
             result = await verified_edit(
                 record.repo_id,
                 repo,

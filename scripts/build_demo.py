@@ -131,7 +131,7 @@ async def main(offline: bool) -> None:
     write("file-excerpts", excerpts)
 
     head_before = git(repo, "rev-parse", "HEAD")
-    night = await run_nightshift(record, runtime, max_commits=5, today="2024-11-13")
+    night = await run_nightshift(record, runtime, max_commits=5, max_tests=1, today="2024-11-13")
     assert git(repo, "rev-parse", "HEAD") == head_before, "night shift must not move HEAD"
     write("nightshift", night.model_dump())
     write("nightshift-list", [{"date": night.date, "commits": len(night.commits_reviewed),

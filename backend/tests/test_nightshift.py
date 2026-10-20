@@ -114,3 +114,12 @@ async def test_skips_test_writing_when_the_suite_already_fails(git_repo):
     assert report.tests_written == []
     assert any("already fail" in n for n in report.notes)
     assert not any("Write focused unit tests" in c["messages"][-1]["content"] for c in fake.calls)
+
+
+def test_new_tests_go_to_their_own_file_when_the_usual_one_is_long(tmp_path):
+    from repopilot.engines.nightshift import _test_path_for
+
+    (tmp_path / "tests").mkdir()
+    assert _test_path_for(tmp_path, "src/pkg/helpers.py", "get_root") == "tests/test_helpers.py"
+    (tmp_path / "tests" / "test_helpers.py").write_text("def test_x():\n    pass\n" * 200)
+    assert _test_path_for(tmp_path, "src/pkg/helpers.py", "get_root") == "tests/test_helpers_get_root.py"

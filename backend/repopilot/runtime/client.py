@@ -20,6 +20,17 @@ DEFAULT_CTX = 8192
 MAX_CTX = 32768
 
 
+def _checked(resp: httpx.Response) -> httpx.Response:
+    """raise_for_status, keeping the runtime's own error text (Ollama puts the reason in the body)."""
+    if resp.is_error:
+        raise httpx.HTTPStatusError(
+            f"{resp.status_code} from {resp.request.url}: {resp.text[:300]}",
+            request=resp.request,
+            response=resp,
+        )
+    return resp
+
+
 class Runtime(Protocol):
     roles: dict[Role, ModelInfo]
 
@@ -89,7 +100,7 @@ class ModelClient:
             }
             if json_schema is not None:
                 body["format"] = json_schema
-            data = (await self._http.post(f"{model.base_url}/api/chat", json=body)).raise_for_status().json()
+            data = _checked(await self._http.post(f"{model.base_url}/api/chat", json=body)).json()
             eval_ns = data.get("eval_duration") or 0
             self._record(
                 role, data.get("eval_count"), eval_ns / 1e9 if eval_ns else time.perf_counter() - started
@@ -101,9 +112,7 @@ class ModelClient:
                 "type": "json_schema",
                 "json_schema": {"name": "out", "schema": json_schema},
             }
-        data = (
-            (await self._http.post(f"{model.base_url}/chat/completions", json=body)).raise_for_status().json()
-        )
+        data = _checked(await self._http.post(f"{model.base_url}/chat/completions", json=body)).json()
         self._record(role, (data.get("usage") or {}).get("completion_tokens"), time.perf_counter() - started)
         return data["choices"][0]["message"]["content"]
 

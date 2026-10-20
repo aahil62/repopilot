@@ -24,12 +24,14 @@ from repopilot.runtime.structured import ModelOutputError, structured_call
 from repopilot.worktree import temp_worktree
 
 MAX_FILE_LINES = 600
+# Rewriting a file whole costs one output token per input token; past this, edits must quote what changes.
+WHOLE_FILE_MAX_LINES = 150
 
 SYSTEM = """You are editing a code repository. Make the smallest change that fulfils the instruction and
 follows the existing style of the files shown. Return JSON with `explanation` and `edits`.
 Each edit has `path` (relative to the repository root), `search` (an exact, contiguous excerpt of the
 current file, long enough to be unique) and `replace` (the new text for that excerpt). To create a
-new file, or to rewrite a short file you were shown in full, use an empty `search` and put the whole
+new file, or to rewrite a file of under 150 lines, use an empty `search` and put the whole
 file in `replace`. Never invent file contents you
 were not shown; never edit files that are not needed."""
 
@@ -78,7 +80,10 @@ def apply_edits(root: Path, edits: list[EditBlock]) -> str | None:
         if not edit.search:
             # An empty `search` on an existing file is a whole-file rewrite (small models often answer
             # that way). Allowed only when the model was shown the whole file; tests still have to pass.
-            if target.exists() and len(target.read_text(errors="replace").splitlines()) > MAX_FILE_LINES:
+            if (
+                target.exists()
+                and len(target.read_text(errors="replace").splitlines()) > WHOLE_FILE_MAX_LINES
+            ):
                 return f"{rel}: file is too long to rewrite whole; quote the code to change in `search`."
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(edit.replace if edit.replace.endswith("\n") else edit.replace + "\n")
