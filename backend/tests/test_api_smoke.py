@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from repopilot.api.jobs import reset_jobs
 from repopilot.api.main import create_app
+from repopilot.memory.store import MemoryStore
 from repopilot.runtime import FakeRuntime, set_runtime
 
 FILES = {
@@ -77,6 +78,8 @@ def test_end_to_end_with_fake_runtime(git_repo, tmp_path):
         assert files[0]["path"] == "auth.py"
         assert client.get(f"/api/repos/{repo_id}/file", params={"path": "../etc/passwd"}).status_code == 404
 
+        # Fake embeddings are weak; pin the refusal threshold so this exercises the answer path.
+        MemoryStore.open(repo_id).set_meta("refusal_threshold", "0.0")
         events = _sse(
             client.post(f"/api/repos/{repo_id}/ask", json={"question": "Where is login_user handled?"}).text
         )

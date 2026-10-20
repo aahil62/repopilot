@@ -56,6 +56,7 @@ async def test_refuses_when_repository_lacks_topic(git_repo):
 
 
 async def test_why_question_includes_commit_history(git_repo):
+    """Exercises the answer path, so the refusal threshold is pinned low (fake embeddings are weak)."""
     commits = [
         ("init", FILES),
         (
@@ -64,6 +65,7 @@ async def test_why_question_includes_commit_history(git_repo):
         ),
     ]
     store = await _index(git_repo, "q3", commits)
+    store.set_meta("refusal_threshold", "0.0")
     fake = FakeRuntime({"strong": ["Because the gateway drops requests [1]."]})
     result = await ask(store, fake, "Why does charge_card retry?")
     assert result.commits and "gateway drops requests" in result.commits[0].subject

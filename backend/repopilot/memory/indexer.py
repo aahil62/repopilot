@@ -150,6 +150,10 @@ async def index_code(
         stats.notes.append("No local model runtime: semantic search is off until one is available.")
         store.set_meta("indexed_at", _now())
         return stats
+    if store.ensure_embedding_model(runtime.roles["embed"].id):
+        stats.notes.append(
+            f"Embedding model changed to {runtime.roles['embed'].id}; rebuilt the search index."
+        )
     missing = set(store.missing_vector_keys(CODE_COLLECTION, [r["chunk_id"] for r in all_chunks]))
     pending = [r for r in all_chunks if r["chunk_id"] in missing]
     batch = settings.embed_batch

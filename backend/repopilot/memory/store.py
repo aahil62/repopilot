@@ -139,6 +139,19 @@ class MemoryStore:
             with self.transaction():
                 self.executemany("DELETE FROM vectors WHERE key=?", [(k,) for k in keys])
 
+    def ensure_embedding_model(self, model_id: str) -> bool:
+        """Vectors from different embedding models are incomparable: drop them all when the model changes.
+
+        Returns True when existing vectors were discarded."""
+        previous = self.get_meta("embed_model")
+        if previous == model_id:
+            return False
+        had = self.one("SELECT count(*) n FROM vectors")["n"] > 0
+        with self.transaction():
+            self.execute("DELETE FROM vectors")
+        self.set_meta("embed_model", model_id)
+        return had
+
     def missing_vector_keys(self, collection: str, keys: list[str]) -> list[str]:
         have = {r["key"] for r in self.query("SELECT key FROM vectors WHERE collection=?", (collection,))}
         return [k for k in keys if k not in have]

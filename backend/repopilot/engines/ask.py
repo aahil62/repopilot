@@ -122,8 +122,9 @@ async def calibrate_refusal(store: MemoryStore, runtime: Runtime, sample: int = 
     queries = [f"where is {n.replace('_', ' ')} defined" for n in names[:sample]]
     vectors = await runtime.embed(queries)
     tops = sorted(hits[0][1] for v in vectors if (hits := store.search(CODE_COLLECTION, v, k=1)))
-    # A real question about the repo should score at least ~60% of a typical "where is <symbol>" match.
-    threshold = round(tops[len(tops) // 2] * 0.6, 4) if tops else DEFAULT_THRESHOLD
+    # A real question about the repo should score at least ~80% of a typical "where is <symbol>" match.
+    # Measured on Flask with nomic-embed-text: answerable questions >= 0.66, unanswerable <= 0.59.
+    threshold = round(tops[len(tops) // 2] * 0.8, 4) if tops else DEFAULT_THRESHOLD
     store.set_meta("refusal_threshold", str(threshold))
     return threshold
 
@@ -156,7 +157,9 @@ async def retrieve(store: MemoryStore, runtime: Runtime, question: str) -> tuple
     fused = rrf([[key for key, _ in vector_hits], lexical])[:TOP_K]
     best_vec = vector_hits[0][1] if vector_hits else 0.0
     threshold = float(store.get_meta("refusal_threshold") or DEFAULT_THRESHOLD)
-    refuse = not fused or (best_vec < threshold and not lexical)
+    # Generic words ("configured", "handled") always match something, so keyword hits cannot
+    # override a weak semantic match.
+    refuse = not fused or best_vec < threshold
     chunks = []
     for key, _ in fused:
         row = store.one(

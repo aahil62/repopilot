@@ -109,6 +109,7 @@ def _precedent_texts(store: MemoryStore) -> list[tuple[str, str]]:
 
 
 async def index_precedents(store: MemoryStore, runtime: Runtime, batch: int = 64) -> int:
+    store.ensure_embedding_model(runtime.roles["embed"].id)
     items = _precedent_texts(store)
     current = {k for k, _ in items}
     stale = [

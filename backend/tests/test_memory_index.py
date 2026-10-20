@@ -128,3 +128,19 @@ async def test_large_repo_indexes_within_budget(tmp_path):
     stats = await index_code(MemoryStore("large"), root, FakeRuntime())
     assert stats.files_total == 5000 and stats.chunks_total == 5000
     assert time.perf_counter() - started < 120
+
+
+async def test_changing_embedding_model_rebuilds_vectors(git_repo):
+    from repopilot.runtime.detect import ModelInfo
+
+    repo = git_repo([("init", {"a.py": "def a():\n    return 1\n"})])
+    store = MemoryStore("t-emb")
+    await index_code(store, repo, FakeRuntime())
+    other = FakeRuntime()
+    other.roles = {
+        **other.roles,
+        "embed": ModelInfo("nomic-embed-text", "ollama", "http://x", is_embedding=True),
+    }
+    stats = await index_code(store, repo, other)
+    assert stats.chunks_embedded == 1 and any("rebuilt the search index" in n for n in stats.notes)
+    assert store.get_meta("embed_model") == "nomic-embed-text"
