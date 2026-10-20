@@ -1,33 +1,59 @@
-# Verification — v2 (2026-10-18)
+# Verification — v2 (2026-10-20)
 
-What was actually run on this machine (Apple M4, 16 GB, macOS), and what was not.
+What was actually run on this machine (Apple M4, 16 GB, macOS) and what was not. Models: `qwen2.5-coder:7b` (strong), `qwen2.5-coder:1.5b` (fast) and `nomic-embed-text` (embeddings) through Ollama.
 
 ## Automated
 
 | Check | Command | Result |
 |---|---|---|
-| Backend lint + tests | `scripts/check_backend.sh` | ruff clean; **67 passed** (no model or network: `FakeRuntime`, temporary git repos) |
+| Backend lint + tests | `scripts/check_backend.sh` | ruff clean; **78 passed** (no model or network: `FakeRuntime`, temporary git repos) |
 | Web tests | `npm --prefix web test` | **12 passed** (components and every app page with a mocked API) |
 | Web lint / types | `npm --prefix web run lint`, `npx tsc --noEmit` | clean |
 | Web production build | `NEXT_PUBLIC_DEMO_MODE=1 npm --prefix web run build` | 10 static routes |
-| Extension | `npm --prefix vscode-extension run typecheck && npm run package`, `vsce package` | builds; `repopilot-2.0.0.vsix` 27 KB |
+| Extension | `npm --prefix vscode-extension run typecheck`, `vsce package` | builds; `repopilot-2.0.0.vsix` 27 KB |
+| Extension end to end | `REPOPILOT_TEST_REPO=… npm --prefix vscode-extension run test:e2e` | **passed**: in a real VS Code, *Review Working Changes* on a planted sign flip put an Error on the file in the Problems panel, and the blast-radius CodeLens appeared |
 
-Tests run real `git` commands, real `pytest` subprocesses inside temporary worktrees, and the FastAPI app through `TestClient` (indexing, SSE ask, review jobs, blast radius, no-runtime fallback, static UI serving).
+Tests run real `git` commands, real `pytest` subprocesses inside temporary worktrees, and the FastAPI app through `TestClient`.
 
-## Manual
+## With real models
 
-- **Clean install:** fresh Python 3.12 venv, `pip install dist/repopilot-2.0.0-py3-none-any.whl`, `repopilot serve` → `/`, `/app/review/` and `/demo/hero.json` served (200); `POST /api/repos` registered a repository; with no runtime, model endpoints return 503 with setup instructions.
-- **No-model CLI:** `repopilot blast backend/repopilot/engines/review.py --repo .` on this repository → risk, co-change table and the one bug-fix commit that touched the file.
-- **Real repository:** `scripts/build_demo.py --offline` on `pallets/flask@3.1.0` — 224 files, 972 chunks, 3,718 commits indexed in ~17 s. The hero commit (`53c893b6`, "fix string concats left over by black") was classified 13 mechanical / 1 behavior; the behavior hunk changes an assertion message string, so the classification is correct.
-- **Calibration found on real data and fixed:** fixed-threshold risk rated every Flask core file "high" (replaced with a repo-relative points score); tooling chores counted as bug fixes (excluded); duplicate React keys in the orbit; owners split across git name variants (`.mailmap` now honoured).
-- **Browser:** landing, Overview, Review, Blast radius, Night shift (empty state) at 1440 px light and dark, and 375 px — no horizontal overflow; dev console free of errors after fixes.
-- **Offline evaluation** (`eval/run_eval.py --offline`): keyword Recall@5 = 88% on 25 Flask questions and 88% on 25 Requests questions.
-- **Classifier vs human labels:** 60 Python hunks from Flask and Requests (stratified 30/30 by the classifier's first verdict) were labelled by hand. Baseline: 90% precision, 59% recall. The errors exposed three rule gaps (annotation/docstring-only edits, imported-decorator swaps treated as renames, Python indentation treated as whitespace), fixed with a per-hunk syntax-tree comparison: 100% / 91% on that set. Because the rules were tuned on it, a fresh **held-out set of 30 hunks was labelled blind: 100% precision, 75% recall.**
+| What | Result | Source |
+|---|---|---|
+| Planted bugs caught (20 one-line mutations in Flask, model only) | 70% medium/high on the changed line | `eval/results/seeded-bugs.md` |
+| Correct merged Flask fixes flagged | 30% medium, **0% high** (20 commits) | same |
+| Hybrid retrieval, right file in top 5 | Flask 88%, Requests 96% | `eval/results/*-latest.md` |
+| Refusal decided correctly | Flask 100%, Requests 93% (30 questions each) | same |
+| Findings citing real changed lines | 100% (Flask 4 of 4, Requests 1 of 1) | same |
+| Benchmark, 6 replayed Flask commits | 7B 0.40 (median 93 s), 1.5B 0.18 (13 s); recommends 7B | `eval/results/flask-latest.json` |
+| Verified edit ("reject rates outside 0–1") | verified on the first attempt in 19 s | manual run |
+| Ask with citations | answers cite line ranges; "Kafka" question refused | manual run |
+| Night shift | wrote 4 passing tests for new code on `repopilot/nightshift-<date>`; current branch untouched | manual run |
+| Django scale test | 17,513 chunks, 5,000 commits in 30 min; 235 MB peak; blast 2.3 s; review ~2 min | `/usr/bin/time -l repopilot index` |
+| JS/TS mechanical label vs hand labels | 100% precision, 72% recall (41 hunks, axios + zustand) | `eval/datasets/mechanical_hunks_js.jsonl` |
 
-## Not verified yet
+### Problems found on real models and fixed
 
-- **Anything that needs a language model** — no local runtime was installed. Not yet exercised against a real model: review findings, Ask answers, verified edits, night-shift test writing, the benchmark, vector/hybrid retrieval and refusal accuracy. The public demo's Ask, Night shift and Models pages have no data until `scripts/build_demo.py` is run with models.
-- The VS Code extension inside a running VS Code (Extension Development Host).
+Each came from a run above, got a regression test, and is in the git log:
+
+- A correct merged Flask fix (`4995a775`) drew three HIGH findings. Reviews now get the commit message as intent, every finding must name a failing input, a second pass must confirm it, and unsupported findings are capped at medium.
+- The second pass then dropped *every* finding (planted bugs caught: 5%), because the 7B model left the optional `failing_input` empty. It is now required in the schema the runtime enforces, and the verdict schema puts its reasoning before the decision. Caught: 70%.
+- In the VS Code test, the project's tests failed on the planted bug but the second pass still rejected the finding; it now sees the failing test output.
+- Ask answered without citations on 7B; the rule is repeated at the end of the prompt, and an uncited answer is labelled unverified.
+- Verified edits always failed on 7B (it sends whole files); a short file the model saw in full may now be rewritten whole, and tests still decide.
+- Night shift rejected correct tests because the suite was already red; it now checks first and says so.
+- One Ollama error aborted the whole benchmark, and the 60 s latency cap recommended the 1.5B model at less than half the 7B's score. Both fixed.
+- Earlier: vectors from a different embedding model were kept (now rebuilt), the refusal threshold was miscalibrated on real embeddings, and the 1.5B model produced truncated JSON (schema length limits).
+
+## Earlier manual checks (2026-10-18)
+
+- **Clean install:** fresh Python 3.12 venv, `pip install` of the wheel, `repopilot serve` served the UI and demo data; with no runtime, model endpoints return 503 with setup instructions.
+- **Calibration on real data:** fixed-threshold risk rated every Flask core file "high" (replaced with a repo-relative score); tooling chores counted as bug fixes (excluded); owners split across git name variants (`.mailmap` honoured).
+- **Browser:** landing and app pages at 1440 px light and dark, and 375 px, with no horizontal overflow.
+- **Classifier vs human labels (Python):** the first 60 hand-labelled hunks found three rule gaps, fixed with a per-hunk syntax-tree comparison (100% / 91% on that set); a fresh held-out set of 30 hunks labelled blind: 100% precision, 75% recall.
+
+## Not verified
+
 - Linux and Windows; NVIDIA hardware detection.
 - The GitHub review-comment import against the live API (tested with a mocked transport).
-- Any deployment.
+- The benchmark's test-pass rate on Flask: Flask's own test dependencies were not installed where the replayed commits ran.
+- Larger models (14B and up): the laptop's 16 GB can't hold them alongside the embedding model.

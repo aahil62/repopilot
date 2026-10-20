@@ -61,20 +61,42 @@ RepoPilot picks models that fit your memory; change them with `repopilot models`
 
 ## VS Code
 
-Install `repopilot-2.0.0.vsix` from the [releases page](https://github.com/aahil62/repopilot/releases) (*Extensions → … → Install from VSIX*). Commands: **Review Working Changes** (findings in the Problems panel), **Show Blast Radius** (also a CodeLens on every file), **Ask**, **Edit with Verification**, **Pick Models**. See [vscode-extension/README.md](vscode-extension/README.md).
+Install `repopilot-2.0.0.vsix` from the [releases page](https://github.com/aahil62/repopilot/releases) (*Extensions → … → Install from VSIX*). Commands: **Review Working Changes** (findings in the Problems panel), **Show Blast Radius** (also a CodeLens on every file), **Ask**, **Edit with Verification**, **Pick Models**. See [vscode-extension/README.md](vscode-extension/README.md). `npm run test:e2e` launches VS Code with the extension against a real repository and checks that a review lands in the Problems panel.
 
 ## Measured
 
-From [`eval/run_eval.py`](eval/run_eval.py) on pinned versions of [pallets/flask](https://github.com/pallets/flask) (`3.1.0`) and [psf/requests](https://github.com/psf/requests) (`v2.32.3`). Datasets are in [`eval/datasets/`](eval/datasets); results in [`eval/results/`](eval/results).
+Run on an Apple M4 laptop (16 GB) with `qwen2.5-coder:7b`, `qwen2.5-coder:1.5b` and `nomic-embed-text` through Ollama, on pinned versions of [pallets/flask](https://github.com/pallets/flask) (`3.1.0`) and [psf/requests](https://github.com/psf/requests) (`v2.32.3`). Scripts: [`eval/run_eval.py`](eval/run_eval.py), [`eval/seeded_bugs.py`](eval/seeded_bugs.py). Datasets are in [`eval/datasets/`](eval/datasets); results in [`eval/results/`](eval/results).
 
-| Measure | Result |
+**Review — does it catch bugs without crying wolf?** 20 one-line bugs planted in Flask's library code (flipped comparisons, dropped `not`, inverted `is None`, swapped `and`/`or`), and 20 real merged Flask bug fixes that are presumed correct. Tests not run, so this is the model alone.
+
+| | Result |
 |---|---|
-| Mechanical label vs a human, **held-out** set | **100% precision, 75% recall** on 30 hunks labelled blind — it never hid a behavior change |
-| Same, on the set the rules were tuned on | 100% precision, 91% recall on 60 hunks |
-| Right file in the top 5, keyword search only | 88% on Flask (25 questions), 88% on Requests (25 questions) |
+| Planted bugs flagged on the changed line (medium or high) | **70%** (14 of 20) |
+| Correct merged fixes given a medium finding | 30% (6 of 20) |
+| Correct merged fixes given a **high** finding | **0%** (0 of 20) |
+| Model findings citing real changed lines | 100% (4 of 4 on Flask fix commits; others are discarded) |
+
+High findings need a failing test or a matching past fix or review behind them, which is why `--fail-on high` is the CI gate. Medium findings are worth a look, and wrong about 30% of the time on correct code.
+
+**Mechanical vs behavior** (no model):
+
+| | Result |
+|---|---|
+| Python, **held-out** set labelled blind | **100% precision, 75% recall** (30 hunks): it never hid a behavior change |
+| Python, set the rules were tuned on | 100% precision, 91% recall (60 hunks) |
+| JavaScript/TypeScript (axios, zustand), not tuned on | **100% precision, 72% recall** (41 hunks) |
 | Hunks set aside as mechanical | 61% of 252 hunks in Flask's last 40 commits; 24% of 128 in Requests' |
 
-These are **offline** results — they need no language model. Vector and hybrid retrieval, refusal accuracy, citation validity and the model benchmark come from running the same script with local models (`eval/run_eval.py` without `--offline`).
+**Search and Ask:**
+
+| | Flask | Requests |
+|---|---|---|
+| Right file in the top 5: keyword / vector / hybrid | 88% / 80% / **88%** | 88% / 92% / **96%** |
+| "Not in this repository" decided correctly (25 answerable + 5 unanswerable) | **100%** | 93% |
+
+**Scale** — [django/django](https://github.com/django/django) (529k lines of Python, 35k commits): 17,513 chunks and the newest 5,000 commits indexed in 30 minutes, almost all of it embedding time (52 s of CPU); 235 MB peak memory, 134 MB on disk. Afterwards blast radius takes 2.3 s and a 7B review of a 6-hunk commit about 2 minutes.
+
+**Which model?** On six replayed Flask commits, `qwen2.5-coder:7b` scored 0.40 (median 93 s per task) and `1.5b` 0.18 (13 s). The benchmark recommends the 7B: on this laptop it is slow, but the faster model is much worse. Flask's own tests were not installed in the runner, so this score covers whether the edit applies and how close it is to the real commit, not whether tests pass.
 
 ## How it works
 
@@ -108,7 +130,7 @@ Design notes: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```bash
 cd backend && python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
-../scripts/check_backend.sh         # ruff + 67 tests (no model or network needed)
+../scripts/check_backend.sh         # ruff + 78 tests (no model or network needed)
 cd ../web && npm ci && npm test && npm run dev    # UI on :7342 against the API on :7341
 python scripts/bundle_web.py        # build the UI into the wheel
 python scripts/build_demo.py        # regenerate the public demo data from a real run on Flask
@@ -116,7 +138,9 @@ python scripts/build_demo.py        # regenerate the public demo data from a rea
 
 ## Limits
 
-- Small local models miss subtle bugs; review quality depends on the model you run. RepoPilot narrows what you read and checks what it can — it does not replace a human reviewer.
+- Small local models miss subtle bugs; review quality depends on the model you run. On correct code, about 30% of commits still get a medium finding (high findings need evidence and were 0%). RepoPilot narrows what you read and checks what it can — it does not replace a human reviewer.
+- A finding's line can be off within the changed hunk (the line check only proves it is inside the change).
+- On a 16 GB laptop the 7B model takes 1–2 minutes per review and about 30 minutes to embed a repository the size of Django; the 1.5B model is fast but too weak for edits.
 - Co-change and fix detection are heuristics over commit history; repositories with squashed or very large commits give weaker signals.
 - Tests run with your project's own environment; if dependencies aren't installed, checks will fail for reasons unrelated to the change.
 - Import resolution covers Python and JavaScript/TypeScript.
