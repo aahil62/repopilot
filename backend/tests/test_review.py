@@ -6,7 +6,7 @@ import pytest
 from repopilot.config import get_settings
 from repopilot.engines.checks import detect_test_command, run_checks
 from repopilot.engines.classify import classify_hunk, identifiers, python_same_tree
-from repopilot.engines.diffparse import diff_for, parse
+from repopilot.engines.diffparse import DiffSource, diff_for, parse
 from repopilot.engines.review import load_review, review
 from repopilot.memory.codegraph import build_graph
 from repopilot.memory.history import import_history
@@ -14,6 +14,14 @@ from repopilot.memory.indexer import index_code
 from repopilot.memory.store import MemoryStore
 from repopilot.runtime import FakeRuntime
 from repopilot.worktree import temp_worktree
+
+
+def _reviewer(review_json: str, confirm: bool = True) -> FakeRuntime:
+    """Fake model: answers the review prompt with `review_json` and the skeptical second pass with `confirm`."""
+    verdict = json.dumps({"confirmed": confirm, "reason": "checked"})
+    return FakeRuntime(
+        {"strong": [lambda m: verdict if m[-1]["content"].endswith("VERDICT?") else review_json]}
+    )
 
 
 def _hunk(diff: str, old: str | None = None, new: str | None = None):
@@ -123,6 +131,7 @@ async def test_review_keeps_verified_finding_and_drops_hallucinated(git_repo):
                     "line": 4,
                     "title": "Discount adds instead of subtracting",
                     "explanation": "price * (1 + rate) raises the price.",
+                    "failing_input": "discount(100, 0.25) returns 125",
                     "evidence": ["deadbeef"],
                 },
                 {
@@ -131,12 +140,13 @@ async def test_review_keeps_verified_finding_and_drops_hallucinated(git_repo):
                     "line": 88,
                     "title": "Invented file",
                     "explanation": "Not in the diff.",
+                    "failing_input": "x",
                     "evidence": [],
                 },
             ],
         }
     )
-    fake = FakeRuntime({"strong": [model_out]})
+    fake = _reviewer(model_out)
     report = await review("r1", repo, diff, fake, source=source)
     assert report.behavior_count == 1 and report.mechanical_count == 0
     assert [f.title for f in report.findings] == ["Discount adds instead of subtracting"]
@@ -145,6 +155,7 @@ async def test_review_keeps_verified_finding_and_drops_hallucinated(git_repo):
     assert report.checks.status == "failed" and "assert" in report.checks.output_tail
     assert report.blast and report.blast.past_fixes[0].subject == "fix: reject negative rates"
     assert "HISTORY" in fake.calls[0]["messages"][1]["content"]
+    assert report.findings[0].corroborated  # the project's tests fail, so high severity stands
     assert load_review("r1", report.review_id).summary == report.summary
     assert (repo / "shop.py").read_text().count("1 + rate") == 1  # user's working tree untouched
 
@@ -233,11 +244,12 @@ async def test_markdown_report_and_fail_gate(git_repo):
                     "line": 4,
                     "title": "Sign flipped",
                     "explanation": "Adds the rate.",
+                    "failing_input": "discount(100, 0.25)",
                 }
             ],
         }
     )
-    report = await review("r5", repo, diff, FakeRuntime({"strong": [finding]}), source=source)
+    report = await review("r5", repo, diff, _reviewer(finding), source=source)
     md = report_markdown(report)
     assert md.startswith("## RepoPilot review") and "**1 of 1 hunks change behavior.**" in md
     assert "`shop.py:4` Sign flipped" in md and "### Checks: failed" in md
@@ -261,3 +273,69 @@ def test_hook_install_and_uninstall(git_repo):
     assert (
         runner.invoke(app, ["hook", "install", "--repo", str(repo)]).exit_code == 2
     )  # never overwrite a user's hook
+
+
+async def test_second_pass_drops_unconfirmed_and_caps_uncorroborated(git_repo):
+    repo = git_repo([("init", {"app.py": "def f(x):\n    return x\n"})])
+    await _prepare(repo, "r6")
+    (repo / "app.py").write_text("def f(x):\n    return x * 2\n")
+    diff, source = diff_for(repo)
+    claim = json.dumps(
+        {
+            "summary": "Doubles x.",
+            "findings": [
+                {
+                    "severity": "high",
+                    "path": "app.py",
+                    "line": 2,
+                    "title": "Doubles",
+                    "explanation": "x is doubled.",
+                    "failing_input": "f(2) returns 4",
+                },
+                {
+                    "severity": "high",
+                    "path": "app.py",
+                    "line": 2,
+                    "title": "No input given",
+                    "explanation": "vague.",
+                },
+            ],
+        }
+    )
+    kept = await review("r6", repo, diff, _reviewer(claim), source=source, run_checks_enabled=False)
+    assert [f.title for f in kept.findings] == ["Doubles"] and kept.dropped_unconfirmed == 1
+    assert kept.findings[0].severity == "medium" and not kept.findings[0].corroborated
+    rejected = await review(
+        "r6", repo, diff, _reviewer(claim, confirm=False), source=source, run_checks_enabled=False
+    )
+    assert rejected.findings == [] and rejected.dropped_unconfirmed == 2
+
+
+async def test_commit_intent_is_given_to_the_model(git_repo):
+    repo = git_repo(
+        [
+            ("init", {"app.py": "def f(x):\n    return x\n"}),
+            ("Double the value for the new pricing rule", {"app.py": "def f(x):\n    return x * 2\n"}),
+        ]
+    )
+    await _prepare(repo, "r7")
+    import subprocess
+
+    from repopilot.engines.diffparse import commit_diff
+
+    sha = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True
+    ).stdout.strip()
+    fake = _reviewer(json.dumps({"summary": "As intended.", "findings": []}))
+    report = await review(
+        "r7",
+        repo,
+        commit_diff(repo, sha),
+        fake,
+        source=DiffSource("commit", head=sha),
+        run_checks_enabled=False,
+    )
+    assert (
+        report.intent.startswith("Double the value")
+        and "Double the value" in fake.calls[0]["messages"][1]["content"]
+    )

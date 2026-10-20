@@ -22,10 +22,13 @@ REVIEW = json.dumps(
                 "line": 6,
                 "title": "Session drops the user key",
                 "explanation": "Callers read 'user'.",
+                "failing_input": "login_view(request)['user'] raises KeyError",
             }
         ],
     }
 )
+
+VERDICT = json.dumps({"confirmed": True, "reason": "checked"})
 
 
 def _wait(client, job_id, timeout=30):
@@ -57,7 +60,9 @@ def test_end_to_end_with_fake_runtime(git_repo, tmp_path):
             {
                 "strong": [
                     lambda m: (
-                        REVIEW
+                        VERDICT
+                        if m[-1]["content"].endswith("VERDICT?")
+                        else REVIEW
                         if "BEHAVIOR HUNKS" in m[-1]["content"]
                         else "Login is handled by `login_user` [1]."
                     )

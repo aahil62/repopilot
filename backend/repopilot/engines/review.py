@@ -25,12 +25,19 @@ MAX_PROMPT_LINES = 600
 LINE_TOLERANCE = 3
 
 SYSTEM_PROMPT = """You are a careful senior engineer reviewing a code change for real bugs.
-Only report problems you can point to in the BEHAVIOR HUNKS below: a wrong condition, missing case,
-broken contract, unsafe input handling, resource leak, race, or a change that contradicts a past fix
-or review comment listed under HISTORY. Do not comment on style, naming or formatting.
+Judge the change against its INTENT: code that correctly does what the intent says is not a bug,
+and new tests that exercise the intended behavior are not bugs.
+Only report a problem if you can name a concrete input or call that now misbehaves (`failing_input`):
+a wrong condition, missing case, broken contract, unsafe input handling, resource leak, race, or a change
+that contradicts a past fix or review comment listed under HISTORY. Never comment on style or naming.
 Every finding must name the file path exactly as shown and a line number from the new version
-(the numbers printed at the start of each line). If you are not confident, report fewer findings.
+(the numbers printed at the start of each line). Most correct changes have no findings: an empty
+`findings` list is the expected answer when nothing is clearly wrong.
 `evidence` may only contain refs that appear under HISTORY (for example "PR #412" or a commit sha)."""
+
+CRITIC_PROMPT = """You are checking another reviewer's claim about a code change. Be skeptical.
+Answer confirmed=true only if the failing input really misbehaves given the code shown and the stated
+intent of the change. If the change does what its intent says, or you are unsure, answer false."""
 
 
 class ModelFinding(BaseModel):
@@ -39,6 +46,7 @@ class ModelFinding(BaseModel):
     line: int
     title: str = Field(max_length=160)
     explanation: str = Field(max_length=600)
+    failing_input: str = Field(default="", max_length=300)
     evidence: list[str] = Field(default_factory=list, max_length=3)
 
 
@@ -68,6 +76,12 @@ class FileView(BaseModel):
 
 class Finding(ModelFinding):
     evidence_detail: list[Precedent] = Field(default_factory=list)
+    corroborated: bool = False  # a failing test or a past fix/review supports it
+
+
+class CriticVerdict(BaseModel):
+    confirmed: bool
+    reason: str = Field(max_length=300)
 
 
 class ReviewReport(BaseModel):
@@ -80,6 +94,8 @@ class ReviewReport(BaseModel):
     behavior_count: int
     findings: list[Finding]
     dropped_unverifiable: int
+    dropped_unconfirmed: int = 0
+    intent: str | None = None
     blast: BlastReport | None
     precedents: list[Precedent]
     checks: ChecksResult
@@ -105,13 +121,31 @@ def _numbered(h: Hunk) -> str:
     return "\n".join(out)
 
 
+def change_intent(repo_path: Path, source: DiffSource) -> str | None:
+    """What the change is meant to do: commit messages for commits and branch comparisons."""
+    import subprocess
+
+    def git(*args: str) -> str:
+        return subprocess.run(
+            ["git", *args], cwd=repo_path, capture_output=True, text=True, timeout=30
+        ).stdout.strip()
+
+    if source.kind == "commit" and source.head:
+        return git("log", "-1", "--format=%s%n%n%b", source.head)[:1200] or None
+    if source.kind == "refs" and source.base:
+        rng = f"{source.base}..{source.head or 'HEAD'}"
+        return git("log", "--format=- %s", "-20", rng)[:1200] or None
+    return None
+
+
 def _prompt(
     behavior: list[tuple[FileDiff, Hunk]],
     blast: BlastReport | None,
     precedents: list[Precedent],
     checks: ChecksResult,
+    intent: str | None = None,
 ) -> tuple[str, bool]:
-    parts, used, truncated = ["BEHAVIOR HUNKS"], 0, False
+    parts, used, truncated = [f"INTENT\n{intent or 'Not stated.'}\n", "BEHAVIOR HUNKS"], 0, False
     for fd, h in behavior:
         size = len(h.lines)
         if used + size > MAX_PROMPT_LINES:
@@ -165,6 +199,45 @@ def _verify(
     return sorted(kept, key=lambda x: (order[x.severity], x.path, x.line)), dropped
 
 
+async def _criticise(
+    runtime: Runtime,
+    findings: list[Finding],
+    behavior: list[tuple[FileDiff, Hunk]],
+    intent: str | None,
+    checks: ChecksResult,
+) -> tuple[list[Finding], int]:
+    """Second, skeptical pass: keep a finding only if the model confirms its failing input.
+    Uncorroborated findings (no failing test, no past fix or review) are capped at medium."""
+    kept, dropped = [], 0
+    for f in findings:
+        if not f.failing_input.strip():
+            dropped += 1
+            continue
+        hunk_text = "\n\n".join(_numbered(h) for fd, h in behavior if fd.path == f.path)[:6000]
+        claim = (
+            f"INTENT\n{intent or 'Not stated.'}\n\nCODE ({f.path})\n{hunk_text}\n\nCLAIM\n"
+            f"line {f.line}: {f.title}. {f.explanation}\nFailing input: {f.failing_input}\n\nVERDICT?"
+        )
+        try:
+            verdict = await structured_call(
+                runtime,
+                "strong",
+                CriticVerdict,
+                [{"role": "system", "content": CRITIC_PROMPT}, {"role": "user", "content": claim}],
+                max_tokens=300,
+            )
+        except ModelOutputError:
+            dropped += 1
+            continue
+        if not verdict.confirmed:
+            dropped += 1
+            continue
+        corroborated = checks.status == "failed" or bool(f.evidence_detail)
+        severity = f.severity if corroborated or f.severity != "high" else "medium"
+        kept.append(f.model_copy(update={"corroborated": corroborated, "severity": severity}))
+    return kept, dropped
+
+
 async def review(
     repo_id: str,
     repo_path: Path,
@@ -176,6 +249,7 @@ async def review(
     use_model: bool = True,
     checks_ref: str = "HEAD",
     persist: bool = True,
+    intent: str | None = None,
 ) -> ReviewReport:
     started = time.perf_counter()
     timings: dict[str, int] = {}
@@ -247,6 +321,9 @@ async def review(
 
     findings: list[Finding] = []
     dropped = 0
+    unconfirmed = 0
+    if intent is None and source.kind in ("commit", "refs"):
+        intent = change_intent(repo_path, source)
     model_error = None
     truncated = False
     mech = sum(v.mechanical_hunks for v in views)
@@ -258,7 +335,7 @@ async def review(
         )
     if behavior and use_model and runtime is not None:
         t0 = time.perf_counter()
-        prompt, truncated = _prompt(behavior, blast, precedents, checks)
+        prompt, truncated = _prompt(behavior, blast, precedents, checks, intent)
         try:
             result = await structured_call(
                 runtime,
@@ -270,6 +347,7 @@ async def review(
             known = {p.ref: p for p in precedents}
             fix_refs = {f.sha[:8] for f in (blast.past_fixes if blast else [])}
             findings, dropped = _verify(result.findings, files, known, fix_refs)
+            findings, unconfirmed = await _criticise(runtime, findings, behavior, intent, checks)
             summary = f"{result.summary.strip()} {summary}".strip()
         except ModelOutputError as exc:
             model_error = f"Model output could not be validated after retries: {exc.error[:200]}"
@@ -285,6 +363,8 @@ async def review(
         behavior_count=beh,
         findings=findings,
         dropped_unverifiable=dropped,
+        dropped_unconfirmed=unconfirmed,
+        intent=intent,
         blast=blast,
         precedents=precedents,
         checks=checks,
