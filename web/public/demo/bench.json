@@ -1,0 +1,218 @@
+{
+ "created_at": "2026-10-20T15:50:57+00:00",
+ "repo_id": "5a5d0d1d1412",
+ "tasks": [
+  {
+   "sha": "a7487701999fee55bb76a393e72c96ac8e277fcf",
+   "parent": "4a0f658897dfcb86fad09d0411e74f0658ae72f1",
+   "subject": "clarify `View.as_view` docstring",
+   "body": "",
+   "paths": [
+    "src/flask/views.py"
+   ],
+   "real_diff": "diff --git a/src/flask/views.py b/src/flask/views.py\nindex a82f1912..f86172b4 100644\n--- a/src/flask/views.py\n+++ b/src/flask/views.py\n@@ -92,8 +92,8 @@ class View:\n         :attr:`init_every_request` to ``False``, the same instance will\n         be used for every request.\n \n-        The arguments passed to this method are forwarded to the view\n-        class ``__init__`` method.\n+        Except for ``name``, all other arguments passed to this method\n+        are forwarded to the view class ``__init__`` method.\n \n         .. versionchanged:: 2.2\n             Added the ``init_every_request`` class attribute.\n"
+  },
+  {
+   "sha": "3f6b243cec6859185ea4064e84b33c07cc7febf6",
+   "parent": "72c85e80c8ef9e6d5b5644f7bb23cdc175ca3873",
+   "subject": "Support async template context processors",
+   "body": "This is useful as there is contextual information that could be loaded\nvia IO e.g. information from a database. This also matches Quart and\nhence makes the shared signature easier to manage.",
+   "paths": [
+    "src/flask/app.py",
+    "src/flask/typing.py"
+   ],
+   "real_diff": "diff --git a/src/flask/app.py b/src/flask/app.py\nindex 34d315da..3278ae9a 100644\n--- a/src/flask/app.py\n+++ b/src/flask/app.py\n@@ -478,7 +478,7 @@ class Flask(App):\n         for name in names:\n             if name in self.template_context_processors:\n                 for func in self.template_context_processors[name]:\n-                    context.update(func())\n+                    context.update(self.ensure_sync(func)())\n \n         context.update(orig_ctx)\n \ndiff --git a/src/flask/typing.py b/src/flask/typing.py\nindex 50aef7f4..0cd4b3e7 100644\n--- a/src/flask/typing.py\n+++ b/src/flask/typing.py\n@@ -61,7 +61,10 @@ TeardownCallable = t.Union[\n     t.Callable[[t.Optional[BaseException]], None],\n     t.Callable[[t.Optional[BaseException]], t.Awaitable[None]],\n ]\n-TemplateContextProcessorCallable = t.Callable[[], t.Dict[str, t.Any]]\n+TemplateContextProcessorCallable = t.Union[\n+    t.Callable[[], t.Dict[str, t.Any]],\n+    t.Callable[[], t.Awaitable[t.Dict[str, t.Any]]],\n+]\n TemplateFilterCallable = t.Callable[..., t.Any]\n TemplateGlobalCallable = t.Callable[..., t.Any]\n TemplateTestCallable = t.Callable[..., bool]\n"
+  },
+  {
+   "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
+   "parent": "98ae71897600a3162f529b1b30c70b8abdf0961b",
+   "subject": "update helpers.send_from_directory docstring (#5599)",
+   "body": "Update helpers.send_from_directory docstring to match werkzeug.utils.send_from_directory docstring on the :param directory: line.",
+   "paths": [
+    "src/flask/helpers.py"
+   ],
+   "real_diff": "diff --git a/src/flask/helpers.py b/src/flask/helpers.py\nindex f891eed1..57c8a000 100644\n--- a/src/flask/helpers.py\n+++ b/src/flask/helpers.py\n@@ -547,7 +547,8 @@ def send_from_directory(\n     raises a 404 :exc:`~werkzeug.exceptions.NotFound` error.\n \n     :param directory: The directory that ``path`` must be located under,\n-        relative to the current application's root path.\n+        relative to the current application's root path. This *must not*\n+        be a value provided by the client, otherwise it becomes insecure.\n     :param path: The path to the file to send, relative to\n         ``directory``.\n     :param kwargs: Arguments to pass to :func:`send_file`.\n"
+  },
+  {
+   "sha": "f49dbfd3e451006a485e81ebce030495131c4454",
+   "parent": "7b21d43d4c763b874bc86d4c2d69a48ee492dc22",
+   "subject": "use generic bases for session",
+   "body": "",
+   "paths": [
+    "src/flask/sessions.py"
+   ],
+   "real_diff": "diff --git a/src/flask/sessions.py b/src/flask/sessions.py\nindex c2e6a852..375de065 100644\n--- a/src/flask/sessions.py\n+++ b/src/flask/sessions.py\n@@ -1,5 +1,6 @@\n from __future__ import annotations\n \n+import collections.abc as c\n import hashlib\n import typing as t\n from collections.abc import MutableMapping\n@@ -20,8 +21,7 @@ if t.TYPE_CHECKING:  # pragma: no cover\n     from .wrappers import Response\n \n \n-# TODO generic when Python > 3.8\n-class SessionMixin(MutableMapping):  # type: ignore[type-arg]\n+class SessionMixin(MutableMapping[str, t.Any]):\n     \"\"\"Expands a basic dictionary with session attributes.\"\"\"\n \n     @property\n@@ -49,8 +49,7 @@ class SessionMixin(MutableMapping):  # type: ignore[type-arg]\n     accessed = True\n \n \n-# TODO generic when Python > 3.8\n-class SecureCookieSession(CallbackDict, SessionMixin):  # type: ignore[type-arg]\n+class SecureCookieSession(CallbackDict[str, t.Any], SessionMixin):\n     \"\"\"Base class for sessions based on signed cookies.\n \n     This session backend will set the :attr:`modified` and\n@@ -72,7 +71,10 @@ class SecureCookieSession(CallbackDict, SessionMixin):  # type: ignore[type-arg]\n     #: different users.\n     accessed = False\n \n-    def __init__(self, initial: t.Any = None) -> None:\n+    def __init__(\n+        self,\n+        initial: c.Mapping[str, t.Any] | c.Iterable[tuple[str, t.Any]] | None = None,\n+    ) -> None:\n         def on_update(self: te.Self) -> None:\n             self.modified = True\n             self.accessed = True\n"
+  },
+  {
+   "sha": "176fdfa0002360670f698d3828cfff11f97349f0",
+   "parent": "2d31dce8262a68875c177645fa0c7585a45ac447",
+   "subject": "fix mypy findings",
+   "body": "",
+   "paths": [
+    "src/flask/helpers.py",
+    "src/flask/json/provider.py"
+   ],
+   "real_diff": "diff --git a/src/flask/helpers.py b/src/flask/helpers.py\nindex 359a842a..f891eed1 100644\n--- a/src/flask/helpers.py\n+++ b/src/flask/helpers.py\n@@ -47,9 +47,21 @@ def get_load_dotenv(default: bool = True) -> bool:\n     return val.lower() in (\"0\", \"false\", \"no\")\n \n \n+@t.overload\n+def stream_with_context(\n+    generator_or_function: t.Iterator[t.AnyStr],\n+) -> t.Iterator[t.AnyStr]: ...\n+\n+\n+@t.overload\n+def stream_with_context(\n+    generator_or_function: t.Callable[..., t.Iterator[t.AnyStr]],\n+) -> t.Callable[[t.Iterator[t.AnyStr]], t.Iterator[t.AnyStr]]: ...\n+\n+\n def stream_with_context(\n     generator_or_function: t.Iterator[t.AnyStr] | t.Callable[..., t.Iterator[t.AnyStr]],\n-) -> t.Iterator[t.AnyStr]:\n+) -> t.Iterator[t.AnyStr] | t.Callable[[t.Iterator[t.AnyStr]], t.Iterator[t.AnyStr]]:\n     \"\"\"Request contexts disappear when the response is started on the server.\n     This is done for efficiency reasons and to make it less likely to encounter\n     memory leaks with badly written WSGI middlewares.  The downside is that if\ndiff --git a/src/flask/json/provider.py b/src/flask/json/provider.py\nindex f9b2e8ff..b086e668 100644\n--- a/src/flask/json/provider.py\n+++ b/src/flask/json/provider.py\n@@ -113,7 +113,7 @@ def _default(o: t.Any) -> t.Any:\n         return str(o)\n \n     if dataclasses and dataclasses.is_dataclass(o):\n-        return dataclasses.asdict(o)\n+        return dataclasses.asdict(o)  # type: ignore[call-overload]\n \n     if hasattr(o, \"__html__\"):\n         return str(o.__html__())\n"
+  },
+  {
+   "sha": "80cf589a26d792820f135591eb8007bca891bf4f",
+   "parent": "cc80a47f5be6c60e53c42ef9378e6db3b0e183b1",
+   "subject": "Correct the error handler typing",
+   "body": "It may also be awaitable, as invocations are wrapped in ensure_sync.",
+   "paths": [
+    "src/flask/typing.py"
+   ],
+   "real_diff": "diff --git a/src/flask/typing.py b/src/flask/typing.py\nindex 66bc0a54..a8c9ba04 100644\n--- a/src/flask/typing.py\n+++ b/src/flask/typing.py\n@@ -77,7 +77,10 @@ URLValuePreprocessorCallable = t.Callable[[t.Optional[str], t.Optional[dict]], N\n # https://github.com/pallets/flask/issues/4095\n # https://github.com/pallets/flask/issues/4295\n # https://github.com/pallets/flask/issues/4297\n-ErrorHandlerCallable = t.Callable[[t.Any], ResponseReturnValue]\n+ErrorHandlerCallable = t.Union[\n+    t.Callable[[t.Any], ResponseReturnValue],\n+    t.Callable[[t.Any], t.Awaitable[ResponseReturnValue]],\n+]\n \n RouteCallable = t.Union[\n     t.Callable[..., ResponseReturnValue],\n"
+  }
+ ],
+ "models": [
+  {
+   "model": "qwen2.5-coder:7b",
+   "size_bytes": 4683087561,
+   "score": 0.27,
+   "applies_rate": 0.5,
+   "tests_pass_rate": 0.0,
+   "similarity": 0.041,
+   "median_latency_s": 154.24,
+   "tokens_per_second": 9.9,
+   "tasks": [
+    {
+     "sha": "a7487701999fee55bb76a393e72c96ac8e277fcf",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 209.72,
+     "tokens_per_second": 8.8,
+     "score": 0.5,
+     "error": null
+    },
+    {
+     "sha": "3f6b243cec6859185ea4064e84b33c07cc7febf6",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.222,
+     "latency_s": 174.1,
+     "tokens_per_second": 8.7,
+     "score": 0.611,
+     "error": null
+    },
+    {
+     "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
+     "applies": false,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 106.18,
+     "tokens_per_second": 11.2,
+     "score": 0.0,
+     "error": "src/flask/helpers.py: file is too long to rewrite whole; quote the code to change in `search`."
+    },
+    {
+     "sha": "f49dbfd3e451006a485e81ebce030495131c4454",
+     "applies": false,
+     "tests_pass": false,
+     "similarity": 0.0,
+     "latency_s": 549.72,
+     "tokens_per_second": 8.6,
+     "score": 0.0,
+     "error": "src/flask/sessions.py: file is too long to rewrite whole; quote the code to change in `search`."
+    },
+    {
+     "sha": "176fdfa0002360670f698d3828cfff11f97349f0",
+     "applies": false,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 134.38,
+     "tokens_per_second": 10.4,
+     "score": 0.0,
+     "error": "src/flask/helpers.py: file is too long to rewrite whole; quote the code to change in `search`."
+    },
+    {
+     "sha": "80cf589a26d792820f135591eb8007bca891bf4f",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.022,
+     "latency_s": 18.46,
+     "tokens_per_second": 12.0,
+     "score": 0.511,
+     "error": null
+    }
+   ]
+  },
+  {
+   "model": "qwen2.5-coder:1.5b",
+   "size_bytes": 986062089,
+   "score": 0.254,
+   "applies_rate": 0.5,
+   "tests_pass_rate": 0.0,
+   "similarity": 0.007,
+   "median_latency_s": 26.59,
+   "tokens_per_second": 39.3,
+   "tasks": [
+    {
+     "sha": "a7487701999fee55bb76a393e72c96ac8e277fcf",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.02,
+     "latency_s": 15.66,
+     "tokens_per_second": 44.3,
+     "score": 0.51,
+     "error": null
+    },
+    {
+     "sha": "3f6b243cec6859185ea4064e84b33c07cc7febf6",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.023,
+     "latency_s": 37.49,
+     "tokens_per_second": 37.4,
+     "score": 0.511,
+     "error": null
+    },
+    {
+     "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
+     "applies": false,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 15.69,
+     "tokens_per_second": 43.7,
+     "score": 0.0,
+     "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
+    },
+    {
+     "sha": "f49dbfd3e451006a485e81ebce030495131c4454",
+     "applies": false,
+     "tests_pass": false,
+     "similarity": 0.0,
+     "latency_s": 73.7,
+     "tokens_per_second": 38.7,
+     "score": 0.0,
+     "error": "src/flask/sessions.py: file is too long to rewrite whole; quote the code to change in `search`."
+    },
+    {
+     "sha": "176fdfa0002360670f698d3828cfff11f97349f0",
+     "applies": false,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 86.44,
+     "tokens_per_second": 36.1,
+     "score": 0.0,
+     "error": "src/flask/helpers.py: the `search` text was not found in the current file. Quote it exactly."
+    },
+    {
+     "sha": "80cf589a26d792820f135591eb8007bca891bf4f",
+     "applies": true,
+     "tests_pass": null,
+     "similarity": 0.0,
+     "latency_s": 5.46,
+     "tokens_per_second": 35.6,
+     "score": 0.5,
+     "error": null
+    }
+   ]
+  }
+ ],
+ "skipped": [],
+ "recommendation": "Use qwen2.5-coder:7b for review and code (score 0.27, median 154 s on your machine). It is slow on this hardware. No installed model edits this repository reliably (best score 0.27): treat its edits as drafts, or try a larger model (14B or more) if your hardware allows. qwen2.5-coder:1.5b is good enough for classification.",
+ "recommended_strong": "qwen2.5-coder:7b",
+ "recommended_fast": "qwen2.5-coder:1.5b"
+}

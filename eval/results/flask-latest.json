@@ -1224,36 +1224,36 @@
   "validity": 1.0
  },
  "bench": {
-  "recommendation": "Use qwen2.5-coder:7b for review and code (score 0.40, median 93 s on your machine). It is slow on this hardware, but the faster models scored much lower. qwen2.5-coder:1.5b is good enough for classification.",
+  "recommendation": "Use qwen2.5-coder:7b for review and code (score 0.27, median 154 s on your machine). It is slow on this hardware. No installed model edits this repository reliably (best score 0.27): treat its edits as drafts, or try a larger model (14B or more) if your hardware allows. qwen2.5-coder:1.5b is good enough for classification.",
   "models": [
    {
     "model": "qwen2.5-coder:7b",
     "size_bytes": 4683087561,
-    "score": 0.404,
-    "applies_rate": 0.667,
-    "tests_pass_rate": null,
-    "similarity": 0.141,
-    "median_latency_s": 92.9,
-    "tokens_per_second": 10.3,
+    "score": 0.27,
+    "applies_rate": 0.5,
+    "tests_pass_rate": 0.0,
+    "similarity": 0.041,
+    "median_latency_s": 154.24,
+    "tokens_per_second": 9.9,
     "tasks": [
      {
-      "sha": "54688b26a9562c9a9c31541dbf32e0d8ee7a5926",
+      "sha": "a7487701999fee55bb76a393e72c96ac8e277fcf",
       "applies": true,
       "tests_pass": null,
       "similarity": 0.0,
-      "latency_s": 131.97,
-      "tokens_per_second": 9.3,
+      "latency_s": 209.72,
+      "tokens_per_second": 8.8,
       "score": 0.5,
       "error": null
      },
      {
-      "sha": "2792dcf23e848472767a075e7c30e28890fd539d",
+      "sha": "3f6b243cec6859185ea4064e84b33c07cc7febf6",
       "applies": true,
       "tests_pass": null,
-      "similarity": 0.0,
-      "latency_s": 124.81,
-      "tokens_per_second": 12.1,
-      "score": 0.5,
+      "similarity": 0.222,
+      "latency_s": 174.1,
+      "tokens_per_second": 8.7,
+      "score": 0.611,
       "error": null
      },
      {
@@ -1261,112 +1261,112 @@
       "applies": false,
       "tests_pass": null,
       "similarity": 0.0,
-      "latency_s": 29.13,
-      "tokens_per_second": 11.0,
+      "latency_s": 106.18,
+      "tokens_per_second": 11.2,
       "score": 0.0,
       "error": "src/flask/helpers.py: file is too long to rewrite whole; quote the code to change in `search`."
      },
      {
-      "sha": "b3fc9eb36b8021ad966be57532a5fa5ae4231e13",
-      "applies": true,
-      "tests_pass": null,
-      "similarity": 0.6,
-      "latency_s": 60.99,
-      "tokens_per_second": 10.2,
-      "score": 0.8,
-      "error": null
+      "sha": "f49dbfd3e451006a485e81ebce030495131c4454",
+      "applies": false,
+      "tests_pass": false,
+      "similarity": 0.0,
+      "latency_s": 549.72,
+      "tokens_per_second": 8.6,
+      "score": 0.0,
+      "error": "src/flask/sessions.py: file is too long to rewrite whole; quote the code to change in `search`."
      },
      {
-      "sha": "0bb8b4f9a1c61fcf473e5ca7a10cc3ed4f30766f",
-      "applies": true,
-      "tests_pass": null,
-      "similarity": 0.247,
-      "latency_s": 38.09,
-      "tokens_per_second": 12.7,
-      "score": 0.623,
-      "error": null
-     },
-     {
-      "sha": "12c49c75fbd04cfe81808ef300fcb0858d92c7b7",
+      "sha": "176fdfa0002360670f698d3828cfff11f97349f0",
       "applies": false,
       "tests_pass": null,
       "similarity": 0.0,
-      "latency_s": 424.88,
-      "tokens_per_second": 6.8,
+      "latency_s": 134.38,
+      "tokens_per_second": 10.4,
       "score": 0.0,
-      "error": "flask/app.py: file is too long to rewrite whole; quote the code to change in `search`."
+      "error": "src/flask/helpers.py: file is too long to rewrite whole; quote the code to change in `search`."
+     },
+     {
+      "sha": "80cf589a26d792820f135591eb8007bca891bf4f",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.022,
+      "latency_s": 18.46,
+      "tokens_per_second": 12.0,
+      "score": 0.511,
+      "error": null
      }
     ]
    },
    {
     "model": "qwen2.5-coder:1.5b",
     "size_bytes": 986062089,
-    "score": 0.185,
-    "applies_rate": 0.333,
-    "tests_pass_rate": null,
-    "similarity": 0.037,
-    "median_latency_s": 12.88,
-    "tokens_per_second": 26.0,
+    "score": 0.254,
+    "applies_rate": 0.5,
+    "tests_pass_rate": 0.0,
+    "similarity": 0.007,
+    "median_latency_s": 26.59,
+    "tokens_per_second": 39.3,
     "tasks": [
      {
-      "sha": "54688b26a9562c9a9c31541dbf32e0d8ee7a5926",
+      "sha": "a7487701999fee55bb76a393e72c96ac8e277fcf",
       "applies": true,
       "tests_pass": null,
-      "similarity": 0.222,
-      "latency_s": 10.61,
-      "tokens_per_second": 30.3,
-      "score": 0.611,
+      "similarity": 0.02,
+      "latency_s": 15.66,
+      "tokens_per_second": 44.3,
+      "score": 0.51,
       "error": null
      },
      {
-      "sha": "2792dcf23e848472767a075e7c30e28890fd539d",
-      "applies": false,
+      "sha": "3f6b243cec6859185ea4064e84b33c07cc7febf6",
+      "applies": true,
       "tests_pass": null,
-      "similarity": 0.0,
-      "latency_s": 10.67,
-      "tokens_per_second": 34.4,
-      "score": 0.0,
-      "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
+      "similarity": 0.023,
+      "latency_s": 37.49,
+      "tokens_per_second": 37.4,
+      "score": 0.511,
+      "error": null
      },
      {
       "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
       "applies": false,
       "tests_pass": null,
       "similarity": 0.0,
-      "latency_s": 26.3,
-      "tokens_per_second": 27.2,
+      "latency_s": 15.69,
+      "tokens_per_second": 43.7,
       "score": 0.0,
       "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
      },
      {
-      "sha": "b3fc9eb36b8021ad966be57532a5fa5ae4231e13",
+      "sha": "f49dbfd3e451006a485e81ebce030495131c4454",
+      "applies": false,
+      "tests_pass": false,
+      "similarity": 0.0,
+      "latency_s": 73.7,
+      "tokens_per_second": 38.7,
+      "score": 0.0,
+      "error": "src/flask/sessions.py: file is too long to rewrite whole; quote the code to change in `search`."
+     },
+     {
+      "sha": "176fdfa0002360670f698d3828cfff11f97349f0",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 86.44,
+      "tokens_per_second": 36.1,
+      "score": 0.0,
+      "error": "src/flask/helpers.py: the `search` text was not found in the current file. Quote it exactly."
+     },
+     {
+      "sha": "80cf589a26d792820f135591eb8007bca891bf4f",
       "applies": true,
       "tests_pass": null,
       "similarity": 0.0,
-      "latency_s": 14.09,
-      "tokens_per_second": 0.4,
+      "latency_s": 5.46,
+      "tokens_per_second": 35.6,
       "score": 0.5,
       "error": null
-     },
-     {
-      "sha": "0bb8b4f9a1c61fcf473e5ca7a10cc3ed4f30766f",
-      "applies": false,
-      "tests_pass": null,
-      "similarity": 0.0,
-      "latency_s": 11.66,
-      "tokens_per_second": 36.0,
-      "score": 0.0,
-      "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
-     },
-     {
-      "sha": "12c49c75fbd04cfe81808ef300fcb0858d92c7b7",
-      "applies": false,
-      "tests_pass": null,
-      "similarity": 0.0,
-      "latency_s": 20.13,
-      "tokens_per_second": 27.8,
-      "score": 0.0,
-      "error": "flask/app.py: file is too long to rewrite whole; quote the code to change in `search`."
      }
     ]
    }

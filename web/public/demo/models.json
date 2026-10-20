@@ -1,0 +1,63 @@
+{
+ "runtimes": [
+  {
+   "base_url": "http://127.0.0.1:11434",
+   "kind": "ollama",
+   "reachable": true,
+   "error": null
+  },
+  {
+   "base_url": "http://127.0.0.1:1234/v1",
+   "kind": "openai_compat",
+   "reachable": false,
+   "error": "ConnectError"
+  },
+  {
+   "base_url": "http://127.0.0.1:8080/v1",
+   "kind": "openai_compat",
+   "reachable": false,
+   "error": "ConnectError"
+  }
+ ],
+ "models": [
+  {
+   "id": "qwen2.5-coder:7b",
+   "runtime": "ollama",
+   "base_url": "http://127.0.0.1:11434",
+   "size_bytes": 4683087561,
+   "context_length": 32768,
+   "is_embedding": false,
+   "fits": true
+  },
+  {
+   "id": "qwen2.5-coder:1.5b",
+   "runtime": "ollama",
+   "base_url": "http://127.0.0.1:11434",
+   "size_bytes": 986062089,
+   "context_length": 32768,
+   "is_embedding": false,
+   "fits": true
+  },
+  {
+   "id": "nomic-embed-text:latest",
+   "runtime": "ollama",
+   "base_url": "http://127.0.0.1:11434",
+   "size_bytes": 274302450,
+   "context_length": null,
+   "is_embedding": true,
+   "fits": true
+  }
+ ],
+ "roles": {
+  "strong": "qwen2.5-coder:7b",
+  "fast": "qwen2.5-coder:1.5b",
+  "embed": "nomic-embed-text:latest"
+ },
+ "hardware": {
+  "total_ram_bytes": 17179869184,
+  "gpu": "Apple M4",
+  "vram_bytes": 12884901888,
+  "unified_memory": true,
+  "model_budget_bytes": 10307921510
+ }
+}

@@ -24,10 +24,10 @@ Tests run real `git` commands, real `pytest` subprocesses inside temporary workt
 | Hybrid retrieval, right file in top 5 | Flask 88%, Requests 96% | `eval/results/*-latest.md` |
 | Refusal decided correctly | Flask 100%, Requests 93% (30 questions each) | same |
 | Findings citing real changed lines | 100% (Flask 4 of 4, Requests 1 of 1) | same |
-| Benchmark, 6 replayed Flask commits | 7B 0.40 (median 93 s), 1.5B 0.18 (13 s); recommends 7B | `eval/results/flask-latest.json` |
+| Benchmark, 6 recent Flask commits | 7B 0.27 (median 154 s), 1.5B 0.25 (27 s); 3 of 6 edits applied each; recommends 7B with a warning that no model edits Flask reliably | `web/public/demo/bench.json` |
 | Verified edit ("reject rates outside 0–1") | verified on the first attempt in 19 s | manual run |
 | Ask with citations | answers cite line ranges; "Kafka" question refused | manual run |
-| Night shift | wrote 4 passing tests for new code on `repopilot/nightshift-<date>`; current branch untouched | manual run |
+| Night shift | demo repo: 4 passing tests for new code; Flask 3.1.0: reviewed 5 commits and wrote tests for `SessionMixin` that pass Flask's full 489-test suite (3rd attempt, 8 min); both on `repopilot/nightshift-<date>`, current branch untouched | manual run, `web/public/demo/nightshift.json` |
 | Django scale test | 17,513 chunks, 5,000 commits in 30 min; 235 MB peak; blast 2.3 s; review ~2 min | `/usr/bin/time -l repopilot index` |
 | JS/TS mechanical label vs hand labels | 100% precision, 72% recall (41 hunks, axios + zustand) | `eval/datasets/mechanical_hunks_js.jsonl` |
 
@@ -41,7 +41,9 @@ Each came from a run above, got a regression test, and is in the git log:
 - Ask answered without citations on 7B; the rule is repeated at the end of the prompt, and an uncited answer is labelled unverified.
 - Verified edits always failed on 7B (it sends whole files); a short file the model saw in full may now be rewritten whole, and tests still decide.
 - Night shift rejected correct tests because the suite was already red; it now checks first and says so.
-- One Ollama error aborted the whole benchmark, and the 60 s latency cap recommended the 1.5B model at less than half the 7B's score. Both fixed.
+- Ollama aborting a looping generation ("token repeat limit reached") crashed the benchmark and the demo build; it is now retried as a bad answer.
+- The benchmark replayed 2010-era commits whose tests no longer run, gave one attempt where the product gives a retry, and recommended the 1.5B model at less than half the 7B's score. All fixed; when no model is good enough it now says so.
+- Night shift had the 7B rewrite whole Flask test files (6-8 minutes per call); new tests now go in a file of their own when the usual one is long.
 - Earlier: vectors from a different embedding model were kept (now rebuilt), the refusal threshold was miscalibrated on real embeddings, and the 1.5B model produced truncated JSON (schema length limits).
 
 ## Earlier manual checks (2026-10-18)
@@ -55,5 +57,5 @@ Each came from a run above, got a regression test, and is in the git log:
 
 - Linux and Windows; NVIDIA hardware detection.
 - The GitHub review-comment import against the live API (tested with a mocked transport).
-- The benchmark's test-pass rate on Flask: Flask's own test dependencies were not installed where the replayed commits ran.
+- The benchmark's test-pass rate on Flask: with today's dependencies, Flask's tests ran at only 1 of the 6 replayed commits.
 - Larger models (14B and up): the laptop's 16 GB can't hold them alongside the embedding model.

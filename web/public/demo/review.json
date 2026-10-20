@@ -1,12 +1,12 @@
 {
  "review_id": "flask-demo",
- "created_at": "2026-10-18T17:41:13+00:00",
+ "created_at": "2026-10-20T14:33:46+00:00",
  "source": {
   "kind": "commit",
   "base": null,
   "head": "53c893b646252d610e877eb9385e9e250a1ae5e1"
  },
- "summary": "Behavior changes to read: 1 of 14 hunks.",
+ "summary": "The code change appears to be fixing a formatting issue with the assert statement in `src/flask/ctx.py` by aligning the parameters on separate lines. This change does not introduce any new bugs or contradictions with past fixes. The change is consistent with the usual patterns observed in the project, such as changes to `CHANGES.rst`, `tests/test_testing.py`, and other test files. Behavior changes to read: 1 of 14 hunks.",
  "files": [
   {
    "path": "examples/tutorial/flaskr/blog.py",
@@ -205,6 +205,8 @@
  "behavior_count": 1,
  "findings": [],
  "dropped_unverifiable": 0,
+ "dropped_unconfirmed": 0,
+ "intent": "fix string concats left over by black",
  "blast": {
   "targets": [
    "examples/tutorial/flaskr/blog.py",
@@ -638,7 +640,32 @@
    "Among the most imported files in this repository: 15 files import it directly, 55 in total."
   ]
  },
- "precedents": [],
+ "precedents": [
+  {
+   "kind": "fix_commit",
+   "ref": "095651be",
+   "sha": "095651be9eec58ddb0c2eb6158318b1c703c67c5",
+   "path": "src/flask/ctx.py",
+   "excerpt": "fix has_app_context and has_request_context",
+   "similarity": 0.733
+  },
+  {
+   "kind": "fix_commit",
+   "ref": "a3a2f521",
+   "sha": "a3a2f521f14ba90689efc661afe7a0375409c83e",
+   "path": "CHANGES",
+   "excerpt": "Clear exceptions when pushing a context",
+   "similarity": 0.712
+  },
+  {
+   "kind": "fix_commit",
+   "ref": "6ec83e18",
+   "sha": "6ec83e18dca497a8fbfca6caca5999984bd32f2e",
+   "path": "flask/_compat.py",
+   "excerpt": "Added a workaround for a pypy bug in context managers",
+   "similarity": 0.71
+  }
+ ],
  "checks": {
   "command": null,
   "status": "skipped",
@@ -646,14 +673,19 @@
   "duration_s": 0.0,
   "message": "Checks were not requested."
  },
- "model": {},
- "model_error": "No local model runtime, so only deterministic checks ran (classification, blast radius, tests).",
+ "model": {
+  "strong": "qwen2.5-coder:7b",
+  "fast": "qwen2.5-coder:1.5b",
+  "embed": "nomic-embed-text:latest"
+ },
+ "model_error": null,
  "truncated": false,
  "timings_ms": {
-  "classify": 255,
-  "blast": 4,
-  "precedents": 0,
+  "classify": 451,
+  "blast": 11,
+  "precedents": 38,
   "checks": 0,
-  "total": 260
+  "model": 11290,
+  "total": 11808
  }
 }

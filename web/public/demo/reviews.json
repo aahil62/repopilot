@@ -1,13 +1,13 @@
 [
  {
   "review_id": "flask-demo",
-  "created_at": "2026-10-18T17:41:13+00:00",
+  "created_at": "2026-10-20T14:33:46+00:00",
   "source": {
    "kind": "commit",
    "base": null,
    "head": "53c893b646252d610e877eb9385e9e250a1ae5e1"
   },
-  "summary": "Behavior changes to read: 1 of 14 hunks.",
+  "summary": "The code change appears to be fixing a formatting issue with the assert statement in `src/flask/ctx.py` by aligning the parameters on separate lines. This change does not introduce any new bugs or contradictions with past fixes. The change is consistent with the usual patterns observed in the project, such as changes to `CHANGES.rst`, `tests/test_testing.py`, and other test files. Behavior changes to read: 1 of 14 hunks.",
   "behavior": 1,
   "mechanical": 13
  }

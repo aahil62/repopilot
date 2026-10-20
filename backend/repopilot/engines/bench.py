@@ -48,6 +48,7 @@ CODE_LANGS = {
 }
 LATENCY_CAP_S = 60
 RECENT_COMMITS = 300  # tasks are sampled from this many newest commits
+GOOD_ENOUGH = 0.5  # below this best score, edits are not reliable on this repository
 CLOSE_ENOUGH = 0.75  # a model under the cap must reach this share of the best score
 
 
@@ -240,14 +241,26 @@ def recommend(scores: list[ModelScore]) -> tuple[str, str | None, str | None]:
     top = max(scores, key=lambda s: (s.score, -s.median_latency_s))
     # Prefer a model under the latency cap only if it is nearly as good; never trade away most of the quality.
     quick = [s for s in scores if s.median_latency_s <= LATENCY_CAP_S and s.score >= CLOSE_ENOUGH * top.score]
-    best = max(quick, key=lambda s: (s.score, -s.median_latency_s)) if quick else top
+    # When every model is weak, quality matters more than speed.
+    best = (
+        max(quick, key=lambda s: (s.score, -s.median_latency_s))
+        if quick and top.score >= GOOD_ENOUGH
+        else top
+    )
     fast = min(scores, key=lambda s: (s.size_bytes or 0, -s.score))
     text = (
         f"Use {best.model} for review and code (score {best.score:.2f}, median {best.median_latency_s:.0f} s "
         "on your machine)."
     )
     if best.median_latency_s > LATENCY_CAP_S:
-        text += " It is slow on this hardware, but the faster models scored much lower."
+        text += " It is slow on this hardware" + (
+            ", but the faster models scored much lower." if not quick else "."
+        )
+    if top.score < GOOD_ENOUGH:
+        text += (
+            f" No installed model edits this repository reliably (best score {top.score:.2f}): treat its edits as"
+            " drafts, or try a larger model (14B or more) if your hardware allows."
+        )
     if fast.model != best.model:
         text += f" {fast.model} is good enough for classification."
     return text, best.model, fast.model

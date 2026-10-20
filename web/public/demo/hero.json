@@ -631,5 +631,9 @@
    "Among the most imported files in this repository: 15 files import it directly, 55 in total."
   ]
  },
- "model": null
+ "model": {
+  "strong": "qwen2.5-coder:7b",
+  "fast": "qwen2.5-coder:1.5b",
+  "embed": "nomic-embed-text:latest"
+ }
 }

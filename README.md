@@ -96,7 +96,22 @@ High findings need a failing test or a matching past fix or review behind them, 
 
 **Scale** — [django/django](https://github.com/django/django) (529k lines of Python, 35k commits): 17,513 chunks and the newest 5,000 commits indexed in 30 minutes, almost all of it embedding time (52 s of CPU); 235 MB peak memory, 134 MB on disk. Afterwards blast radius takes 2.3 s and a 7B review of a 6-hunk commit about 2 minutes.
 
-**Which model?** On six replayed Flask commits, `qwen2.5-coder:7b` scored 0.40 (median 93 s per task) and `1.5b` 0.18 (13 s). The benchmark recommends the 7B: on this laptop it is slow, but the faster model is much worse. Flask's own tests were not installed in the runner, so this score covers whether the edit applies and how close it is to the real commit, not whether tests pass.
+**Which model?** Six of Flask's recent commits replayed on each model, with the same one retry the product gives: `qwen2.5-coder:7b` scored 0.27 (3 of 6 edits applied, median 154 s) and `1.5b` 0.25 (3 of 6, 27 s). Neither reproduced the real change closely, and the one task whose tests could run here failed for both. The benchmark says so: it recommends the 7B and warns that no installed model edits this repository reliably. On a 16 GB laptop, use these models for review and questions, and a 14B+ model for edits.
+
+## Case studies: two real regressions
+
+Planted bugs are one thing; these are two commits that shipped real bugs, each later fixed upstream. Each was reviewed on a copy of the repository frozen at that commit, so RepoPilot could not see the fix. Model: `qwen2.5-coder:7b`, tests not run.
+
+**Flask [`e6178fe4`](https://github.com/pallets/flask/commit/e6178fe4), "Handle different sep across os"** (released in 1.1.2). It added `value.rstrip("/\\")` to the `static_folder` setter, which crashes when the folder is a `pathlib.Path`. Fixed in [`7ba35c4d`](https://github.com/pallets/flask/commit/7ba35c4d). PathLike support had been added 13 months earlier ([#3059](https://github.com/pallets/flask/pull/3059)).
+- *Model:* **missed it.** One medium finding about trailing slashes in URL paths, which is not the bug.
+- *History:* the earlier PathLike commit was not surfaced. Precedents are bug fixes and review comments, and #3059 was a feature.
+- *Blast radius:* medium; 7 files import `helpers.py` directly.
+
+**Requests [`85400d8d`](https://github.com/psf/requests/commit/85400d8d), "Allow use of 'no_proxy' in the proxies argument".** It added a required `no_proxy` parameter to public helpers in `utils.py`, a module whose header says it is "useful for external consumption", and broke external callers. Fixed in [`a9470fe3`](https://github.com/psf/requests/commit/a9470fe3).
+- *Model:* **missed it.** Two medium findings, both wrong (a variable it called unused is used).
+- *Blast radius:* medium; 6 files import it directly and 8 bug fixes touched it in the last year. That says *read this carefully* without saying why.
+
+What this shows: on real regressions, a 7B model reviewing a diff is not enough. The parts that held up are the deterministic ones: what to read (10 of 11 hunks in the Requests commit change behavior) and how risky the file is. Catching API breaks like the Requests one needs checks that know who calls the changed function. RepoPilot has the import graph to do that; it is the next thing to build.
 
 ## How it works
 

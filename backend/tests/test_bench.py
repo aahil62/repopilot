@@ -178,3 +178,17 @@ async def test_a_task_gets_one_retry_with_the_apply_error(git_repo):
     task = result.models[0].tasks[0]
     assert task.applies and task.tests_pass is True
     assert "not found" in fake.calls[1]["messages"][-1]["content"]
+
+
+def test_recommendation_warns_when_no_model_is_good_enough():
+    def score(model, gb, value, latency):
+        return ModelScore(
+            model=model, size_bytes=gb * GB, score=value, applies_rate=0.5, tests_pass_rate=None,
+            similarity=0.0, median_latency_s=latency, tokens_per_second=10, tasks=[],
+        )  # fmt: skip
+
+    text, strong, _ = recommend([score("qwen:7b", 5, 0.27, 154), score("qwen:1.5b", 1, 0.25, 27)])
+    assert strong == "qwen:7b"  # all weak: the better one, not the faster one
+    assert "much lower" not in text  # 0.25 is not much lower than 0.27
+    assert "No installed model edits this repository reliably" in text
+    assert "larger model" in text
