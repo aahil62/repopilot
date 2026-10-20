@@ -377,3 +377,39 @@ async def test_commit_intent_is_given_to_the_model(git_repo):
         report.intent.startswith("Double the value")
         and "Double the value" in fake.calls[0]["messages"][1]["content"]
     )
+
+
+async def test_second_pass_sees_failing_tests(git_repo):
+    toml = f'[checks]\ntest = "{sys.executable} -m pytest -q -x -p no:cacheprovider"\n'
+    tests = "from app import f\n\n\ndef test_f():\n    assert f(2) == 2\n"
+    repo = git_repo(
+        [("init", {"app.py": "def f(x):\n    return x\n", "test_app.py": tests, "repopilot.toml": toml})]
+    )
+    await _prepare(repo, "r7")
+    (repo / "app.py").write_text("def f(x):\n    return x * 2\n")
+    diff, source = diff_for(repo)
+    claim = json.dumps(
+        {
+            "summary": "Doubles x.",
+            "findings": [
+                {
+                    "severity": "high",
+                    "path": "app.py",
+                    "line": 2,
+                    "title": "Doubles",
+                    "explanation": "x is doubled.",
+                    "failing_input": "f(2) returns 4",
+                }
+            ],
+        }
+    )
+
+    def model(messages):
+        last = messages[-1]["content"]
+        if last.endswith("VERDICT?"):  # confirm only when shown the real test failure
+            return json.dumps({"reason": "test_f fails", "confirmed": "TESTS FAILED" in last})
+        return claim
+
+    rep = await review("r7", repo, diff, FakeRuntime({"strong": [model]}), source=source)
+    assert rep.checks.status == "failed"
+    assert [(f.title, f.severity, f.corroborated) for f in rep.findings] == [("Doubles", "high", True)]

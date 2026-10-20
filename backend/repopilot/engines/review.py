@@ -39,7 +39,9 @@ CRITIC_PROMPT = """You are checking another reviewer's claim about a code change
 Lines starting with - were removed and lines with + were added. Trace the failing input through the
 new code step by step in `reason`, then decide. Judge only behavior: ignore whether the claim's title
 or history reference is accurate. confirmed=true if the new code really misbehaves for that input.
-confirmed=false if it behaves correctly, or if the change does exactly what its INTENT says."""
+confirmed=false if it behaves correctly, or if the change does exactly what its INTENT says.
+If TESTS FAILED output is shown, it is real output from running the project's tests on the new code:
+a test failure that matches the claim confirms it."""
 
 
 class ModelFinding(BaseModel):
@@ -223,8 +225,13 @@ async def _criticise(
             dropped += 1
             continue
         hunk_text = "\n\n".join(_numbered(h) for fd, h in behavior if fd.path == f.path)[:6000]
+        tests = (
+            f"\n\nTESTS FAILED AFTER THIS CHANGE ({checks.command})\n{checks.output_tail[-2000:]}"
+            if checks.status == "failed"
+            else ""
+        )
         claim = (
-            f"INTENT\n{intent or 'Not stated.'}\n\nCODE ({f.path})\n{hunk_text}\n\nCLAIM\n"
+            f"INTENT\n{intent or 'Not stated.'}\n\nCODE ({f.path})\n{hunk_text}{tests}\n\nCLAIM\n"
             f"line {f.line}: {f.title}. {f.explanation}\nFailing input: {f.failing_input}\n\nVERDICT?"
         )
         try:
