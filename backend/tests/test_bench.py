@@ -37,6 +37,8 @@ def test_select_tasks_filters_and_is_deterministic(git_repo):
     assert [t.subject for t in tasks] == ["Reject negative dimensions in area"]
     assert tasks == select_tasks(store, repo, n=10, seed=7)
     assert "+    if w < 0 or h < 0:" in tasks[0].real_diff
+    # only recent history is replayed: the one qualifying commit is 5 commits back
+    assert select_tasks(store, repo, n=10, seed=7, recent=4) == []
 
 
 def test_scoring_formula():
@@ -148,3 +150,31 @@ def test_slow_model_still_recommended_when_fast_ones_are_much_worse():
     text, strong, _ = recommend([score("qwen:7b", 5, 0.40, 93), score("qwen:1.5b", 1, 0.18, 13)])
     assert strong == "qwen:7b"
     assert "slow" in text and "93 s" in text
+
+
+async def test_a_task_gets_one_retry_with_the_apply_error(git_repo):
+    repo = _history_repo(git_repo)
+    store = MemoryStore.open("bt3")
+    import_history(store, repo, 100)
+    bad = json.dumps(
+        {"explanation": "x", "edits": [{"path": "geo.py", "search": "not in file", "replace": "x"}]}
+    )
+    good = json.dumps(
+        {
+            "explanation": "Validate.",
+            "edits": [
+                {
+                    "path": "geo.py",
+                    "search": "    return w * h",
+                    "replace": "    if w < 0 or h < 0:\n        raise ValueError('negative')\n    return w * h",
+                }
+            ],
+        }
+    )
+    fake = FakeRuntime({"strong": [bad, good]})
+    result = await run_bench(
+        "bt3", repo, [ModelInfo("m:7b", "ollama", "http://x", 5 * GB)], HW, runtimes={"m:7b": fake}
+    )
+    task = result.models[0].tasks[0]
+    assert task.applies and task.tests_pass is True
+    assert "not found" in fake.calls[1]["messages"][-1]["content"]

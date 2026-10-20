@@ -47,6 +47,7 @@ CODE_LANGS = {
     "shell",
 }
 LATENCY_CAP_S = 60
+RECENT_COMMITS = 300  # tasks are sampled from this many newest commits
 CLOSE_ENOUGH = 0.75  # a model under the cap must reach this share of the best score
 
 
@@ -119,9 +120,13 @@ def task_score(applies: bool, tests_pass: bool | None, sim: float) -> float:
     return round(0.5 * applies + 0.5 * sim, 3)
 
 
-def select_tasks(store: MemoryStore, repo: Path, n: int = 10, seed: int = 7) -> list[BenchTask]:
+def select_tasks(
+    store: MemoryStore, repo: Path, n: int = 10, seed: int = 7, recent: int = RECENT_COMMITS
+) -> list[BenchTask]:
+    """Sample commits to replay from recent history: old code often no longer builds or tests."""
     candidates = []
-    for c in store.query("SELECT sha, subject, body FROM commits ORDER BY sha"):
+    rows = store.query("SELECT sha, subject, body FROM commits ORDER BY seq DESC LIMIT ?", (recent,))
+    for c in sorted(rows, key=lambda r: r["sha"]):
         subject = c["subject"]
         if len(subject) < 12 or subject.lower().startswith(("revert", "merge")):
             continue
@@ -183,6 +188,17 @@ async def _run_task(
                 runtime, "strong", EditProposal, messages, retries=1, max_tokens=3000
             )
             error = apply_edits(tree, proposal.edits)
+            if error:  # one more try with the reason, as verified edits do, from a clean tree
+                subprocess.run(["git", "checkout", "--", "."], cwd=tree, capture_output=True)
+                subprocess.run(["git", "clean", "-fdq"], cwd=tree, capture_output=True)
+                messages += [
+                    {"role": "assistant", "content": proposal.model_dump_json()},
+                    {"role": "user", "content": f"Your edits could not be applied: {error} Try again."},
+                ]
+                proposal = await structured_call(
+                    runtime, "strong", EditProposal, messages, retries=1, max_tokens=3000
+                )
+                error = apply_edits(tree, proposal.edits)
         except ModelOutputError as exc:
             error = f"invalid output: {exc.error[:120]}"
         except httpx.HTTPError as exc:  # one failing call is a failed task, not a failed benchmark
