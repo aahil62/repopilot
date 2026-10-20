@@ -96,6 +96,7 @@ class ModelClient:
                     "num_ctx": self._num_ctx(model),
                     "temperature": temperature,
                     "num_predict": max_tokens,
+                    "repeat_penalty": 1.05,  # mild: makes the repetition loops small models fall into rarer
                 },
             }
             if json_schema is not None:

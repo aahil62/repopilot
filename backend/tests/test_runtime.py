@@ -156,3 +156,29 @@ def test_no_runtime_returns_503(monkeypatch):
     assert resp.json()["detail"].startswith("No local model runtime found")
     listing = client.get("/api/models").json()
     assert listing["roles"] == {} and listing["runtimes"][0]["reachable"] is False
+
+
+async def test_structured_call_retries_when_the_runtime_aborts_a_repeating_generation():
+    import httpx
+    from pydantic import BaseModel
+
+    from repopilot.runtime import FakeRuntime
+    from repopilot.runtime.structured import ModelOutputError, structured_call
+
+    class Out(BaseModel):
+        ok: bool
+
+    def aborted(messages):
+        request = httpx.Request("POST", "http://x/api/chat")
+        body = '{"error":"prediction aborted, token repeat limit reached"}'
+        raise httpx.HTTPStatusError(
+            "500", request=request, response=httpx.Response(500, request=request, text=body)
+        )
+
+    fake = FakeRuntime({"strong": [aborted, '{"ok": true}']})
+    assert (await structured_call(fake, "strong", Out, [{"role": "user", "content": "hi"}])).ok
+    assert "repeating" in fake.calls[1]["messages"][-1]["content"]
+    with pytest.raises(ModelOutputError):
+        await structured_call(
+            FakeRuntime({"strong": [aborted]}), "strong", Out, [{"role": "user", "content": "x"}]
+        )

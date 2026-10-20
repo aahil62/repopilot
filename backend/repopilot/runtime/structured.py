@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TypeVar
 
+import httpx
 from pydantic import BaseModel, ValidationError
 
 from repopilot.runtime.client import Message, Runtime
@@ -41,7 +42,22 @@ async def structured_call[T: BaseModel](
     json_schema = schema.model_json_schema()
     last_output, last_error = "", ""
     for _ in range(retries + 1):
-        last_output = await runtime.chat(role, convo, json_schema=json_schema, max_tokens=max_tokens)
+        try:
+            last_output = await runtime.chat(role, convo, json_schema=json_schema, max_tokens=max_tokens)
+        except httpx.HTTPStatusError as exc:
+            # Ollama aborts a generation stuck repeating itself; that is a bad answer, so retry.
+            if "repeat" not in exc.response.text:
+                raise
+            last_output, last_error = "", "generation aborted: the model kept repeating itself"
+            convo = [
+                *convo,
+                {
+                    "role": "user",
+                    "content": "Your previous answer was cut off because it kept repeating itself. "
+                    "Answer again, briefly, as JSON matching the schema.",
+                },
+            ]
+            continue
         try:
             return schema.model_validate_json(_strip_fences(last_output))
         except ValidationError as exc:
