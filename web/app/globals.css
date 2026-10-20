@@ -126,6 +126,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .notice { border-radius: var(--r-panel); padding: 14px 16px; font-size: var(--t-sm); border: 1px solid var(--line); background: var(--surface); }
 .notice.error { border-color: color-mix(in srgb, var(--del) 40%, transparent); background: var(--del-bg); color: var(--del); }
 
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- diff rendering ---------- */

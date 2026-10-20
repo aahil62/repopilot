@@ -185,3 +185,14 @@ export interface CommitRef { sha: string; date: string; subject: string; author:
 
 export interface FileContent { path: string; start: number; end: number; total_lines: number; lines: string[] }
 export interface FileEntry { path: string; language: string; lines: number }
+
+/** web/public/demo/hero.json: the commit the landing page shows. */
+export interface HeroDemo {
+  repo: string;
+  commit: string;
+  subject: string;
+  files: FileView[];
+  mechanical: number;
+  behavior: number;
+  blast: BlastReport | null;
+}
