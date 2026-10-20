@@ -85,6 +85,44 @@ def test_classify_behavior_cases():
     assert _hunk(_diff("a.py", ["return total"], ["return subtotal"]), old, new) == "behavior"
 
 
+def test_classify_javascript_and_typescript_syntax_trees():
+    def js(path, removed, added):
+        return _hunk(_diff(path, removed, added))
+
+    # mechanical: quote style, semicolons, trailing commas, line wrapping, redundant parentheses
+    assert js("a.js", ["const a = 'x'"], ['const a = "x";']) == "mechanical"
+    assert js("a.js", ["foo(a, b)"], ["foo(", "  a,", "  b,", ")"]) == "mechanical"
+    assert js("a.js", ["const y = (a + b)"], ["const y = a + b"]) == "mechanical"
+    # mechanical: TypeScript-only syntax is erased at compile time
+    assert (
+        js(
+            "a.ts",
+            ["function f(x) {", "  return x", "}"],
+            ["function f(x: number): number {", "  return x", "}"],
+        )
+        == "mechanical"
+    )
+    assert js("a.tsx", ["const v = x as Foo"], ["const v = x"]) == "mechanical"
+    # behavior: array holes, precedence, values, operators, ASI after `return`
+    assert js("a.js", ["const v = [a, , b]"], ["const v = [a, b]"]) == "behavior"
+    assert js("a.js", ["const v = a + b * c"], ["const v = (a + b) * c"]) == "behavior"
+    assert js("a.js", ["const a = 'x'"], ["const a = 'y'"]) == "behavior"
+    assert js("a.js", ["if (x === 1) go()"], ["if (x == 1) go()"]) == "behavior"
+    assert (
+        js("a.js", ["function f() {", "  return x;", "}"], ["function f() {", "  return", "  x;", "}"])
+        == "behavior"
+    )
+    # behavior: parameter properties emit code in TypeScript
+    assert (
+        js(
+            "a.ts",
+            ["class A {", "  constructor(private x: number) {}", "}"],
+            ["class A {", "  constructor(x: number) {}", "}"],
+        )
+        == "behavior"
+    )
+
+
 def test_black_style_reformat_has_same_tree():
     assert python_same_tree("x = {'a':1,\n'b':2}\n", 'x = {"a": 1, "b": 2}\n')
     assert not python_same_tree("x = 1\n", "x = 2\n")

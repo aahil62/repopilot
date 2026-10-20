@@ -227,6 +227,108 @@ def python_hunk_reason(old_text: str | None, hunk: Hunk) -> str | None:
     return None
 
 
+JS_LANGUAGES = {
+    ".js": "javascript", ".jsx": "javascript", ".mjs": "javascript", ".cjs": "javascript",
+    ".ts": "typescript", ".mts": "typescript", ".cts": "typescript", ".tsx": "tsx",
+}  # fmt: skip
+# TypeScript that is erased at compile time. Constructor parameter modifiers (`private x`) and enums are
+# not: they emit code, so they stay.
+_JS_TYPE_ONLY = {
+    "type_annotation", "type_arguments", "type_parameters", "interface_declaration",
+    "type_alias_declaration", "ambient_declaration", "asserts_annotation", "type_predicate_annotation",
+    "omitting_type_annotation", "opting_type_annotation",
+}  # fmt: skip
+_JS_TYPE_WRAPPERS = {"as_expression", "non_null_expression", "satisfies_expression"}
+_JS_CLOSERS = {")", "]", "}", ">"}
+# A line break right after these keywords (or before postfix ++/--) ends the statement in JavaScript,
+# which tree-sitter does not model, so the break is part of the tree we compare.
+_JS_RESTRICTED = {
+    "return_statement", "throw_statement", "break_statement", "continue_statement",
+    "yield_expression", "update_expression",
+}  # fmt: skip
+_js_parsers: dict = {}
+
+
+def _js_parser(lang: str):
+    if lang not in _js_parsers:
+        try:
+            import tree_sitter_javascript
+            import tree_sitter_typescript
+            from tree_sitter import Language, Parser
+        except ImportError:
+            return None
+        grammar = {
+            "javascript": tree_sitter_javascript.language,
+            "typescript": tree_sitter_typescript.language_typescript,
+            "tsx": tree_sitter_typescript.language_tsx,
+        }[lang]
+        _js_parsers[lang] = Parser(Language(grammar()))
+    return _js_parsers[lang]
+
+
+def _js_dump(text: str, lang: str, strip_types: bool) -> list[str] | None:
+    """Syntax tree as a token list, ignoring comments, semicolons, trailing commas, redundant parentheses
+    and quote style; with `strip_types`, also TypeScript-only syntax."""
+    parser = _js_parser(lang)
+    if parser is None:
+        return None
+    root = parser.parse(text.encode()).root_node
+    if root.has_error:
+        return None
+    out: list[str] = []
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if isinstance(node, str):
+            out.append(node)
+            continue
+        kind = node.type
+        if kind == "comment" or kind == ";":
+            continue
+        if kind == "," and (node.next_sibling is None or node.next_sibling.type in _JS_CLOSERS):
+            continue
+        if strip_types and (
+            kind in _JS_TYPE_ONLY
+            or (kind == "import_statement" and any(c.type == "type" for c in node.children))
+        ):
+            continue
+        if kind == "parenthesized_expression" or (strip_types and kind in _JS_TYPE_WRAPPERS):
+            stack.append(node.named_children[0])
+            continue
+        if kind == "string":
+            body = "".join(c.text.decode() for c in node.named_children)
+            out.append("str:" + body.replace("\\'", "'").replace('\\"', '"'))
+            continue
+        if node.child_count == 0:
+            out.append(f"{kind}:{node.text.decode()}" if node.is_named else kind)
+            continue
+        out.append("(" + kind)
+        if kind in _JS_RESTRICTED and node.child_count > 1:
+            first, second = node.children[0], node.children[1]
+            out.append("nl" if second.start_point[0] > first.end_point[0] else "")
+        stack.append(")")
+        stack.extend(reversed(node.children))
+    return out
+
+
+def js_hunk_reason(old_text: str | None, hunk: Hunk, lang: str) -> str | None:
+    """If applying this hunk alone leaves the JavaScript/TypeScript program unchanged, say why."""
+    if old_text is None:
+        return None
+    new_text = apply_hunk(old_text, hunk)
+    before = _js_dump(old_text, lang, strip_types=False)
+    if before is None:
+        return None
+    after = _js_dump(new_text, lang, strip_types=False)
+    if after is None:
+        return None
+    if before == after:
+        return "formatting only (identical syntax tree)"
+    if lang != "javascript" and _js_dump(old_text, lang, True) == _js_dump(new_text, lang, True):
+        return "type annotations only"
+    return None
+
+
 def defined_names(text: str | None) -> set[str] | None:
     """Names a Python file defines itself (functions, classes, assignments, parameters)."""
     if text is None:
@@ -271,8 +373,18 @@ def classify_hunk(
         return "mechanical", "documentation only"
     if is_python and fd.status == "modified" and (reason := python_hunk_reason(old_text, hunk)):
         return "mechanical", reason
+    lang = JS_LANGUAGES.get(fd.path[fd.path.rfind(".") :].lower()) if "." in fd.path else None
+    if lang and fd.status == "modified" and (reason := js_hunk_reason(old_text, hunk, lang)):
+        return "mechanical", reason
     # In Python indentation is meaning, so whitespace-only is decided by the syntax tree above.
-    if not is_python and _squash(removed) == _squash(added):
+    # Line breaks can matter in JavaScript (`return` then a new line), so a parsed tree decides there too.
+    js_parsed = (
+        lang is not None
+        and old_text is not None
+        and _js_dump(old_text, lang, False) is not None
+        and _js_dump(apply_hunk(old_text, hunk), lang, False) is not None
+    )
+    if not is_python and not js_parsed and _squash(removed) == _squash(added):
         return "mechanical", "whitespace or line-wrapping only"
     if all(_is_comment(line) for line in removed + added) or _docstring_only(removed + added):
         return "mechanical", "comments or docstrings only"
