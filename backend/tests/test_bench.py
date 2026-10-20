@@ -136,3 +136,15 @@ async def test_run_bench_scores_models_and_skips_oversized(git_repo):
     assert by["broken:3b"].score == 0.0 and "runtime error" in by["broken:3b"].tasks[0].error
     assert result.skipped[0].model == "huge:70b" and result.skipped[0].reason == "needs ~40.0 GB"
     assert result.recommended_strong == "good:7b"
+
+
+def test_slow_model_still_recommended_when_fast_ones_are_much_worse():
+    def score(model, gb, value, latency):
+        return ModelScore(
+            model=model, size_bytes=gb * GB, score=value, applies_rate=1, tests_pass_rate=None,
+            similarity=value, median_latency_s=latency, tokens_per_second=10, tasks=[],
+        )  # fmt: skip
+
+    text, strong, _ = recommend([score("qwen:7b", 5, 0.40, 93), score("qwen:1.5b", 1, 0.18, 13)])
+    assert strong == "qwen:7b"
+    assert "slow" in text and "93 s" in text
