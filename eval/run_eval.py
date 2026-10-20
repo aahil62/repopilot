@@ -162,6 +162,9 @@ def markdown(result: dict) -> str:
         lines.append(f"| Mechanical label vs hand labels, held-out set | precision {c['precision']:.0%}, recall {c['recall']:.0%} ({c['n']} hunks) |")
         t = result["classifier_tuning"]
         lines.append(f"| Mechanical label vs hand labels, tuning set | precision {t['precision']:.0%}, recall {t['recall']:.0%} ({t['n']} hunks; rules were adjusted on this set) |")
+    if result.get("classifier_js"):
+        j = result["classifier_js"]
+        lines.append(f"| Mechanical label vs hand labels, JavaScript/TypeScript (axios, zustand) | precision {j['precision']:.0%}, recall {j['recall']:.0%} ({j['n']} hunks) |")
     if result.get("citations") and result["citations"]["validity"] is not None:
         c = result["citations"]
         lines.append(f"| Model findings that cited real changed lines | {c['validity']:.0%} ({c['kept']} of {c['findings']}) |")

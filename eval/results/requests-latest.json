@@ -1,14 +1,18 @@
 {
  "dataset": "requests",
  "ref": "v2.32.3",
- "mode": "offline",
- "generated_at": "2026-10-18T17:37:57+00:00",
- "models": [],
+ "mode": "models",
+ "generated_at": "2026-10-20T10:58:24+00:00",
+ "models": [
+  "nomic-embed-text:latest",
+  "qwen2.5-coder:1.5b",
+  "qwen2.5-coder:7b"
+ ],
  "retrieval": {
   "recall_at_5": {
-   "vector": 0.0,
+   "vector": 0.92,
    "keyword": 0.88,
-   "hybrid": 0.88
+   "hybrid": 0.96
   },
   "n": 25,
   "questions": [
@@ -18,8 +22,14 @@
      "src/requests/sessions.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/sessions.py",
+      "tests/test_requests.py",
+      "docs/user/advanced.rst",
+      "tests/test_lowlevel.py",
+      "HISTORY.md"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -34,10 +44,10 @@
     "hybrid": {
      "top": [
       "tests/test_requests.py",
-      "HISTORY.md",
       "src/requests/sessions.py",
-      "src/requests/api.py",
-      ".github/CODE_OF_CONDUCT.md"
+      "HISTORY.md",
+      "docs/user/quickstart.rst",
+      "docs/user/advanced.rst"
      ],
      "hit": true
     }
@@ -48,8 +58,14 @@
      "src/requests/sessions.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/sessions.py",
+      "HISTORY.md",
+      "docs/user/quickstart.rst",
+      "tests/test_lowlevel.py",
+      "src/requests/auth.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -63,11 +79,11 @@
     },
     "hybrid": {
      "top": [
+      "src/requests/sessions.py",
+      "docs/user/quickstart.rst",
       "tests/test_lowlevel.py",
       "HISTORY.md",
-      "tests/test_requests.py",
-      "src/requests/sessions.py",
-      "docs/user/quickstart.rst"
+      "src/requests/auth.py"
      ],
      "hit": true
     }
@@ -79,8 +95,14 @@
      "src/requests/utils.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "docs/user/advanced.rst",
+      "tests/test_lowlevel.py",
+      "tests/test_utils.py",
+      "src/requests/utils.py",
+      "tests/test_requests.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -94,11 +116,11 @@
     },
     "hybrid": {
      "top": [
-      "src/requests/utils.py",
-      "src/requests/sessions.py",
       "docs/user/advanced.rst",
+      "src/requests/utils.py",
+      "tests/test_lowlevel.py",
       "tests/test_utils.py",
-      "HISTORY.md"
+      "src/requests/sessions.py"
      ],
      "hit": true
     }
@@ -109,7 +131,13 @@
      "src/requests/sessions.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "docs/user/advanced.rst",
+      "tests/test_adapters.py",
+      "src/requests/adapters.py",
+      "tests/test_requests.py",
+      "tests/conftest.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -126,9 +154,9 @@
      "top": [
       "docs/user/advanced.rst",
       "tests/test_requests.py",
-      "src/requests/sessions.py",
       "src/requests/adapters.py",
-      "tests/test_lowlevel.py"
+      "tests/conftest.py",
+      "src/requests/sessions.py"
      ],
      "hit": true
     }
@@ -139,8 +167,14 @@
      "src/requests/adapters.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/testserver/server.py",
+      "tests/test_requests.py",
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst",
+      "tests/test_help.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -156,9 +190,9 @@
      "top": [
       "src/requests/adapters.py",
       "docs/user/advanced.rst",
-      "src/requests/sessions.py",
       "tests/testserver/server.py",
-      "docs/community/recommended.rst"
+      "tests/test_requests.py",
+      "src/requests/sessions.py"
      ],
      "hit": true
     }
@@ -169,8 +203,14 @@
      "src/requests/adapters.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_requests.py",
+      "src/requests/adapters.py",
+      "src/requests/exceptions.py",
+      "HISTORY.md",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -186,9 +226,9 @@
      "top": [
       "src/requests/adapters.py",
       "tests/test_requests.py",
-      "HISTORY.md",
-      "docs/index.rst",
-      "docs/user/advanced.rst"
+      "src/requests/exceptions.py",
+      "src/requests/sessions.py",
+      "HISTORY.md"
      ],
      "hit": true
     }
@@ -199,8 +239,14 @@
      "src/requests/adapters.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/models.py",
+      "src/requests/cookies.py",
+      "tests/test_packages.py",
+      "src/requests/utils.py",
+      "src/requests/adapters.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -215,10 +261,10 @@
     "hybrid": {
      "top": [
       "src/requests/cookies.py",
-      "HISTORY.md",
-      "src/requests/adapters.py",
       "docs/user/advanced.rst",
-      "src/requests/sessions.py"
+      "src/requests/adapters.py",
+      "src/requests/api.py",
+      "src/requests/models.py"
      ],
      "hit": true
     }
@@ -229,8 +275,14 @@
      "src/requests/auth.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "docs/user/authentication.rst",
+      "src/requests/auth.py",
+      "src/requests/utils.py",
+      "docs/user/advanced.rst",
+      "tests/test_utils.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -246,9 +298,9 @@
      "top": [
       "src/requests/auth.py",
       "src/requests/utils.py",
-      "tests/test_requests.py",
-      "src/requests/sessions.py",
-      "docs/user/advanced.rst"
+      "docs/user/authentication.rst",
+      "docs/user/advanced.rst",
+      "tests/test_utils.py"
      ],
      "hit": true
     }
@@ -259,8 +311,14 @@
      "src/requests/auth.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_lowlevel.py",
+      "src/requests/auth.py",
+      "HISTORY.md",
+      "tests/test_packages.py",
+      "docs/user/authentication.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -276,11 +334,11 @@
      "top": [
       "tests/test_lowlevel.py",
       "docs/user/authentication.rst",
-      "README.md",
-      "src/requests/compat.py",
-      "HISTORY.md"
+      "src/requests/auth.py",
+      "HISTORY.md",
+      "docs/api.rst"
      ],
-     "hit": false
+     "hit": true
     }
    },
    {
@@ -289,8 +347,14 @@
      "src/requests/models.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_requests.py",
+      "src/requests/models.py",
+      "docs/user/quickstart.rst",
+      "README.md",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -304,11 +368,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/user/quickstart.rst",
       "src/requests/models.py",
-      "docs/user/advanced.rst",
+      "src/requests/api.py",
       "tests/test_requests.py",
-      "tests/test_utils.py"
+      "docs/user/quickstart.rst",
+      "docs/user/advanced.rst"
      ],
      "hit": true
     }
@@ -319,7 +383,13 @@
      "src/requests/models.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "tests/conftest.py",
+      "tests/test_adapters.py",
+      "docs/user/quickstart.rst",
+      "src/requests/exceptions.py",
+      "src/requests/api.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -334,11 +404,11 @@
     },
     "hybrid": {
      "top": [
-      "src/requests/models.py",
+      "src/requests/utils.py",
       "HISTORY.md",
-      "tests/test_utils.py",
+      "src/requests/api.py",
       "docs/user/quickstart.rst",
-      "src/requests/utils.py"
+      "src/requests/models.py"
      ],
      "hit": true
     }
@@ -349,8 +419,14 @@
      "src/requests/models.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/models.py",
+      "tests/test_requests.py",
+      "src/requests/exceptions.py",
+      "docs/user/advanced.rst",
+      "tests/test_lowlevel.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -365,10 +441,10 @@
     "hybrid": {
      "top": [
       "src/requests/models.py",
-      "tests/test_requests.py",
+      "docs/user/advanced.rst",
       "tests/testserver/server.py",
-      "tests/test_lowlevel.py",
-      "docs/user/advanced.rst"
+      "tests/test_requests.py",
+      "tests/test_lowlevel.py"
      ],
      "hit": true
     }
@@ -379,8 +455,14 @@
      "src/requests/models.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/status_codes.py",
+      "src/requests/models.py",
+      "tests/test_requests.py",
+      "tests/test_lowlevel.py",
+      "docs/community/support.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -394,11 +476,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/user/quickstart.rst",
-      "src/requests/models.py",
       "src/requests/status_codes.py",
-      "src/requests/sessions.py",
-      "tests/test_requests.py"
+      "src/requests/models.py",
+      "docs/user/quickstart.rst",
+      "tests/test_requests.py",
+      "HISTORY.md"
      ],
      "hit": true
     }
@@ -409,8 +491,14 @@
      "src/requests/models.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/models.py",
+      "tests/test_requests.py",
+      "tests/test_lowlevel.py",
+      "src/requests/exceptions.py",
+      "src/requests/utils.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -424,13 +512,13 @@
     },
     "hybrid": {
      "top": [
-      "docs/user/quickstart.rst",
       "src/requests/api.py",
-      "docs/user/advanced.rst",
       "tests/test_requests.py",
-      "src/requests/sessions.py"
+      "docs/user/quickstart.rst",
+      "src/requests/models.py",
+      "docs/user/advanced.rst"
      ],
-     "hit": false
+     "hit": true
     }
    },
    {
@@ -439,8 +527,14 @@
      "src/requests/utils.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_requests.py",
+      "docs/user/authentication.rst",
+      "README.md",
+      "tests/certs/valid/server/Makefile"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -455,9 +549,9 @@
     "hybrid": {
      "top": [
       "docs/user/authentication.rst",
-      "docs/user/quickstart.rst",
       "src/requests/utils.py",
       "tests/test_requests.py",
+      "README.md",
       "HISTORY.md"
      ],
      "hit": true
@@ -469,8 +563,14 @@
      "src/requests/utils.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_utils.py",
+      "src/requests/utils.py",
+      "docs/user/advanced.rst",
+      "docs/user/quickstart.rst",
+      "src/requests/models.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -485,9 +585,9 @@
     "hybrid": {
      "top": [
       "src/requests/utils.py",
-      "src/requests/models.py",
       "tests/test_utils.py",
-      "tests/test_requests.py",
+      "src/requests/models.py",
+      "docs/user/advanced.rst",
       "docs/user/quickstart.rst"
      ],
      "hit": true
@@ -499,8 +599,14 @@
      "src/requests/utils.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/utils.py",
+      "tests/test_utils.py",
+      "tests/test_lowlevel.py",
+      "src/requests/sessions.py",
+      "src/requests/exceptions.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -516,9 +622,9 @@
      "top": [
       "src/requests/utils.py",
       "tests/test_utils.py",
-      "src/requests/sessions.py",
       "HISTORY.md",
-      "src/requests/compat.py"
+      "src/requests/adapters.py",
+      "docs/user/advanced.rst"
      ],
      "hit": true
     }
@@ -529,8 +635,14 @@
      "src/requests/utils.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/utils.py",
+      "docs/user/quickstart.rst",
+      "HISTORY.md",
+      "docs/user/advanced.rst",
+      "src/requests/hooks.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -545,10 +657,10 @@
     "hybrid": {
      "top": [
       "src/requests/utils.py",
-      "tests/test_requests.py",
       "docs/user/quickstart.rst",
       "HISTORY.md",
-      "src/requests/cookies.py"
+      "tests/test_lowlevel.py",
+      "tests/test_requests.py"
      ],
      "hit": true
     }
@@ -559,8 +671,14 @@
      "src/requests/hooks.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/hooks.py",
+      "tests/test_hooks.py",
+      "src/requests/sessions.py",
+      "src/requests/models.py",
+      "docs/user/advanced.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -574,11 +692,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/user/advanced.rst",
-      "src/requests/models.py",
-      "src/requests/sessions.py",
       "src/requests/hooks.py",
-      "tests/test_hooks.py"
+      "src/requests/sessions.py",
+      "tests/test_hooks.py",
+      "docs/user/advanced.rst",
+      "src/requests/models.py"
      ],
      "hit": true
     }
@@ -589,8 +707,14 @@
      "src/requests/structures.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/structures.py",
+      "tests/test_utils.py",
+      "docs/user/quickstart.rst",
+      "tests/test_structures.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -604,11 +728,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_structures.py",
-      "tests/test_requests.py",
       "src/requests/structures.py",
-      "src/requests/sessions.py",
-      "src/requests/adapters.py"
+      "tests/test_structures.py",
+      "docs/user/quickstart.rst",
+      "src/requests/utils.py",
+      "src/requests/status_codes.py"
      ],
      "hit": true
     }
@@ -619,8 +743,14 @@
      "src/requests/cookies.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/cookies.py",
+      "src/requests/utils.py",
+      "tests/test_utils.py",
+      "src/requests/models.py",
+      "tests/test_requests.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -634,11 +764,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_requests.py",
       "src/requests/cookies.py",
-      "docs/user/quickstart.rst",
+      "tests/test_requests.py",
       "src/requests/models.py",
-      "HISTORY.md"
+      "tests/test_utils.py",
+      "src/requests/utils.py"
      ],
      "hit": true
     }
@@ -649,8 +779,14 @@
      "src/requests/cookies.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/utils.py",
+      "src/requests/cookies.py",
+      "tests/test_utils.py",
+      "tests/test_requests.py",
+      "src/requests/models.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -665,10 +801,10 @@
     "hybrid": {
      "top": [
       "src/requests/cookies.py",
+      "src/requests/utils.py",
       "tests/test_requests.py",
       "docs/user/quickstart.rst",
-      "src/requests/utils.py",
-      "tests/test_utils.py"
+      "src/requests/models.py"
      ],
      "hit": true
     }
@@ -679,8 +815,14 @@
      "src/requests/api.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/hooks.py",
+      "src/requests/api.py",
+      "tests/test_requests.py",
+      "docs/index.rst",
+      ".github/ISSUE_TEMPLATE/Feature_request.md"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -694,11 +836,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/user/authentication.rst",
       "tests/test_requests.py",
-      "src/requests/adapters.py",
+      "src/requests/auth.py",
+      "docs/user/quickstart.rst",
       "src/requests/hooks.py",
-      ".github/SECURITY.md"
+      "docs/user/authentication.rst"
      ],
      "hit": false
     }
@@ -709,8 +851,14 @@
      "src/requests/sessions.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/sessions.py",
+      "src/requests/models.py",
+      "HISTORY.md",
+      "src/requests/utils.py",
+      "src/requests/exceptions.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -725,10 +873,10 @@
     "hybrid": {
      "top": [
       "src/requests/sessions.py",
-      "tests/test_requests.py",
-      "docs/user/advanced.rst",
       "src/requests/models.py",
-      "src/requests/api.py"
+      "docs/user/advanced.rst",
+      "tests/test_requests.py",
+      "src/requests/utils.py"
      ],
      "hit": true
     }
@@ -739,8 +887,13 @@
      "src/requests/exceptions.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/requests/exceptions.py",
+      "tests/test_requests.py",
+      "tests/test_utils.py",
+      "tests/testserver/server.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -755,10 +908,10 @@
     "hybrid": {
      "top": [
       "src/requests/exceptions.py",
-      "docs/user/quickstart.rst",
       "tests/test_requests.py",
-      "docs/api.rst",
-      "tests/test_testserver.py"
+      "tests/testserver/server.py",
+      "docs/user/quickstart.rst",
+      "docs/api.rst"
      ],
      "hit": true
     }
@@ -817,6 +970,52 @@
    }
   ]
  },
+ "classifier_js": {
+  "n": 41,
+  "precision": 1.0,
+  "recall": 0.722,
+  "tp": 13,
+  "fp": 0,
+  "fn": 5,
+  "tn": 23,
+  "errors": [
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/core/InterceptorManager.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/helpers/parseHeaders.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/helpers/cookies.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "a1c7f1c",
+    "path": "src/middleware/devtools.ts",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "parameter rename"
+   },
+   {
+    "sha": "a1c7f1c",
+    "path": "src/middleware/redux.ts",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "parameter rename"
+   }
+  ]
+ },
  "classifier_tuning": {
   "n": 60,
   "precision": 1.0,
@@ -855,5 +1054,167 @@
     "why": "unused import removed"
    }
   ]
+ },
+ "refusal": {
+  "accuracy": 0.933,
+  "n": 30,
+  "rows": [
+   {
+    "q": "How does a session follow HTTP redirects?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the Authorization header removed when redirecting to another host?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are proxy settings picked up from environment variables?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is a transport adapter chosen for a URL prefix?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does the HTTP adapter verify TLS certificates?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the connection pool manager created?",
+    "should_refuse": false,
+    "refused": true
+   },
+   {
+    "q": "How is a urllib3 response converted into a Response object?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does basic authentication encode the username and password?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the digest authentication challenge handled after a 401?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How is the request body encoded for form data, files and JSON?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are query parameters added to the URL?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does a response stream its content in chunks?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where does a response raise an error for 4xx and 5xx status codes?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How is a response body decoded as JSON?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are credentials read from the .netrc file?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How is the character encoding guessed from the Content-Type header?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Which hosts bypass the proxy because of NO_PROXY?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the default User-Agent header set?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are response hooks called?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the case-insensitive dictionary for headers implemented?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are cookies from a response stored in the cookie jar?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How is a cookie jar built from a plain dictionary?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "What does requests.get call under the hood?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is a Request turned into a PreparedRequest with session defaults merged?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are the exception classes like ConnectionError and Timeout defined?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the WebSocket client implemented?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "How does the HTTP/3 QUIC transport work?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "Where is the async event loop for requests configured?",
+    "should_refuse": true,
+    "refused": false
+   },
+   {
+    "q": "How is the GraphQL query builder used?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "Where are database connections pooled?",
+    "should_refuse": true,
+    "refused": true
+   }
+  ]
+ },
+ "citations": {
+  "findings": 1,
+  "kept": 1,
+  "dropped": 0,
+  "validity": 1.0
  }
 }

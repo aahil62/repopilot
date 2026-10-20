@@ -1,12 +1,16 @@
 {
  "dataset": "flask",
  "ref": "3.1.0",
- "mode": "offline",
- "generated_at": "2026-10-18T17:37:13+00:00",
- "models": [],
+ "mode": "models",
+ "generated_at": "2026-10-20T09:50:23+00:00",
+ "models": [
+  "nomic-embed-text:latest",
+  "qwen2.5-coder:1.5b",
+  "qwen2.5-coder:7b"
+ ],
  "retrieval": {
   "recall_at_5": {
-   "vector": 0.0,
+   "vector": 0.8,
    "keyword": 0.88,
    "hybrid": 0.88
   },
@@ -18,8 +22,14 @@
      "src/flask/ctx.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "docs/reqcontext.rst",
+      "tests/test_appctx.py",
+      "src/flask/ctx.py",
+      "tests/test_reqctx.py",
+      "src/flask/app.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -33,11 +43,11 @@
     },
     "hybrid": {
      "top": [
-      "src/flask/testing.py",
-      "docs/api.rst",
-      "tests/test_testing.py",
       "docs/reqcontext.rst",
-      "src/flask/ctx.py"
+      "src/flask/app.py",
+      "docs/appcontext.rst",
+      "src/flask/ctx.py",
+      "tests/test_testing.py"
      ],
      "hit": true
     }
@@ -49,8 +59,14 @@
      "src/flask/app.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/helpers.py",
+      "src/flask/app.py",
+      "tests/test_basic.py",
+      "tests/test_blueprints.py",
+      "docs/tutorial/blog.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -64,11 +80,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_basic.py",
       "src/flask/helpers.py",
-      "src/flask/sansio/app.py",
+      "tests/test_basic.py",
       "src/flask/app.py",
-      "docs/quickstart.rst"
+      "tests/test_blueprints.py",
+      "docs/patterns/urlprocessors.rst"
      ],
      "hit": true
     }
@@ -80,8 +96,14 @@
      "src/flask/sansio/blueprints.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/sansio/blueprints.py",
+      "docs/blueprints.rst",
+      "tests/test_blueprints.py",
+      "tests/test_apps/blueprintapp/__init__.py",
+      "tests/test_apps/blueprintapp/apps/admin/templates/admin/index.html"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -98,7 +120,7 @@
       "src/flask/sansio/blueprints.py",
       "docs/blueprints.rst",
       "src/flask/sansio/app.py",
-      "src/flask/wrappers.py",
+      "tests/test_cli.py",
       "docs/tutorial/views.rst"
      ],
      "hit": true
@@ -110,8 +132,14 @@
      "src/flask/app.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/app.py",
+      "src/flask/helpers.py",
+      "tests/test_views.py",
+      "docs/quickstart.rst",
+      "tests/test_async.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -126,10 +154,10 @@
     "hybrid": {
      "top": [
       "src/flask/helpers.py",
-      "src/flask/ctx.py",
       "src/flask/app.py",
+      "src/flask/ctx.py",
       "docs/quickstart.rst",
-      "docs/lifecycle.rst"
+      "tests/test_views.py"
      ],
      "hit": true
     }
@@ -140,7 +168,13 @@
      "src/flask/config.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "tests/test_config.py",
+      "docs/config.rst",
+      "tests/test_testing.py",
+      "src/flask/templating.py",
+      "src/flask/cli.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -155,11 +189,11 @@
     },
     "hybrid": {
      "top": [
-      "src/flask/config.py",
       "docs/config.rst",
+      "src/flask/config.py",
       "src/flask/cli.py",
-      "src/flask/helpers.py",
-      "CHANGES.rst"
+      "src/flask/app.py",
+      "docs/cli.rst"
      ],
      "hit": true
     }
@@ -170,8 +204,14 @@
      "src/flask/sessions.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_testing.py",
+      "docs/config.rst",
+      "src/flask/sessions.py",
+      "docs/web-security.rst",
+      "tests/test_basic.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -185,11 +225,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/config.rst",
-      "src/flask/sessions.py",
       "tests/test_testing.py",
+      "src/flask/sessions.py",
       "docs/web-security.rst",
-      "src/flask/testing.py"
+      "docs/config.rst",
+      "tests/test_reqctx.py"
      ],
      "hit": true
     }
@@ -200,8 +240,14 @@
      "src/flask/templating.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/templating.py",
+      "docs/tutorial/templates.rst",
+      "docs/templating.rst",
+      "tests/test_signals.py",
+      "tests/test_templating.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -215,10 +261,10 @@
     },
     "hybrid": {
      "top": [
-      "docs/signals.rst",
-      "docs/templating.rst",
       "src/flask/templating.py",
+      "docs/templating.rst",
       "tests/test_signals.py",
+      "docs/tutorial/templates.rst",
       "docs/api.rst"
      ],
      "hit": true
@@ -231,8 +277,14 @@
      "src/flask/json/provider.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/json/tag.py",
+      "src/flask/json/__init__.py",
+      "src/flask/sessions.py",
+      "src/flask/json/provider.py",
+      "tests/test_json.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -248,9 +300,9 @@
      "top": [
       "src/flask/json/__init__.py",
       "src/flask/json/provider.py",
-      "examples/javascript/js_example/templates/jquery.html",
       "tests/test_json.py",
-      "tests/test_basic.py"
+      "src/flask/json/tag.py",
+      "docs/patterns/javascript.rst"
      ],
      "hit": true
     }
@@ -261,8 +313,14 @@
      "src/flask/helpers.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_signals.py",
+      "src/flask/helpers.py",
+      "docs/patterns/flashing.rst",
+      "tests/test_basic.py",
+      "docs/quickstart.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -276,11 +334,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_basic.py",
-      "docs/patterns/flashing.rst",
       "src/flask/helpers.py",
-      "src/flask/__init__.py",
-      "docs/tutorial/views.rst"
+      "docs/patterns/flashing.rst",
+      "tests/test_basic.py",
+      "tests/test_signals.py",
+      "docs/api.rst"
      ],
      "hit": true
     }
@@ -291,7 +349,13 @@
      "src/flask/testing.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "tests/test_basic.py",
+      "tests/test_testing.py",
+      "tests/test_blueprints.py",
+      "tests/test_signals.py",
+      "examples/tutorial/tests/test_blog.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -306,11 +370,11 @@
     },
     "hybrid": {
      "top": [
+      "tests/test_json.py",
+      "tests/test_basic.py",
       "docs/testing.rst",
-      "src/flask/helpers.py",
-      "docs/patterns/singlepageapplications.rst",
-      "tests/test_blueprints.py",
-      "CHANGES.rst"
+      "tests/test_testing.py",
+      "src/flask/helpers.py"
      ],
      "hit": false
     }
@@ -321,8 +385,14 @@
      "src/flask/app.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_apps/helloworld/wsgi.py",
+      "docs/lifecycle.rst",
+      "src/flask/logging.py",
+      "docs/deploying/mod_wsgi.rst",
+      "src/flask/app.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -336,13 +406,13 @@
     },
     "hybrid": {
      "top": [
-      "docs/cli.rst",
-      "docs/reqcontext.rst",
+      "docs/deploying/mod_wsgi.rst",
       "docs/lifecycle.rst",
-      "docs/quickstart.rst",
-      "src/flask/app.py"
+      "src/flask/logging.py",
+      "docs/deploying/nginx.rst",
+      "docs/deploying/index.rst"
      ],
-     "hit": true
+     "hit": false
     }
    },
    {
@@ -351,8 +421,14 @@
      "src/flask/app.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "docs/errorhandling.rst",
+      "src/flask/app.py",
+      "tests/test_subclassing.py",
+      "docs/api.rst",
+      "src/flask/wrappers.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -367,10 +443,10 @@
     "hybrid": {
      "top": [
       "docs/errorhandling.rst",
+      "src/flask/app.py",
       "tests/test_appctx.py",
-      "docs/debugging.rst",
-      "docs/config.rst",
-      "src/flask/app.py"
+      "docs/api.rst",
+      "docs/reqcontext.rst"
      ],
      "hit": true
     }
@@ -382,8 +458,14 @@
      "src/flask/ctx.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_basic.py",
+      "src/flask/ctx.py",
+      "tests/test_reqctx.py",
+      "tests/type_check/typing_app_decorators.py",
+      "docs/reqcontext.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -398,10 +480,10 @@
     "hybrid": {
      "top": [
       "docs/reqcontext.rst",
-      "src/flask/sansio/scaffold.py",
-      "src/flask/app.py",
       "tests/test_basic.py",
-      "src/flask/sansio/app.py"
+      "src/flask/sansio/scaffold.py",
+      "src/flask/ctx.py",
+      "src/flask/app.py"
      ],
      "hit": true
     }
@@ -412,8 +494,14 @@
      "src/flask/views.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/views.py",
+      "docs/views.rst",
+      "tests/test_views.py",
+      "tests/test_async.py",
+      "tests/test_basic.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -427,11 +515,11 @@
     },
     "hybrid": {
      "top": [
+      "src/flask/views.py",
       "docs/views.rst",
       "tests/test_views.py",
-      "src/flask/views.py",
       "tests/test_async.py",
-      "docs/extensiondev.rst"
+      "examples/javascript/js_example/views.py"
      ],
      "hit": true
     }
@@ -442,8 +530,14 @@
      "src/flask/cli.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/cli.py",
+      "docs/server.rst",
+      "docs/cli.rst",
+      "src/flask/app.py",
+      "README.md"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -457,11 +551,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_cli.py",
       "docs/cli.rst",
       "src/flask/cli.py",
-      "docs/tutorial/database.rst",
-      "docs/server.rst"
+      "docs/server.rst",
+      "src/flask/app.py",
+      "docs/quickstart.rst"
      ],
      "hit": true
     }
@@ -472,8 +566,14 @@
      "src/flask/cli.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/cli.py",
+      "src/flask/helpers.py",
+      "tests/test_cli.py",
+      "docs/cli.rst",
+      "tests/test_config.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -487,11 +587,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/cli.rst",
       "src/flask/cli.py",
-      "src/flask/config.py",
-      "docs/config.rst",
-      "docs/tutorial/database.rst"
+      "docs/cli.rst",
+      "src/flask/helpers.py",
+      "tests/test_cli.py",
+      "src/flask/app.py"
      ],
      "hit": true
     }
@@ -502,7 +602,13 @@
      "src/flask/sansio/scaffold.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "tests/type_check/typing_app_decorators.py",
+      ".pre-commit-config.yaml",
+      "tests/test_basic.py",
+      ".github/workflows/pre-commit.yaml",
+      "tests/test_async.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -517,11 +623,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_signals.py",
       "tests/test_basic.py",
-      "src/flask/app.py",
+      "tests/type_check/typing_app_decorators.py",
+      "tests/test_signals.py",
       "src/flask/sansio/scaffold.py",
-      "tests/test_blueprints.py"
+      ".pre-commit-config.yaml"
      ],
      "hit": true
     }
@@ -532,7 +638,13 @@
      "src/flask/sansio/scaffold.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "docs/errorhandling.rst",
+      "tests/test_basic.py",
+      "tests/test_user_error_handler.py",
+      "tests/type_check/typing_error_handler.py",
+      "tests/type_check/typing_route.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -547,11 +659,11 @@
     },
     "hybrid": {
      "top": [
-      "src/flask/sansio/scaffold.py",
       "docs/errorhandling.rst",
-      "src/flask/app.py",
-      "CHANGES.rst",
-      "tests/test_user_error_handler.py"
+      "tests/test_user_error_handler.py",
+      "src/flask/sansio/scaffold.py",
+      "tests/test_basic.py",
+      "tests/test_async.py"
      ],
      "hit": true
     }
@@ -562,8 +674,14 @@
      "src/flask/helpers.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/helpers.py",
+      "docs/patterns/streaming.rst",
+      "docs/patterns/fileuploads.rst",
+      "src/flask/app.py",
+      "src/flask/logging.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -577,11 +695,11 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_helpers.py",
-      "src/flask/__init__.py",
-      "tests/test_blueprints.py",
       "src/flask/helpers.py",
-      "src/flask/blueprints.py"
+      "src/flask/app.py",
+      "tests/test_helpers.py",
+      "docs/patterns/streaming.rst",
+      "src/flask/logging.py"
      ],
      "hit": true
     }
@@ -592,7 +710,13 @@
      "src/flask/wrappers.py"
     ],
     "vector": {
-     "top": [],
+     "top": [
+      "tests/test_testing.py",
+      "docs/patterns/javascript.rst",
+      "tests/test_json.py",
+      "docs/api.rst",
+      "tests/type_check/typing_route.py"
+     ],
      "hit": false
     },
     "keyword": {
@@ -607,11 +731,11 @@
     },
     "hybrid": {
      "top": [
-      "src/flask/json/tag.py",
-      "src/flask/cli.py",
       "docs/patterns/javascript.rst",
-      "docs/api.rst",
-      "docs/patterns/requestchecksum.rst"
+      "docs/patterns/requestchecksum.rst",
+      "docs/testing.rst",
+      "examples/javascript/js_example/templates/xhr.html",
+      "tests/test_testing.py"
      ],
      "hit": false
     }
@@ -623,8 +747,14 @@
      "src/flask/app.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "docs/appcontext.rst",
+      "src/flask/app.py",
+      "src/flask/ctx.py",
+      "tests/test_appctx.py",
+      "docs/reqcontext.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -639,9 +769,9 @@
     "hybrid": {
      "top": [
       "src/flask/ctx.py",
-      "docs/reqcontext.rst",
-      "src/flask/app.py",
       "docs/appcontext.rst",
+      "src/flask/app.py",
+      "docs/reqcontext.rst",
       "tests/test_testing.py"
      ],
      "hit": true
@@ -654,8 +784,14 @@
      "src/flask/sansio/scaffold.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/sansio/scaffold.py",
+      "tests/type_check/typing_route.py",
+      "docs/api.rst",
+      "tests/test_basic.py",
+      "src/flask/cli.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -669,11 +805,11 @@
     },
     "hybrid": {
      "top": [
-      "src/flask/app.py",
-      "src/flask/cli.py",
       "tests/test_basic.py",
+      "src/flask/cli.py",
+      "src/flask/sansio/scaffold.py",
       "src/flask/sansio/app.py",
-      "docs/patterns/lazyloading.rst"
+      "docs/api.rst"
      ],
      "hit": true
     }
@@ -684,8 +820,14 @@
      "src/flask/json/provider.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/json/provider.py",
+      "tests/test_json.py",
+      "src/flask/json/tag.py",
+      "tests/test_basic.py",
+      "src/flask/json/__init__.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -700,10 +842,10 @@
     "hybrid": {
      "top": [
       "src/flask/json/provider.py",
-      "docs/api.rst",
-      "src/flask/json/__init__.py",
       "tests/test_basic.py",
-      "src/flask/sansio/app.py"
+      "tests/test_json.py",
+      "src/flask/json/__init__.py",
+      "docs/api.rst"
      ],
      "hit": true
     }
@@ -714,8 +856,14 @@
      "src/flask/helpers.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "src/flask/helpers.py",
+      "tests/test_testing.py",
+      "src/flask/templating.py",
+      "docs/reqcontext.rst",
+      "docs/templating.rst"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -729,11 +877,11 @@
     },
     "hybrid": {
      "top": [
-      "docs/patterns/streaming.rst",
+      "src/flask/helpers.py",
       "src/flask/templating.py",
-      "tests/test_helpers.py",
+      "docs/patterns/streaming.rst",
       "docs/templating.rst",
-      "src/flask/helpers.py"
+      "tests/test_testing.py"
      ],
      "hit": true
     }
@@ -744,8 +892,14 @@
      "src/flask/helpers.py"
     ],
     "vector": {
-     "top": [],
-     "hit": false
+     "top": [
+      "tests/test_helpers.py",
+      "src/flask/helpers.py",
+      "tests/test_regression.py",
+      "tests/test_cli.py",
+      "tests/test_basic.py"
+     ],
+     "hit": true
     },
     "keyword": {
      "top": [
@@ -759,13 +913,13 @@
     },
     "hybrid": {
      "top": [
-      "tests/test_basic.py",
       "tests/test_helpers.py",
-      "tests/test_blueprints.py",
-      "tests/test_user_error_handler.py",
-      "docs/errorhandling.rst"
+      "tests/test_basic.py",
+      "tests/test_regression.py",
+      "docs/errorhandling.rst",
+      "src/flask/helpers.py"
      ],
-     "hit": false
+     "hit": true
     }
    }
   ]
@@ -822,6 +976,52 @@
    }
   ]
  },
+ "classifier_js": {
+  "n": 41,
+  "precision": 1.0,
+  "recall": 0.722,
+  "tp": 13,
+  "fp": 0,
+  "fn": 5,
+  "tn": 23,
+  "errors": [
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/core/InterceptorManager.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/helpers/parseHeaders.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "d5b76d4a",
+    "path": "lib/helpers/cookies.js",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "import path resolves to the same module"
+   },
+   {
+    "sha": "a1c7f1c",
+    "path": "src/middleware/devtools.ts",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "parameter rename"
+   },
+   {
+    "sha": "a1c7f1c",
+    "path": "src/middleware/redux.ts",
+    "label": "mechanical",
+    "pred": "behavior",
+    "why": "parameter rename"
+   }
+  ]
+ },
  "classifier_tuning": {
   "n": 60,
   "precision": 1.0,
@@ -858,6 +1058,317 @@
     "label": "mechanical",
     "pred": "behavior",
     "why": "unused import removed"
+   }
+  ]
+ },
+ "refusal": {
+  "accuracy": 1.0,
+  "n": 30,
+  "rows": [
+   {
+    "q": "Where is the request context pushed onto the stack?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does Flask build a URL for an endpoint?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are blueprints registered on the application?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How is a view function's return value turned into a response object?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is configuration loaded from an environment variable?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are session cookies signed?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are templates rendered with the current context?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does jsonify serialize data?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where do flashed messages get stored and read back?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does the test client send requests to the app?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the WSGI entry point that handles each request?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are unhandled exceptions turned into 500 responses?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are teardown functions called after a request?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How do class-based views dispatch to methods like get and post?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the `flask run` command implemented?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are .env files loaded by the command line?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where are before_request hooks registered?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How do error handlers get registered for status codes?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where does send_file stream a file to the client?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does the incoming request parse a JSON body?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the application context created and pushed?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How are URL rules added to the routing map?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the default JSON provider that handles dates and dataclasses?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "How does stream_with_context keep the request available while streaming?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the abort helper that raises HTTP errors?",
+    "should_refuse": false,
+    "refused": false
+   },
+   {
+    "q": "Where is the GraphQL schema defined?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "How is the Kafka consumer configured?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "Where are the Kubernetes deployment manifests?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "How does the Redis cache layer expire keys?",
+    "should_refuse": true,
+    "refused": true
+   },
+   {
+    "q": "Where is the Stripe payment webhook handled?",
+    "should_refuse": true,
+    "refused": true
+   }
+  ]
+ },
+ "citations": {
+  "findings": 4,
+  "kept": 4,
+  "dropped": 0,
+  "validity": 1.0
+ },
+ "bench": {
+  "recommendation": "Use qwen2.5-coder:7b for review and code (score 0.40, median 93 s on your machine). It is slow on this hardware, but the faster models scored much lower. qwen2.5-coder:1.5b is good enough for classification.",
+  "models": [
+   {
+    "model": "qwen2.5-coder:7b",
+    "size_bytes": 4683087561,
+    "score": 0.404,
+    "applies_rate": 0.667,
+    "tests_pass_rate": null,
+    "similarity": 0.141,
+    "median_latency_s": 92.9,
+    "tokens_per_second": 10.3,
+    "tasks": [
+     {
+      "sha": "54688b26a9562c9a9c31541dbf32e0d8ee7a5926",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 131.97,
+      "tokens_per_second": 9.3,
+      "score": 0.5,
+      "error": null
+     },
+     {
+      "sha": "2792dcf23e848472767a075e7c30e28890fd539d",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 124.81,
+      "tokens_per_second": 12.1,
+      "score": 0.5,
+      "error": null
+     },
+     {
+      "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 29.13,
+      "tokens_per_second": 11.0,
+      "score": 0.0,
+      "error": "src/flask/helpers.py: file is too long to rewrite whole; quote the code to change in `search`."
+     },
+     {
+      "sha": "b3fc9eb36b8021ad966be57532a5fa5ae4231e13",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.6,
+      "latency_s": 60.99,
+      "tokens_per_second": 10.2,
+      "score": 0.8,
+      "error": null
+     },
+     {
+      "sha": "0bb8b4f9a1c61fcf473e5ca7a10cc3ed4f30766f",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.247,
+      "latency_s": 38.09,
+      "tokens_per_second": 12.7,
+      "score": 0.623,
+      "error": null
+     },
+     {
+      "sha": "12c49c75fbd04cfe81808ef300fcb0858d92c7b7",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 424.88,
+      "tokens_per_second": 6.8,
+      "score": 0.0,
+      "error": "flask/app.py: file is too long to rewrite whole; quote the code to change in `search`."
+     }
+    ]
+   },
+   {
+    "model": "qwen2.5-coder:1.5b",
+    "size_bytes": 986062089,
+    "score": 0.185,
+    "applies_rate": 0.333,
+    "tests_pass_rate": null,
+    "similarity": 0.037,
+    "median_latency_s": 12.88,
+    "tokens_per_second": 26.0,
+    "tasks": [
+     {
+      "sha": "54688b26a9562c9a9c31541dbf32e0d8ee7a5926",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.222,
+      "latency_s": 10.61,
+      "tokens_per_second": 30.3,
+      "score": 0.611,
+      "error": null
+     },
+     {
+      "sha": "2792dcf23e848472767a075e7c30e28890fd539d",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 10.67,
+      "tokens_per_second": 34.4,
+      "score": 0.0,
+      "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
+     },
+     {
+      "sha": "6c44dd4bb8e4f2ca5f135f172de4725b2cada155",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 26.3,
+      "tokens_per_second": 27.2,
+      "score": 0.0,
+      "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
+     },
+     {
+      "sha": "b3fc9eb36b8021ad966be57532a5fa5ae4231e13",
+      "applies": true,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 14.09,
+      "tokens_per_second": 0.4,
+      "score": 0.5,
+      "error": null
+     },
+     {
+      "sha": "0bb8b4f9a1c61fcf473e5ca7a10cc3ed4f30766f",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 11.66,
+      "tokens_per_second": 36.0,
+      "score": 0.0,
+      "error": "Every edit replaces code with identical code, so nothing changes. Write the new code in `replace`."
+     },
+     {
+      "sha": "12c49c75fbd04cfe81808ef300fcb0858d92c7b7",
+      "applies": false,
+      "tests_pass": null,
+      "similarity": 0.0,
+      "latency_s": 20.13,
+      "tokens_per_second": 27.8,
+      "score": 0.0,
+      "error": "flask/app.py: file is too long to rewrite whole; quote the code to change in `search`."
+     }
+    ]
    }
   ]
  }
