@@ -188,9 +188,11 @@ async def main(dataset_path: Path, offline: bool, bench_tasks: int) -> None:
         "retrieval": await retrieval(store, runtime, data["questions"], use_vectors=not offline),
         "mechanical": await mechanical_share(record, runtime),
     }
-    for other in ("https://github.com/pallets/flask", "https://github.com/psf/requests"):
+    for other in ("https://github.com/pallets/flask", "https://github.com/psf/requests",
+                  "https://github.com/axios/axios", "https://github.com/pmndrs/zustand"):
         registry.add_clone(other)
     result["classifier"] = await classifier_accuracy("mechanical_hunks_holdout")
+    result["classifier_js"] = await classifier_accuracy("mechanical_hunks_js")
     result["classifier_tuning"] = await classifier_accuracy("mechanical_hunks")
     if not offline:
         result["refusal"] = await refusals(store, runtime, data["questions"], data["unanswerable"])
