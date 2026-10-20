@@ -110,9 +110,32 @@ def _git_diff(tree: Path) -> str:
     ).stdout
 
 
-def _context(repo_path: Path, store: MemoryStore, targets: list[str], extra_chunks: list[dict]) -> str:
+def _companions(repo_path: Path, store: MemoryStore, targets: list[str]) -> list[str]:
+    """Up to two existing files that history says usually change together with the targets."""
+    existing = [t for t in targets if (repo_path / t).exists()]
+    if not existing or not store.one("SELECT count(*) n FROM commits")["n"]:
+        return []
+    blast = blast_radius(store.repo_id, existing)
+    return [
+        c.path
+        for c in blast.cochanged
+        if c.confidence >= 0.6 and c.support >= 2 and c.path not in targets and (repo_path / c.path).is_file()
+    ][:2]
+
+
+def _changed_paths(diff: str) -> list[str]:
+    return [line[6:] for line in diff.splitlines() if line.startswith("+++ b/") or line.startswith("--- a/")]
+
+
+def _context(
+    repo_path: Path,
+    store: MemoryStore,
+    targets: list[str],
+    extra_chunks: list[dict],
+    companions: list[str] = (),
+) -> str:
     parts = []
-    for rel in targets:
+    for rel in [*targets, *companions]:
         path = repo_path / rel
         if path.exists():
             lines = path.read_text(errors="replace").splitlines()
@@ -122,14 +145,19 @@ def _context(repo_path: Path, store: MemoryStore, targets: list[str], extra_chun
                 if len(lines) > MAX_FILE_LINES
                 else ""
             )
-            parts.append(f"=== {rel} (current content)\n{body}{note}")
+            label = (
+                "usually changes together with the files above; edit it too if the change needs it"
+                if rel in companions
+                else "current content"
+            )
+            parts.append(f"=== {rel} ({label})\n{body}{note}")
         else:
             parts.append(f"=== {rel} (does not exist yet)")
     for chunk in extra_chunks:
         parts.append(
             f"=== {chunk['path']} lines {chunk['start_line']}-{chunk['end_line']} (similar code, for style)\n{chunk['text'][:1500]}"
         )
-    if targets and store.one("SELECT count(*) n FROM commits")["n"]:
+    if targets and not companions and store.one("SELECT count(*) n FROM commits")["n"]:
         blast = blast_radius(store.repo_id, [t for t in targets if (repo_path / t).exists()])
         if blast.cochanged:
             parts.append(
@@ -161,7 +189,8 @@ async def verified_edit(
     if not style:
         style_hits, _ = await retrieve(store, runtime, instruction)
         style = [c for c in style_hits if c["path"] not in target_paths][:2]
-    base_hashes = {t: _sha(repo_path / t) for t in target_paths}
+    companions = [] if restrict_to_targets else _companions(repo_path, store, target_paths)
+    base_hashes = {t: _sha(repo_path / t) for t in [*target_paths, *companions]}
     has_checks = bool(detect_test_command(repo_path) or detect_typecheck_command(repo_path))
     command = " && ".join(
         c for c in (detect_typecheck_command(repo_path), detect_test_command(repo_path)) if c
@@ -171,12 +200,18 @@ async def verified_edit(
         {"role": "system", "content": SYSTEM},
         {
             "role": "user",
-            "content": f"{_context(repo_path, store, [*target_paths, *(context_paths or [])], style)}"
+            "content": f"{_context(repo_path, store, [*target_paths, *(context_paths or [])], style, companions)}"
             f"\n\nInstruction: {instruction}",
         },
     ]
     attempts: list[Attempt] = []
     explanation = ""
+
+    def guarded(diff: str) -> dict[str, str | None]:
+        """Hashes for every file the diff touches, so applying it never overwrites a concurrent change."""
+        extra = {p: _sha(repo_path / p) for p in _changed_paths(diff) if p not in base_hashes}
+        return {**base_hashes, **extra}
+
     for n in range(1, max_attempts + 1):
         try:
             proposal = await structured_call(runtime, "strong", EditProposal, messages, max_tokens=3000)
@@ -207,7 +242,7 @@ async def verified_edit(
                     explanation=explanation,
                     attempts=attempts,
                     target_paths=target_paths,
-                    base_hashes=base_hashes,
+                    base_hashes=guarded(diff),
                 )
             else:
                 status, output, seconds = await asyncio.to_thread(run_command, tree, command, 300)
@@ -222,7 +257,7 @@ async def verified_edit(
                         explanation=explanation,
                         attempts=attempts,
                         target_paths=target_paths,
-                        base_hashes=base_hashes,
+                        base_hashes=guarded(diff),
                     )
                 feedback = (
                     f"The project's checks failed after your edits:\n{output[-2500:]}\nFix the problem."

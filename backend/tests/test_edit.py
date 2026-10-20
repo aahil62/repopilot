@@ -94,3 +94,40 @@ def test_no_op_edits_are_rejected_with_feedback(tmp_path):
     (tmp_path / "a.py").write_text("x = 1\n")
     error = apply_edits(tmp_path, [_block("a.py", "x = 1", "x = 1")])
     assert error and "identical code" in error
+
+
+async def test_files_that_usually_change_together_are_shown_and_guarded(git_repo):
+    from repopilot.memory.history import import_history
+
+    prices = "RATES = {'vip': 0.2}\n"
+    toml = f'[checks]\ntest = "{sys.executable} -m pytest -q -x -p no:cacheprovider"\n'
+    history = [("init", {"shop.py": SRC, "prices.py": prices, "test_shop.py": TEST, "repopilot.toml": toml})]
+    history += [
+        (f"tweak {i}", {"shop.py": SRC + f"# v{i}\n", "prices.py": prices + f"# v{i}\n"}) for i in range(3)
+    ]
+    repo = git_repo(history)
+    store = MemoryStore.open("e9")
+    await index_code(store, repo, FakeRuntime())
+    import_history(store, repo, 100)
+    both = json.dumps(
+        {
+            "explanation": "Validate the rate and add a staff rate.",
+            "edits": [
+                json.loads(GOOD_FIX)["edits"][0],
+                {
+                    "path": "prices.py",
+                    "search": "RATES = {'vip': 0.2}",
+                    "replace": "RATES = {'vip': 0.2, 'staff': 0.3}",
+                },
+            ],
+        }
+    )
+    fake = FakeRuntime({"strong": [both]})
+    result = await verified_edit("e9", repo, fake, "Reject negative rates; add a staff rate", ["shop.py"])
+    assert result.status == "verified"
+    shown = fake.calls[0]["messages"][1]["content"]
+    assert "=== prices.py (usually changes together" in shown  # full content, so it can be quoted
+    assert set(result.base_hashes) == {"shop.py", "prices.py"}
+    (repo / "prices.py").write_text("RATES = {}\n")  # changed by someone else meanwhile
+    with pytest.raises(ApplyConflict):
+        apply_to_working_tree(repo, result)
