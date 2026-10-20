@@ -18,7 +18,7 @@ inputs:
     default: "false"
   version:
     description: RepoPilot git ref to install.
-    default: v2
+    default: v2.0.0
 runs:
   using: composite
   steps:
