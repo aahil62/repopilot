@@ -85,6 +85,15 @@ def test_recommendation_respects_latency_cap():
     assert text.startswith("Use mid:7b for review and code (score 0.70, median 18 s")
 
 
+def _server_error(messages):
+    import httpx
+
+    request = httpx.Request("POST", "http://x/api/chat")
+    raise httpx.HTTPStatusError(
+        "500", request=request, response=httpx.Response(500, request=request, text="boom")
+    )
+
+
 async def test_run_bench_scores_models_and_skips_oversized(git_repo):
     repo = _history_repo(git_repo)
     store = MemoryStore.open("bt2")
@@ -107,6 +116,7 @@ async def test_run_bench_scores_models_and_skips_oversized(git_repo):
     models = [
         ModelInfo("good:7b", "ollama", "http://x", 5 * GB),
         ModelInfo("bad:1b", "ollama", "http://x", 1 * GB),
+        ModelInfo("broken:3b", "ollama", "http://x", 2 * GB),
         ModelInfo("huge:70b", "ollama", "http://x", 40 * GB),
     ]
     result = await run_bench(
@@ -114,10 +124,15 @@ async def test_run_bench_scores_models_and_skips_oversized(git_repo):
         repo,
         models,
         HW,
-        runtimes={"good:7b": FakeRuntime({"strong": [good]}), "bad:1b": FakeRuntime({"strong": [bad]})},
+        runtimes={
+            "good:7b": FakeRuntime({"strong": [good]}),
+            "bad:1b": FakeRuntime({"strong": [bad]}),
+            "broken:3b": FakeRuntime({"strong": [_server_error]}),
+        },
     )
     by = {m.model: m for m in result.models}
     assert by["good:7b"].score == 1.0 and by["good:7b"].tasks[0].tests_pass is True
     assert by["bad:1b"].score == 0.0 and by["bad:1b"].applies_rate == 0.0
+    assert by["broken:3b"].score == 0.0 and "runtime error" in by["broken:3b"].tasks[0].error
     assert result.skipped[0].model == "huge:70b" and result.skipped[0].reason == "needs ~40.0 GB"
     assert result.recommended_strong == "good:7b"

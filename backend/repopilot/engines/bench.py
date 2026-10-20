@@ -11,6 +11,7 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 
+import httpx
 from pydantic import BaseModel, Field
 
 from repopilot.config import get_settings
@@ -183,6 +184,9 @@ async def _run_task(
             error = apply_edits(tree, proposal.edits)
         except ModelOutputError as exc:
             error = f"invalid output: {exc.error[:120]}"
+        except httpx.HTTPError as exc:  # one failing call is a failed task, not a failed benchmark
+            detail = exc.response.text[:120] if isinstance(exc, httpx.HTTPStatusError) else str(exc)[:120]
+            error = f"runtime error: {detail}"
         latency = round(time.perf_counter() - started, 2)
         diff = "" if error else _git_diff(tree)
         applies = error is None and bool(diff.strip())
