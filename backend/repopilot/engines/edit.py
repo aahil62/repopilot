@@ -40,8 +40,8 @@ class EditBlock(BaseModel):
 
 
 class EditProposal(BaseModel):
-    explanation: str
-    edits: list[EditBlock] = Field(min_length=1)
+    explanation: str = Field(max_length=500)
+    edits: list[EditBlock] = Field(min_length=1, max_length=8)
 
 
 class Attempt(BaseModel):

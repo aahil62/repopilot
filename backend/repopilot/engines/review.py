@@ -35,16 +35,18 @@ Every finding must name the file path exactly as shown and a line number from th
 
 class ModelFinding(BaseModel):
     severity: Literal["high", "medium", "low"]
-    path: str
+    path: str = Field(max_length=300)
     line: int
     title: str = Field(max_length=160)
-    explanation: str
-    evidence: list[str] = Field(default_factory=list)
+    explanation: str = Field(max_length=600)
+    evidence: list[str] = Field(default_factory=list, max_length=3)
 
 
 class ModelReview(BaseModel):
-    summary: str
-    findings: list[ModelFinding] = Field(default_factory=list)
+    # Length limits are part of the JSON schema, so Ollama/llama.cpp enforce them while generating:
+    # small models otherwise ramble until the token limit and the JSON is cut off.
+    summary: str = Field(max_length=400)
+    findings: list[ModelFinding] = Field(default_factory=list, max_length=6)
 
 
 class HunkView(BaseModel):

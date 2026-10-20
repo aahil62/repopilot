@@ -51,7 +51,7 @@ async def structured_call[T: BaseModel](
                 {"role": "assistant", "content": last_output},
                 {
                     "role": "user",
-                    "content": f"Your previous output was invalid: {last_error}. Return only JSON matching the schema.",
+                    "content": f"Your previous output was invalid: {last_error}. Return only JSON matching the schema, and keep every text field short.",
                 },
             ]
     raise ModelOutputError(last_output, last_error)
