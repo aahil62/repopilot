@@ -2,7 +2,7 @@
   "name": "repopilot",
   "displayName": "RepoPilot",
   "description": "Private, history-aware code review on open models you run yourself.",
-  "version": "2.1.0",
+  "version": "2.0.0",
   "publisher": "repopilot",
   "license": "MIT",
   "repository": {

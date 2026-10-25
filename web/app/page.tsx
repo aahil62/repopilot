@@ -46,7 +46,7 @@ export default function Landing() {
             <a href="https://github.com/aahil62/repopilot#readme" target="_blank" rel="noreferrer">Docs</a>
           </nav>
           <div className="l-nav-end">
-            <span className="l-version mono">v2.1.0</span>
+            <span className="l-version mono">v2.0.0</span>
             <a className="l-gh" href="https://github.com/aahil62/repopilot" target="_blank" rel="noreferrer"><GithubLogo size={16} /> GitHub</a>
           </div>
         </header>
@@ -186,7 +186,7 @@ export default function Landing() {
           <h2>Run it locally</h2>
           <p>Python 3.12 and a model runtime. RepoPilot picks models that fit your memory.</p>
         </div>
-        <pre className="l-code">{`pipx install "https://github.com/aahil62/repopilot/releases/download/v2.1.0/repopilot-2.1.0-py3-none-any.whl"
+        <pre className="l-code">{`pipx install "https://github.com/aahil62/repopilot/releases/download/v2.0.0/repopilot-2.0.0-py3-none-any.whl"
 ollama pull qwen2.5-coder:7b && ollama pull nomic-embed-text
 repopilot serve            # http://127.0.0.1:7341
 repopilot review           # or review from the terminal`}</pre>

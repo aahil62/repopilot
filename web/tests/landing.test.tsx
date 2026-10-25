@@ -78,10 +78,10 @@ describe("landing page", () => {
     expect(container.textContent).not.toContain("undefined");
   });
 
-  it("installs the v2.1.0 release", async () => {
+  it("installs the v2.0.0 release", async () => {
     serve(DEMO);
     const { default: Landing } = await import("@/app/page");
     render(<Landing />);
-    expect(screen.getByText(/releases\/download\/v2\.1\.0\/repopilot-2\.1\.0-py3-none-any\.whl/)).toBeInTheDocument();
+    expect(screen.getByText(/releases\/download\/v2\.0\.0\/repopilot-2\.0\.0-py3-none-any\.whl/)).toBeInTheDocument();
   });
 });
