@@ -71,6 +71,8 @@
 .hw-caret { display: inline-block; width: 7px; height: 13px; vertical-align: -2px; background: var(--accent); animation: hw-blink 1s steps(1) infinite; }
 @keyframes hw-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 @keyframes hw-blink { 50% { opacity: 0; } }
+/* Reduced motion: the whole review path is there at once (the global rule shortens durations, not delays). */
+@media (prefers-reduced-motion: reduce) { .hw-line { animation: none; opacity: 1; } }
 
 /* ---------- three steps ---------- */
 .l-steps { text-align: center; padding: 72px 0 40px; }

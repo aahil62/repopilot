@@ -4,7 +4,8 @@ import type { BlastReport } from "@/lib/types";
 export interface Peak { x: number; y: number; h: number; r: number; label: string; sub: string }
 
 // Peaks sit at the edges so they frame the hero copy instead of running under it.
-const SLOTS: [number, number][] = [[0.11, 0.24], [0.89, 0.21], [0.86, 0.52], [0.12, 0.55]];
+// The lower two stay above the review window (its top is ~53% down the hero) so their labels aren't covered.
+const SLOTS: [number, number][] = [[0.11, 0.24], [0.89, 0.21], [0.86, 0.46], [0.12, 0.48]];
 const HEIGHTS = [1, 0.85, 0.7, 0.55];
 const RADII = [0.17, 0.15, 0.13, 0.13];
 
