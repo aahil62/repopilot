@@ -88,8 +88,8 @@ export function Orbit({ report, animate = false, onSelect }: { report: BlastRepo
         </g>
         <g>
           <circle cx={C} cy={C} r={30} fill="var(--mark)" />
-          {fixes > 0 && <circle cx={C} cy={C} r={30} fill="none" stroke="var(--del)" strokeWidth={2.5} strokeDasharray={`${Math.min(fixes, 10) * 6} 400`} />}
-          <text x={C} y={C + 4} textAnchor="middle" fontFamily="var(--mono)" fontSize="11" fontWeight={600} fill="#17202b">
+          {fixes > 0 && <circle cx={C} cy={C} r={30} fill="none" stroke="var(--accent)" strokeWidth={2.5} strokeDasharray={`${Math.min(fixes, 10) * 6} 400`} />}
+          <text x={C} y={C + 4} textAnchor="middle" fontFamily="var(--mono)" fontSize="11" fontWeight={600} fill="var(--ink)">
             {report.targets.length > 1 ? `${report.targets.length} files` : basename(target).slice(0, 12)}
           </text>
         </g>
@@ -97,7 +97,7 @@ export function Orbit({ report, animate = false, onSelect }: { report: BlastRepo
       <figcaption className="orbit-caption" aria-live="polite">
         {active ? (<><strong className="mono">{active.path}</strong> {active.detail}</>) : (
           <>Inner rings: files that import it. Outer ring: files that change with it — closer and larger means more often.
-            {fixes > 0 && <> The red arc marks {fixes}{fixes === 10 ? "+" : ""} bug fix{fixes > 1 ? "es" : ""} in its history.</>}</>
+            {fixes > 0 && <> The amber arc marks {fixes}{fixes === 10 ? "+" : ""} bug fix{fixes > 1 ? "es" : ""} in its history.</>}</>
         )}
       </figcaption>
       {animate && (

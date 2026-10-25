@@ -138,7 +138,7 @@ export function AppShell({ title, children }: { title: string; children: React.R
         <div className="main">
           <header className="topbar">
             <button className="rail-open" onClick={() => setNavOpen(true)} aria-label="Open navigation"><List size={20} /></button>
-            <h1>{title}</h1>
+            <h1 className="page-title">{title}</h1>
             <div className="topbar-right">
               {repo && <span className="topbar-repo mono">{repo.name}</span>}
               <span className={`model-pill${strong ? "" : " off"}`} title={strong ? "Model used for review and code" : "No model runtime detected"}>

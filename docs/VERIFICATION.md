@@ -10,7 +10,7 @@ What was actually run on this machine (Apple M4, 16 GB, macOS) and what was not.
 | Web tests | `npm --prefix web test` | **12 passed** (components and every app page with a mocked API) |
 | Web lint / types | `npm --prefix web run lint`, `npx tsc --noEmit` | clean |
 | Web production build | `NEXT_PUBLIC_DEMO_MODE=1 npm --prefix web run build` | 10 static routes |
-| Extension | `npm --prefix vscode-extension run typecheck`, `vsce package` | builds; `repopilot-2.0.0.vsix` 27 KB |
+| Extension | `npm --prefix vscode-extension run typecheck`, `vsce package` | builds; `repopilot-2.0.0.vsix` 137 KB (includes the three bundled fonts) |
 | Extension end to end | `REPOPILOT_TEST_REPO=… npm --prefix vscode-extension run test:e2e` | **passed**: in a real VS Code, *Review Working Changes* on a planted sign flip put an Error on the file in the Problems panel, and the blast-radius CodeLens appeared |
 
 Tests run real `git` commands, real `pytest` subprocesses inside temporary worktrees, and the FastAPI app through `TestClient`.

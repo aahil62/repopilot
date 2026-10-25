@@ -1,16 +1,17 @@
 "use client";
 
-import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Brand } from "@/components/Brand";
-import { DiffHunk } from "@/components/DiffView";
+import { HeroWindow } from "@/components/HeroWindow";
 import { Orbit } from "@/components/Orbit";
-import type { BenchResult, BlastReport, FileView, NightReport } from "@/lib/types";
+import { Terrain } from "@/components/Terrain";
+import { peaksFromBlast } from "@/lib/terrain";
+import type { BenchResult, BlastReport, HeroDemo, NightReport } from "@/lib/types";
 import "./landing.css";
 
-interface Hero { repo: string; commit: string; subject: string; files: FileView[]; mechanical: number; behavior: number; blast: BlastReport | null }
 interface EvalRow { name: string; value: string; detail: string }
 interface EvalData { generated_at: string; rows: EvalRow[]; models: string[] }
 
@@ -22,66 +23,54 @@ function useDemo<T>(name: string): T | null {
   return data;
 }
 
-function Specimen({ hero }: { hero: Hero }) {
-  const behaviorFile = hero.files.find((f) => f.behavior_hunks > 0) ?? hero.files[0];
-  const hunk = behaviorFile.hunks.find((h) => h.label === "behavior") ?? behaviorFile.hunks[0];
-  const others = hero.files.filter((f) => f !== behaviorFile);
-  const coupled = hero.blast?.risk_reasons.find((r) => r.includes("usually changes together"));
-  const reasons = [...new Set(hero.files.flatMap((f) => f.hunks.filter((h) => h.label === "mechanical").map((h) => h.reason.split(" (")[0])))];
-  return (
-    <figure className="specimen" aria-label={`RepoPilot reviewing ${hero.repo} commit ${hero.commit.slice(0, 8)}`}>
-      <header className="specimen-head">
-        <span className="mono">{hero.repo} at {hero.commit.slice(0, 8)}</span>
-        <span className="specimen-subject">{hero.subject}</span>
-      </header>
-      <div className="specimen-file mono">{behaviorFile.path}</div>
-      <DiffHunk hunk={hunk} />
-      <div className="specimen-collapsed">
-        {hero.mechanical} mechanical hunk{hero.mechanical === 1 ? "" : "s"} set aside
-        {others.length > 0 && <> across {others.map((f) => f.path.split("/").pop()).slice(0, 3).join(", ")}</>}
-        {reasons.length > 0 && <span>: {reasons.join(", ")}</span>}
-      </div>
-      {coupled && <figcaption className="specimen-note">{coupled.replace(/`/g, "")}</figcaption>}
-    </figure>
-  );
-}
-
 export default function Landing() {
-  const hero = useDemo<Hero>("hero");
+  const hero = useDemo<HeroDemo>("hero");
   const blast = useDemo<Record<string, BlastReport>>("blast");
   const night = useDemo<NightReport>("nightshift");
   const bench = useDemo<BenchResult>("bench");
   const evals = useDemo<EvalData>("eval");
+  const peaks = useMemo(() => (blast ? peaksFromBlast(blast) : []), [blast]);
   const orbitReport = blast ? Object.values(blast).sort((a, b) => b.dependents.length + b.cochanged.length - (a.dependents.length + a.cochanged.length))[0] : null;
 
   return (
     <div className="landing">
-      <header className="l-nav">
-        <Link href="/" aria-label="RepoPilot home"><Brand /></Link>
-        <nav aria-label="Sections">
-          <a href="#how">How it works</a>
-          <a href="#private">Privacy</a>
-          {evals && <a href="#measured">Results</a>}
-          <a href="#install">Install</a>
-        </nav>
-        <a className="l-gh" href="https://github.com/aahil62/repopilot" target="_blank" rel="noreferrer"><GithubLogo size={18} /> Source</a>
-      </header>
-
-      <section className="l-hero">
-        <div className="l-hero-copy">
-          <h1>Read the lines that matter.</h1>
-          <p className="l-lede">
-            AI made code cheap to write and slow to review. RepoPilot reads your repository’s history on open models you run yourself,
-            sets aside the mechanical edits and points you at the lines that change behavior — with the past bug fixes and
-            reviews that explain why they matter.
-          </p>
-          <div className="row">
-            <Link className="btn" href="/app/review/">See it review Flask</Link>
-            <a className="btn secondary" href="#install">Run it locally</a>
+      <div className="l-top">
+        <Terrain peaks={peaks} />
+        <div className="l-top-fade" aria-hidden="true" />
+        <header className="l-nav">
+          <Link href="/" aria-label="RepoPilot home"><Brand /></Link>
+          <nav aria-label="Sections" className="l-menu">
+            <a href="#how">Product</a>
+            {evals && <a href="#measured">Benchmark</a>}
+            <a href="#private">Privacy</a>
+            <a href="https://github.com/aahil62/repopilot#readme" target="_blank" rel="noreferrer">Docs</a>
+          </nav>
+          <div className="l-nav-end">
+            <span className="l-version mono">v2.0.0</span>
+            <a className="l-gh" href="https://github.com/aahil62/repopilot" target="_blank" rel="noreferrer"><GithubLogo size={16} /> GitHub</a>
           </div>
-          <p className="l-fine">Open source. Works with Ollama, LM Studio or llama.cpp. No API keys, no telemetry.</p>
+        </header>
+
+        <section className="l-hero">
+          <p className="l-eyebrow">Open source · runs on your machine · no API keys</p>
+          <h1>Code review<em>with a memory.</em></h1>
+          <p className="l-lede">Every diff is checked against your repository&apos;s history: past bug fixes, files that change together, the tests that cover it. Runs on your machine, on open models, with no API keys.</p>
+          <div className="l-ctas">
+            <Link className="btn" href="/app/review/">See it review Flask</Link>
+            <a className="l-textlink" href="#install">Install locally <ArrowRight size={14} /></a>
+          </div>
+          <HeroWindow hero={hero} blast={blast} />
+        </section>
+      </div>
+
+      <section className="l-steps" aria-labelledby="steps-title">
+        <p className="l-kicker">How it works</p>
+        <h2 id="steps-title">From a noisy diff to <em>a clear decision</em> in three steps.</h2>
+        <div className="l-step-grid">
+          <article className="l-step"><p className="l-step-no">01 · Remember</p><h3>Index the history</h3><p>Code, imports and every commit go into a local SQLite memory: what changes together, the bug fixes, who owns what.</p><code>repopilot index</code></article>
+          <article className="l-step"><p className="l-step-no">02 · Triage</p><h3>Set aside the noise</h3><p>Syntax trees separate formatting from behavior, so you read only the changes that can break something.</p><code>{hero ? `${hero.mechanical} of ${hero.mechanical + hero.behavior} hunks set aside` : "repopilot review"}</code></article>
+          <article className="l-step"><p className="l-step-no">03 · Decide</p><h3>Review with evidence</h3><p>Tests run in a throwaway worktree; past fixes and a local model weigh in. High findings need proof.</p><code>--fail-on high</code></article>
         </div>
-        <div className="l-hero-art">{hero ? <Specimen hero={hero} /> : <div className="specimen specimen-empty" aria-hidden="true" />}</div>
       </section>
 
       <section className="l-problem">
@@ -197,7 +186,7 @@ export default function Landing() {
           <h2>Run it locally</h2>
           <p>Python 3.12 and a model runtime. RepoPilot picks models that fit your memory.</p>
         </div>
-        <pre className="l-code">{`pipx install "git+https://github.com/aahil62/repopilot#subdirectory=backend"
+        <pre className="l-code">{`pipx install "https://github.com/aahil62/repopilot/releases/download/v2.0.0/repopilot-2.0.0-py3-none-any.whl"
 ollama pull qwen2.5-coder:7b && ollama pull nomic-embed-text
 repopilot serve            # http://127.0.0.1:7341
 repopilot review           # or review from the terminal`}</pre>

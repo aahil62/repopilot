@@ -17,6 +17,12 @@ exports.run = async function run() {
   }
   assert.ok(problems.length > 0, "the review published no findings to the Problems panel");
 
+  // The review panel uses RepoPilot's bundled fonts and type split, and never loads remote fonts.
+  const html = ext.exports.getLastPanelHtml();
+  assert.ok(html.includes('class="headline"'), "review panel has no headline");
+  assert.ok(html.includes("fragment-mono-400.woff2"), "review panel does not load the bundled Fragment Mono");
+  assert.ok(!/fonts\.(googleapis|gstatic)\.com|fontshare/.test(html), "review panel loads fonts from the internet");
+
   const lenses = await vscode.commands.executeCommand("vscode.executeCodeLensProvider", uri);
   const titles = lenses.map((l) => l.command && l.command.title).filter(Boolean);
   console.log(`codelens: ${titles.join(" | ")}`);

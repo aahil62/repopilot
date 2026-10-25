@@ -30,6 +30,7 @@ export interface ReviewReport {
   blast: BlastReport | null;
   checks: { status: string; command: string | null; message: string; output_tail: string };
   model_error: string | null;
+  model?: Record<string, string>;
 }
 
 export interface EditResult {
